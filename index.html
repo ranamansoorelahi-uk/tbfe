@@ -83,7 +83,8 @@ button{font:inherit;color:inherit}
 .role.M{color:var(--gold);background:color-mix(in srgb, var(--gold) 16%, transparent)}
 .acc .id{font-size:12px;color:var(--sec);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
 .acc .eq{font-size:18px;font-weight:700}
-.acc .sub{font-size:12px}
+.acc .sub{font-size:12.5px;font-weight:650}
+.acc .sub2{font-size:11.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .acc .dot{position:absolute;top:13px;right:12px}
 
 /* cards */
@@ -172,8 +173,47 @@ button{font:inherit;color:inherit}
 .btn{flex:1;border:0;border-radius:12px;padding:12px;font-weight:700;cursor:pointer;background:var(--acc);color:var(--onacc)}
 .btn.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
 .hint{font-size:12px;color:var(--mut);margin-top:12px}
+.btn.danger{background:var(--red);color:#fff}
+
+/* phone control */
+.ctlbar{display:flex;gap:8px;margin-top:10px}
+.cbtn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line);background:var(--card);border-radius:12px;
+      padding:11px 8px;font-size:13px;font-weight:750;letter-spacing:.3px;cursor:pointer;min-height:44px}
+.cbtn svg{width:15px;height:15px;flex:none}
+.cbtn.amber{color:var(--amber);border-color:color-mix(in srgb, var(--amber) 40%, var(--line))}
+.cbtn.green{color:var(--green);border-color:color-mix(in srgb, var(--green) 40%, var(--line))}
+.cbtn.red{color:var(--red);border-color:color-mix(in srgb, var(--red) 40%, var(--line))}
+.ctlwhy{margin:6px 2px 0}
+.off{opacity:.45}
+.busy{opacity:.55;pointer-events:none}
+.mctl{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.sw{display:inline-flex;align-items:center;gap:8px;border:0;background:transparent;font-size:12px;font-weight:750;letter-spacing:.4px;color:var(--sec);cursor:pointer;padding:6px 0;min-height:36px}
+.sw i{width:40px;height:24px;border-radius:999px;background:var(--track);position:relative;flex:none;transition:background .2s}
+.sw i::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .2s}
+.sw.on{color:var(--green)} .sw.on i{background:var(--green)} .sw.on i::after{transform:translateX(16px)}
+.stepper{margin-left:auto;display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg)}
+.stepper button{width:44px;height:38px;border:0;background:var(--card2);font-size:20px;font-weight:700;cursor:pointer;line-height:1}
+.stepper button:active{background:color-mix(in srgb, var(--acc) 18%, var(--card2))}
+.stepper span{min-width:58px;text-align:center;font-weight:750;font-size:13.5px}
+.rst{border:0;background:transparent;color:var(--acc);font-size:12px;font-weight:700;cursor:pointer;padding:8px 4px}
+.mbtns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.cbtn.sm{padding:9px 6px;font-size:12.5px;min-height:42px;border-radius:11px}
+.cbtn.sm svg{width:13px;height:13px}
+.mctl .lbl{margin-right:auto}
+.cmp{display:grid;grid-template-columns:1fr 1fr auto;gap:4px;margin-top:8px}
+.cmp div{background:var(--zebra);border-radius:9px;padding:5px 8px}
+.cmp span{display:block;font-size:9.5px;font-weight:700;letter-spacing:.6px;color:var(--mut)}
+.cmp b{font-size:13px;font-weight:650}
+.eainfo{margin:7px 2px 0;font-size:12px;color:var(--sec)}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom, 0px));z-index:45;width:max-content;max-width:min(92vw, 520px);
+       display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:14px;background:var(--card2);border:1px solid var(--line);box-shadow:var(--shadow);font-size:13.5px;cursor:pointer}
+.toast.ok{border-color:color-mix(in srgb, var(--green) 55%, var(--line))} .toast.bad{border-color:color-mix(in srgb, var(--red) 55%, var(--line))}
+.toast .tk{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px;flex:none;color:#fff}
+.toast.ok .tk{background:var(--green)} .toast.bad .tk{background:var(--red)}
+.spin{width:16px;height:16px;border-radius:50%;border:2px solid var(--track);border-top-color:var(--acc);flex:none;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
-@media (prefers-reduced-motion: reduce){.dot.on{animation:none}}
+@media (prefers-reduced-motion: reduce){.dot.on{animation:none}.spin{animation-duration:2.4s}}
 @media (min-width:700px){body{max-width:620px;margin:0 auto}}
 </style>
 </head>
@@ -198,6 +238,8 @@ button{font:inherit;color:inherit}
       <input id="fDb" type="url" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://your-project-default-rtdb.europe-west1.firebasedatabase.app"></div>
     <div class="field"><label for="fKey">Secret key</label>
       <input id="fKey" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="the key shown on the bridge chart"></div>
+    <div class="field"><label for="fCode">Control code <span class="mut">(only for the buttons)</span></label>
+      <input id="fCode" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="shown on the bridge chart: xxxx-xxxx-xxxx"></div>
     <div class="field"><label>Theme</label>
       <div class="seg" id="fSkin"><button data-s="midnight">Midnight</button><button data-s="carbon">Carbon</button><button data-s="light">Light</button></div></div>
     <div class="btns"><button class="btn ghost" id="setDemo">Show demo</button><button class="btn" id="setSave">Save &amp; connect</button></div>
@@ -206,9 +248,26 @@ button{font:inherit;color:inherit}
   </div>
 </div>
 
+<div class="sheet" id="codeSheet" hidden>
+  <div class="pan" role="dialog" aria-labelledby="codeT">
+    <h2 id="codeT">Control code</h2>
+    <p>Type the <b>control code</b> from the TBFE Cloud Bridge chart on your PC. It stays on this phone only and lets it change lots, switch masters, pause and close trades. Never share it.</p>
+    <div class="field"><input id="fCode2" type="password" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="xxxx-xxxx-xxxx"></div>
+    <div class="btns"><button class="btn ghost" id="codeCancel">Cancel</button><button class="btn" id="codeSave">Save</button></div>
+  </div>
+</div>
+<div class="sheet" id="askSheet" hidden>
+  <div class="pan" role="alertdialog" aria-labelledby="askT">
+    <h2 id="askT"></h2>
+    <p id="askP"></p>
+    <div class="btns"><button class="btn ghost" id="askNo">Cancel</button><button class="btn danger" id="askYes">OK</button></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
 <script>
 "use strict";
-const DEMO = {"meta":{"t":1792575016,"n":7,"v":100,"every":5,"by":"Acc_474721613"},"acc":{"a1515073065":{"v":630,"role":"S","id":"Acc_1515073065","login":1515073065,"broker":"FTMO Global Markets Ltd","server":"FTMO-Server3","ccy":"USD","t":1792575016,"status":"COPYING - all systems normal","sk":1,"short":"COPYING","bal":99997.6,"eq":99963.3,"flt":-34.3,"today":-2.4,"init":100000.0,"initSrc":"auto","dl":0.037,"dlLim":4.5,"ml":0.037,"mlLim":9.0,"pp":-0.037,"ppTgt":10.0,"risk":1.506,"room":4.463,"noSL":0,"copies":5,"req":12,"reqMax":1700,"pos":5,"posMax":180,"turbo":3.12,"ping":12.4,"fast":1,"paused":0,"guard":"","news":"USD NEWS in 2h 12m","newsK":4,"days":0,"lots":"same $ as master","day":{"copies":6,"skips":0,"closes":1,"heals":0,"avg":34.4},"lat":{"n":6,"last":28.12,"sig":0.13,"brk":27.99,"avg":33.6,"best":28.12,"slip":1.6,"hist":[31.0,32.0,35.1,37.0,43.0,28.1]},"eqh":[100000.0,99963.3],"masters":[{"id":"Acc_474721613","broker":"Exness Technologies Ltd","bal":1200.31,"ccy":"USD","on":1,"live":1,"ready":1,"ver":630,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":1,"flt":-2.6,"today":0.0,"speed":31.0,"slip":-0.0,"lag":0,"q":1},{"id":"Acc_474727460","broker":"Exness Technologies Ltd","bal":1118.71,"ccy":"USD","on":1,"live":1,"ready":1,"ver":630,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":0,"flt":0.0,"today":-2.4,"speed":32.0,"slip":4.0,"lag":0,"q":1},{"id":"Acc_474730891","broker":"Exness Technologies Ltd","bal":1199.61,"ccy":"USD","on":1,"live":1,"ready":1,"ver":630,"lot":200,"x":2.0,"sig":2,"cop":2,"skip":0,"open":2,"flt":-13.1,"today":0.0,"speed":31.6,"slip":0.8,"lag":0,"q":1},{"id":"Acc_474782149","broker":"Exness Technologies Ltd","bal":1089.26,"ccy":"USD","on":1,"live":1,"ready":1,"ver":630,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":1,"flt":-5.6,"today":0.0,"speed":37.0,"slip":4.0,"lag":0,"q":1},{"id":"Acc_474782395","broker":"Exness Technologies Ltd","bal":1203.7,"ccy":"USD","on":1,"live":1,"ready":1,"ver":630,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":1,"flt":-13.0,"today":0.0,"speed":43.0,"slip":-0.0,"lag":0,"q":1}],"trades":[{"m":"Acc_474730891","sym":"XAUUSD","d":1,"lots":0.5,"open":4099.63,"sl":4093.63,"tp":4111.63,"pl":2.5},{"m":"Acc_474782395","sym":"XAUUSD","d":1,"lots":0.5,"open":4099.94,"sl":4090.94,"tp":4113.94,"pl":-13.0},{"m":"Acc_474782149","sym":"XAUUSD","d":-1,"lots":0.4,"open":4099.74,"sl":4107.74,"tp":4086.74,"pl":-5.6},{"m":"Acc_474730891","sym":"XAUUSD","d":1,"lots":0.6,"open":4099.94,"sl":4092.94,"tp":4111.94,"pl":-15.6},{"m":"Acc_474721613","sym":"XAUUSD","d":1,"lots":0.1,"open":4099.94,"sl":4094.94,"tp":4109.94,"pl":-2.6}],"ev":[{"t":"14:30:08","k":1,"m":"COPY BUY XAUUSD 0.50  <Acc_474730891  28 ms"},{"t":"14:30:06","k":2,"m":"CLOSE XAUUSD 0.20  P/L -0.40  <Acc_474727460"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4094.94  TP 4109.94"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4105.74  TP 4088.74"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4092.94  TP 4111.94"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4107.74  TP 4086.74"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4090.94  TP 4113.94"},{"t":"14:30:03","k":1,"m":"COPY BUY XAUUSD 0.50  <Acc_474782395  43 ms"},{"t":"14:30:03","k":1,"m":"COPY SELL XAUUSD 0.40  <Acc_474782149  37 ms"},{"t":"14:30:03","k":1,"m":"COPY BUY XAUUSD 0.60  <Acc_474730891  35 ms"},{"t":"14:30:03","k":1,"m":"COPY SELL XAUUSD 0.20  <Acc_474727460  32 ms"},{"t":"14:30:03","k":1,"m":"COPY BUY XAUUSD 0.10  <Acc_474721613  31 ms"},{"t":"14:30:03","k":6,"m":"Symbol map XAUUSDm -> XAUUSD"},{"t":"14:30:03","k":3,"m":"LOT SIZE Acc_474730891 200% (x2.00) - new copies only"}]},"a26004419":{"v":630,"role":"S","id":"Acc_26004419","login":26004419,"broker":"FundedNext Ltd","server":"FundedNext-Server","ccy":"USD","t":1792575016,"status":"COPYING - all systems normal","sk":1,"short":"COPYING","bal":49998.8,"eq":49961.3,"flt":-37.5,"today":-1.2,"init":50000.0,"initSrc":"auto","dl":0.077,"dlLim":4.5,"ml":0.077,"mlLim":9.0,"pp":-0.077,"ppTgt":10.0,"risk":2.285,"room":4.423,"noSL":0,"copies":5,"req":13,"reqMax":1700,"pos":5,"posMax":180,"turbo":2.57,"ping":12.4,"fast":1,"paused":0,"guard":"","news":"USD NEWS in 2h 12m","newsK":4,"days":0,"lots":"same $ as master","day":{"copies":6,"skips":0,"closes":1,"heals":0,"avg":37.7},"lat":{"n":6,"last":33.5,"sig":0.51,"brk":32.98,"avg":36.33,"best":31.49,"slip":5.3,"hist":[31.5,37.2,38.9,42.0,43.1,33.5]},"eqh":[50000.0,49961.3],"masters":[{"id":"Acc_474721613","broker":"Exness Technologies Ltd","bal":1200.31,"ccy":"USD","on":1,"live":1,"ready":1,"ver":630,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":1,"flt":-3.2,"today":0.0,"speed":37.2,"slip":3.5,"lag":0,"q":1},{"id":"Acc_474727460","broker":"Exness Technologies Ltd","bal":1118.71,"ccy":"USD","on":1,"live":1,"ready":1,"ver":630,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":0,"flt":0.0,"today":-1.2,"speed":42.0,"slip":5.5,"lag":0,"q":1},{"id":"Acc_474730891","broker":"Exness Technologies Ltd","bal":1199.61,"ccy":"USD","on":1,"live":1,"ready":1,"ver":630,"lot":100,"x":1.0,"sig":2,"cop":2,"skip":0,"open":2,"flt":-11.1,"today":0.0,"speed":32.5,"slip":6.8,"lag":0,"q":1},{"id":"Acc_474782149","broker":"Exness Technologies Ltd","bal":1089.26,"ccy":"USD","on":1,"live":1,"ready":1,"ver":630,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":1,"flt":-7.2,"today":0.0,"speed":43.1,"slip":5.5,"lag":0,"q":1},{"id":"Acc_474782395","broker":"Exness Technologies Ltd","bal":1203.7,"ccy":"USD","on":1,"live":1,"ready":1,"ver":630,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":1,"flt":-16.0,"today":0.0,"speed":38.9,"slip":3.5,"lag":0,"q":1}],"trades":[{"m":"Acc_474730891","sym":"XAUUSD","d":1,"lots":0.25,"open":4099.56,"sl":4093.56,"tp":4111.56,"pl":-1.5},{"m":"Acc_474782149","sym":"XAUUSD","d":-1,"lots":0.4,"open":4099.57,"sl":4107.57,"tp":4086.57,"pl":-7.2},{"m":"Acc_474782395","sym":"XAUUSD","d":1,"lots":0.5,"open":4099.82,"sl":4090.82,"tp":4113.82,"pl":-16.0},{"m":"Acc_474721613","sym":"XAUUSD","d":1,"lots":0.1,"open":4099.82,"sl":4094.82,"tp":4109.82,"pl":-3.2},{"m":"Acc_474730891","sym":"XAUUSD","d":1,"lots":0.3,"open":4099.82,"sl":4092.82,"tp":4111.82,"pl":-9.6}],"ev":[{"t":"14:30:09","k":4,"m":"SL/TP XAUUSD  SL 4093.56  TP 4111.56"},{"t":"14:30:08","k":1,"m":"COPY BUY XAUUSD 0.25  <Acc_474730891  33 ms"},{"t":"14:30:06","k":2,"m":"CLOSE XAUUSD 0.20  P/L -1.20  <Acc_474727460"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4092.82  TP 4111.82"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4094.82  TP 4109.82"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4090.82  TP 4113.82"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4105.57  TP 4088.57"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4107.57  TP 4086.57"},{"t":"14:30:03","k":1,"m":"COPY SELL XAUUSD 0.40  <Acc_474782149  43 ms"},{"t":"14:30:03","k":1,"m":"COPY SELL XAUUSD 0.20  <Acc_474727460  42 ms"},{"t":"14:30:03","k":1,"m":"COPY BUY XAUUSD 0.50  <Acc_474782395  39 ms"},{"t":"14:30:03","k":1,"m":"COPY BUY XAUUSD 0.10  <Acc_474721613  37 ms"},{"t":"14:30:03","k":1,"m":"COPY BUY XAUUSD 0.30  <Acc_474730891  31 ms"},{"t":"14:30:03","k":6,"m":"Symbol map XAUUSDm -> XAUUSD"}]},"a474721613":{"v":630,"role":"M","id":"Acc_474721613","login":474721613,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real8","ccy":"USD","t":1792575016,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":1200.31,"eq":1197.72,"flt":-2.59,"sigToday":1,"sigSent":1,"lastSig":"OPEN  14:30:03","mags":"20240601","live":1,"qseq":1,"qsize":258,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[1200.31,1197.72],"pos":[{"tk":50000001,"mg":20240601,"sym":"XAUUSDm","d":1,"lots":0.1,"open":4099.585,"sl":4094.585,"tp":4109.585,"pl":-2.59,"got":2,"tot":2}],"slaves":[{"id":"Acc_1515073065","broker":"FTMO Global Markets Ltd","state":"COPYING","live":1,"bal":99997.6,"eq":99997.1,"ccy":"USD","open":5,"lot":100,"ver":630,"dl":0.0},{"id":"Acc_26004419","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":49998.8,"eq":49980.8,"ccy":"USD","open":5,"lot":100,"ver":630,"dl":0.04}],"ev":[{"t":"14:30:03","k":1,"m":"OPEN BUY XAUUSDm 0.10  #50000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}]},"a474727460":{"v":630,"role":"M","id":"Acc_474727460","login":474727460,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real8","ccy":"USD","t":1792575016,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":1118.71,"eq":1118.71,"flt":0.0,"sigToday":2,"sigSent":2,"lastSig":"CLOSE  14:30:06","mags":"20240602","live":1,"qseq":2,"qsize":519,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[1118.01,1118.71],"pos":[],"slaves":[{"id":"Acc_1515073065","broker":"FTMO Global Markets Ltd","state":"COPYING","live":1,"bal":99997.6,"eq":99997.1,"ccy":"USD","open":5,"lot":100,"ver":630,"dl":0.0},{"id":"Acc_26004419","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":49998.8,"eq":49980.8,"ccy":"USD","open":5,"lot":100,"ver":630,"dl":0.04}],"ev":[{"t":"14:30:06","k":2,"m":"CLOSE SELL XAUUSDm 0.20  #51000001  2 us"},{"t":"14:30:03","k":1,"m":"OPEN SELL XAUUSDm 0.20  #51000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}]},"a474730891":{"v":630,"role":"M","id":"Acc_474730891","login":474730891,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real8","ccy":"USD","t":1792575016,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":1199.61,"eq":1193.52,"flt":-6.09,"sigToday":2,"sigSent":2,"lastSig":"OPEN  14:30:08","mags":"20240603","live":1,"qseq":2,"qsize":516,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[1199.61,1193.52],"pos":[{"tk":52000001,"mg":20240603,"sym":"XAUUSDm","d":1,"lots":0.3,"open":4099.585,"sl":4092.585,"tp":4111.585,"pl":-7.77,"got":2,"tot":2},{"tk":52000003,"mg":20240603,"sym":"XAUUSDm","d":1,"lots":0.25,"open":4099.259,"sl":4093.259,"tp":4111.259,"pl":1.68,"got":2,"tot":2}],"slaves":[{"id":"Acc_1515073065","broker":"FTMO Global Markets Ltd","state":"COPYING","live":1,"bal":99997.6,"eq":99997.1,"ccy":"USD","open":5,"lot":200,"ver":630,"dl":0.0},{"id":"Acc_26004419","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":49998.8,"eq":49980.8,"ccy":"USD","open":5,"lot":100,"ver":630,"dl":0.04}],"ev":[{"t":"14:30:08","k":1,"m":"OPEN BUY XAUUSDm 0.25  #52000003  2 us"},{"t":"14:30:03","k":1,"m":"OPEN BUY XAUUSDm 0.30  #52000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}]},"a474782149":{"v":630,"role":"M","id":"Acc_474782149","login":474782149,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real8","ccy":"USD","t":1792575016,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":1089.26,"eq":1086.82,"flt":-2.44,"sigToday":1,"sigSent":1,"lastSig":"OPEN  14:30:03","mags":"20240604","live":1,"qseq":1,"qsize":259,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[1089.26,1086.82],"pos":[{"tk":53000001,"mg":20240604,"sym":"XAUUSDm","d":-1,"lots":0.4,"open":4099.425,"sl":4107.425,"tp":4086.425,"pl":-2.44,"got":2,"tot":2}],"slaves":[{"id":"Acc_1515073065","broker":"FTMO Global Markets Ltd","state":"COPYING","live":1,"bal":99997.6,"eq":99997.1,"ccy":"USD","open":5,"lot":100,"ver":630,"dl":0.0},{"id":"Acc_26004419","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":49998.8,"eq":49980.8,"ccy":"USD","open":5,"lot":100,"ver":630,"dl":0.04}],"ev":[{"t":"14:30:03","k":1,"m":"OPEN SELL XAUUSDm 0.40  #53000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}]},"a474782395":{"v":630,"role":"M","id":"Acc_474782395","login":474782395,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real8","ccy":"USD","t":1792575016,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":1203.7,"eq":1190.75,"flt":-12.95,"sigToday":1,"sigSent":1,"lastSig":"OPEN  14:30:03","mags":"20240605","live":1,"qseq":1,"qsize":258,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[1203.7,1190.75],"pos":[{"tk":54000001,"mg":20240605,"sym":"XAUUSDm","d":1,"lots":0.5,"open":4099.585,"sl":4090.585,"tp":4113.585,"pl":-12.95,"got":2,"tot":2}],"slaves":[{"id":"Acc_1515073065","broker":"FTMO Global Markets Ltd","state":"COPYING","live":1,"bal":99997.6,"eq":99997.1,"ccy":"USD","open":5,"lot":100,"ver":630,"dl":0.0},{"id":"Acc_26004419","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":49998.8,"eq":49980.8,"ccy":"USD","open":5,"lot":100,"ver":630,"dl":0.04}],"ev":[{"t":"14:30:03","k":1,"m":"OPEN BUY XAUUSDm 0.50  #54000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}]}}};
+const DEMO = {"meta":{"t":1792575016,"n":7,"v":111,"every":5,"ctl":1,"by":"Acc_70010001"},"acc":{"a1500000001":{"v":642,"role":"S","id":"Acc_1500000001","login":1500000001,"broker":"FTMO Global Markets Ltd","server":"FTMO-Server","ccy":"USD","t":1792575016,"status":"COPYING - all systems normal","sk":1,"short":"COPYING","bal":99998.2,"eq":99905.2,"flt":-93.0,"today":-1.8,"init":100000.0,"initSrc":"auto","dl":0.095,"dlLim":4.5,"ml":0.095,"mlLim":9.0,"pp":-0.095,"ppTgt":10.0,"risk":1.447,"room":4.405,"noSL":0,"copies":5,"req":13,"reqMax":1700,"pos":5,"posMax":180,"turbo":2.72,"ping":12.4,"fast":1,"paused":0,"guard":"","news":"USD NEWS in 2h 12m","newsK":4,"days":0,"lots":"same $ as master","day":{"copies":6,"skips":0,"closes":1,"heals":0,"avg":34.4},"lat":{"n":6,"last":28.12,"sig":0.13,"brk":27.99,"avg":33.6,"best":28.12,"slip":2.5,"hist":[31.0,32.0,35.1,37.0,43.0,28.1]},"eqh":[100000.0,99905.2],"masters":[{"id":"Acc_70010001","broker":"Exness Technologies Ltd","bal":1000.0,"ccy":"USD","on":1,"live":1,"ready":1,"ver":642,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":1,"flt":-7.0,"today":0.0,"speed":31.0,"slip":-0.0,"lag":0,"q":1},{"id":"Acc_70010002","broker":"Exness Technologies Ltd","bal":1501.22,"ccy":"USD","on":1,"live":1,"ready":1,"ver":642,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":0,"flt":0.0,"today":-1.8,"speed":32.0,"slip":4.0,"lag":0,"q":1},{"id":"Acc_70010003","broker":"Exness Technologies Ltd","bal":2000.0,"ccy":"USD","on":1,"live":1,"ready":1,"ver":642,"lot":200,"x":2.0,"sig":2,"cop":2,"skip":0,"open":2,"flt":-63.0,"today":0.0,"speed":31.6,"slip":3.6,"lag":0,"q":1},{"id":"Acc_70010004","broker":"Exness Technologies Ltd","bal":2500.0,"ccy":"USD","on":1,"live":1,"ready":1,"ver":642,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":1,"flt":12.0,"today":0.0,"speed":37.0,"slip":4.0,"lag":0,"q":1},{"id":"Acc_70010005","broker":"Exness Technologies Ltd","bal":3000.0,"ccy":"USD","on":1,"live":1,"ready":1,"ver":642,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":1,"flt":-35.0,"today":0.0,"speed":43.0,"slip":-0.0,"lag":0,"q":1}],"trades":[{"m":"Acc_70010003","sym":"XAUUSD","d":1,"lots":0.5,"open":4099.66,"sl":4093.66,"tp":4111.66,"pl":-21.0},{"m":"Acc_70010005","sym":"XAUUSD","d":1,"lots":0.5,"open":4099.94,"sl":4090.94,"tp":4113.94,"pl":-35.0},{"m":"Acc_70010004","sym":"XAUUSD","d":-1,"lots":0.4,"open":4099.74,"sl":4107.74,"tp":4086.74,"pl":12.0},{"m":"Acc_70010003","sym":"XAUUSD","d":1,"lots":0.6,"open":4099.94,"sl":4092.94,"tp":4111.94,"pl":-42.0},{"m":"Acc_70010001","sym":"XAUUSD","d":1,"lots":0.1,"open":4099.94,"sl":4094.94,"tp":4109.94,"pl":-7.0}],"ev":[{"t":"14:30:09","k":4,"m":"SL/TP XAUUSD  SL 4093.66  TP 4111.66"},{"t":"14:30:08","k":1,"m":"COPY BUY XAUUSD 0.50  <Acc_70010003  28 ms"},{"t":"14:30:06","k":1,"m":"CLOSE XAUUSD 0.20  P/L +0.20  <Acc_70010002"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4094.94  TP 4109.94"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4105.74  TP 4088.74"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4092.94  TP 4111.94"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4107.74  TP 4086.74"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4090.94  TP 4113.94"},{"t":"14:30:03","k":1,"m":"COPY BUY XAUUSD 0.50  <Acc_70010005  43 ms"},{"t":"14:30:03","k":1,"m":"COPY SELL XAUUSD 0.40  <Acc_70010004  37 ms"},{"t":"14:30:03","k":1,"m":"COPY BUY XAUUSD 0.60  <Acc_70010003  35 ms"},{"t":"14:30:03","k":1,"m":"COPY SELL XAUUSD 0.20  <Acc_70010002  32 ms"},{"t":"14:30:03","k":1,"m":"COPY BUY XAUUSD 0.10  <Acc_70010001  31 ms"},{"t":"14:30:03","k":6,"m":"Symbol map XAUUSDm -> XAUUSD"}],"ctl":1,"acks":[]},"a26000001":{"v":642,"role":"S","id":"Acc_26000001","login":26000001,"broker":"FundedNext Ltd","server":"FundedNext-Server","ccy":"USD","t":1792575016,"status":"COPYING - all systems normal","sk":1,"short":"COPYING","bal":49997.2,"eq":49927.2,"flt":-70.0,"today":-2.8,"init":50000.0,"initSrc":"auto","dl":0.146,"dlLim":4.5,"ml":0.146,"mlLim":9.0,"pp":-0.146,"ppTgt":10.0,"risk":2.22,"room":4.354,"noSL":0,"copies":5,"req":13,"reqMax":1700,"pos":5,"posMax":180,"turbo":3.43,"ping":12.4,"fast":1,"paused":0,"guard":"","news":"USD NEWS in 2h 12m","newsK":4,"days":0,"lots":"same $ as master","day":{"copies":6,"skips":0,"closes":1,"heals":0,"avg":37.7},"lat":{"n":6,"last":33.5,"sig":0.51,"brk":32.98,"avg":36.33,"best":31.49,"slip":5.4,"hist":[31.5,37.2,38.9,42.0,43.1,33.5]},"eqh":[50000.0,49927.2],"masters":[{"id":"Acc_70010001","broker":"Exness Technologies Ltd","bal":1000.0,"ccy":"USD","on":1,"live":1,"ready":1,"ver":642,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":1,"flt":-7.6,"today":0.0,"speed":37.2,"slip":3.5,"lag":0,"q":1},{"id":"Acc_70010002","broker":"Exness Technologies Ltd","bal":1501.22,"ccy":"USD","on":1,"live":1,"ready":1,"ver":642,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":0,"flt":0.0,"today":-2.8,"speed":42.0,"slip":5.5,"lag":0,"q":1},{"id":"Acc_70010003","broker":"Exness Technologies Ltd","bal":2000.0,"ccy":"USD","on":1,"live":1,"ready":1,"ver":642,"lot":100,"x":1.0,"sig":2,"cop":2,"skip":0,"open":2,"flt":-34.8,"today":0.0,"speed":32.5,"slip":7.1,"lag":0,"q":1},{"id":"Acc_70010004","broker":"Exness Technologies Ltd","bal":2500.0,"ccy":"USD","on":1,"live":1,"ready":1,"ver":642,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":1,"flt":10.4,"today":0.0,"speed":43.1,"slip":5.5,"lag":0,"q":1},{"id":"Acc_70010005","broker":"Exness Technologies Ltd","bal":3000.0,"ccy":"USD","on":1,"live":1,"ready":1,"ver":642,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"open":1,"flt":-38.0,"today":0.0,"speed":38.9,"slip":3.5,"lag":0,"q":1}],"trades":[{"m":"Acc_70010003","sym":"XAUUSD","d":1,"lots":0.25,"open":4099.54,"sl":4093.54,"tp":4111.54,"pl":-12.0},{"m":"Acc_70010004","sym":"XAUUSD","d":-1,"lots":0.4,"open":4099.57,"sl":4107.57,"tp":4086.57,"pl":10.4},{"m":"Acc_70010005","sym":"XAUUSD","d":1,"lots":0.5,"open":4099.82,"sl":4090.82,"tp":4113.82,"pl":-38.0},{"m":"Acc_70010001","sym":"XAUUSD","d":1,"lots":0.1,"open":4099.82,"sl":4094.82,"tp":4109.82,"pl":-7.6},{"m":"Acc_70010003","sym":"XAUUSD","d":1,"lots":0.3,"open":4099.82,"sl":4092.82,"tp":4111.82,"pl":-22.8}],"ev":[{"t":"14:30:09","k":4,"m":"SL/TP XAUUSD  SL 4093.54  TP 4111.54"},{"t":"14:30:08","k":1,"m":"COPY BUY XAUUSD 0.25  <Acc_70010003  33 ms"},{"t":"14:30:06","k":2,"m":"CLOSE XAUUSD 0.20  P/L -0.80  <Acc_70010002"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4092.82  TP 4111.82"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4094.82  TP 4109.82"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4090.82  TP 4113.82"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4105.57  TP 4088.57"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4107.57  TP 4086.57"},{"t":"14:30:03","k":1,"m":"COPY SELL XAUUSD 0.40  <Acc_70010004  43 ms"},{"t":"14:30:03","k":1,"m":"COPY SELL XAUUSD 0.20  <Acc_70010002  42 ms"},{"t":"14:30:03","k":1,"m":"COPY BUY XAUUSD 0.50  <Acc_70010005  39 ms"},{"t":"14:30:03","k":1,"m":"COPY BUY XAUUSD 0.10  <Acc_70010001  37 ms"},{"t":"14:30:03","k":1,"m":"COPY BUY XAUUSD 0.30  <Acc_70010003  31 ms"},{"t":"14:30:03","k":6,"m":"Symbol map XAUUSDm -> XAUUSD"}],"ctl":1,"acks":[]},"a70010001":{"v":642,"role":"M","id":"Acc_70010001","login":70010001,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575016,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":1000.0,"eq":991.5,"flt":-8.5,"today":0.0,"fltAll":-8.5,"sigToday":1,"sigSent":1,"lastSig":"OPEN  14:30:03","mags":"20240601","live":1,"qseq":1,"qsize":258,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[1000.0,991.5],"pos":[{"tk":50000001,"mg":20240601,"sym":"XAUUSDm","d":1,"lots":0.1,"open":4099.585,"sl":4094.585,"tp":4109.585,"pl":-8.5,"got":2,"tot":2}],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"COPYING","live":1,"bal":99998.2,"eq":99924.7,"ccy":"USD","open":5,"lot":100,"ver":642,"dl":0.08},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":49997.2,"eq":49939.2,"ccy":"USD","open":5,"lot":100,"ver":642,"dl":0.12}],"ev":[{"t":"14:30:03","k":1,"m":"OPEN BUY XAUUSDm 0.10  #50000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"GoldScalper","sym":"XAUUSDm","tf":"M5"}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]},"a70010002":{"v":642,"role":"M","id":"Acc_70010002","login":70010002,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575016,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":1501.22,"eq":1501.22,"flt":0.0,"today":1.22,"fltAll":0.0,"sigToday":2,"sigSent":2,"lastSig":"CLOSE  14:30:06","mags":"20240602","live":1,"qseq":2,"qsize":519,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[1500.0,1501.22],"pos":[],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"COPYING","live":1,"bal":99998.2,"eq":99924.7,"ccy":"USD","open":5,"lot":100,"ver":642,"dl":0.08},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":49997.2,"eq":49939.2,"ccy":"USD","open":5,"lot":100,"ver":642,"dl":0.12}],"ev":[{"t":"14:30:06","k":2,"m":"CLOSE SELL XAUUSDm 0.20  #51000001  2 us"},{"t":"14:30:03","k":1,"m":"OPEN SELL XAUUSDm 0.20  #51000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"TrendRider","sym":"XAUUSDm","tf":"M15"}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]},"a70010003":{"v":642,"role":"M","id":"Acc_70010003","login":70010003,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575016,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":2000.0,"eq":1962.05,"flt":-37.95,"today":0.0,"fltAll":-37.95,"sigToday":2,"sigSent":2,"lastSig":"OPEN  14:30:08","mags":"20240603","live":1,"qseq":2,"qsize":516,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[2000.0,1962.05],"pos":[{"tk":52000001,"mg":20240603,"sym":"XAUUSDm","d":1,"lots":0.3,"open":4099.585,"sl":4092.585,"tp":4111.585,"pl":-25.5,"got":2,"tot":2},{"tk":52000003,"mg":20240603,"sym":"XAUUSDm","d":1,"lots":0.25,"open":4099.233,"sl":4093.233,"tp":4111.233,"pl":-12.45,"got":2,"tot":2}],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"COPYING","live":1,"bal":99998.2,"eq":99924.7,"ccy":"USD","open":5,"lot":200,"ver":642,"dl":0.08},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":49997.2,"eq":49939.2,"ccy":"USD","open":5,"lot":100,"ver":642,"dl":0.12}],"ev":[{"t":"14:30:08","k":1,"m":"OPEN BUY XAUUSDm 0.25  #52000003  2 us"},{"t":"14:30:03","k":1,"m":"OPEN BUY XAUUSDm 0.30  #52000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"BreakoutPro","sym":"XAUUSDm","tf":"M1"}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]},"a70010004":{"v":642,"role":"M","id":"Acc_70010004","login":70010004,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575016,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":2500.0,"eq":2521.2,"flt":21.2,"today":0.0,"fltAll":21.2,"sigToday":1,"sigSent":1,"lastSig":"OPEN  14:30:03","mags":"20240604","live":1,"qseq":1,"qsize":259,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[2500.0,2521.2],"pos":[{"tk":53000001,"mg":20240604,"sym":"XAUUSDm","d":-1,"lots":0.4,"open":4099.425,"sl":4107.425,"tp":4086.425,"pl":21.2,"got":2,"tot":2}],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"COPYING","live":1,"bal":99998.2,"eq":99924.7,"ccy":"USD","open":5,"lot":100,"ver":642,"dl":0.08},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":49997.2,"eq":49939.2,"ccy":"USD","open":5,"lot":100,"ver":642,"dl":0.12}],"ev":[{"t":"14:30:03","k":1,"m":"OPEN SELL XAUUSDm 0.40  #53000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"NightGrid","sym":"XAUUSDm","tf":"H1"}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]},"a70010005":{"v":642,"role":"M","id":"Acc_70010005","login":70010005,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575016,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":3000.0,"eq":2957.5,"flt":-42.5,"today":0.0,"fltAll":-42.5,"sigToday":1,"sigSent":1,"lastSig":"OPEN  14:30:03","mags":"20240605","live":1,"qseq":1,"qsize":258,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[3000.0,2957.5],"pos":[{"tk":54000001,"mg":20240605,"sym":"XAUUSDm","d":1,"lots":0.5,"open":4099.585,"sl":4090.585,"tp":4113.585,"pl":-42.5,"got":2,"tot":2}],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"COPYING","live":1,"bal":99998.2,"eq":99924.7,"ccy":"USD","open":5,"lot":100,"ver":642,"dl":0.08},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":49997.2,"eq":49939.2,"ccy":"USD","open":5,"lot":100,"ver":642,"dl":0.12}],"ev":[{"t":"14:30:03","k":1,"m":"OPEN BUY XAUUSDm 0.50  #54000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"SwingMaster","sym":"XAUUSDm","tf":"M30"}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]}}};
 const LS = {
   get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
@@ -251,7 +310,7 @@ setSkin(cfg.skin);
 //--- data -----------------------------------------------------------------
 function setAt(path, val) {
   const seg = path.split("/").filter(Boolean);
-  if (seg.length === 0) { state = (val && typeof val === "object") ? { meta: val.meta || null, acc: val.acc || {} } : { meta: null, acc: {} }; return; }
+  if (seg.length === 0) { state = (val && typeof val === "object") ? { meta: val.meta || null, acc: val.acc || {}, res: val.res || {} } : { meta: null, acc: {}, res: {} }; return; }
   let o = state;
   for (let i = 0; i < seg.length - 1; i++) { if (o[seg[i]] == null || typeof o[seg[i]] !== "object") o[seg[i]] = {}; o = o[seg[i]]; }
   const last = seg[seg.length - 1];
@@ -271,6 +330,12 @@ function bridge() {
 }
 function bridgeAge() { return bridge().age; }
 function accAge(a) { const b = bridge(); if (b.stale) return b.age; return Math.max(0, state.meta.t - (a.t || 0)); }
+//--- today's result of an account: closed today + open profit now (null = copier too old to send it)
+function dayPL(a) {
+  if (a.role === "S") return (a.today || 0) + (a.flt || 0);
+  if (a.today == null) return null;
+  return a.today + (a.fltAll != null ? a.fltAll : (a.flt || 0));
+}
 function accOnline(a) { return !bridge().stale && accAge(a) <= 30 && !/STOPPED/.test(a.status || ""); }
 
 //--- live connection: Firebase streaming (EventSource), polling as backup ---
@@ -346,6 +411,170 @@ function connect() {
   } catch (e) { startPoll(); }
 }
 document.addEventListener("visibilitychange", () => { if (!document.hidden && conn.mode !== "demo") connect(); });
+
+//--- phone control: commands signed with the control code (HMAC-SHA256) --------
+const ABC = "abcdefghijkmnpqrstuvwxyz23456789";
+function rid(n) {
+  const b = new Uint8Array(n);
+  try { crypto.getRandomValues(b); } catch (e) { for (let i = 0; i < n; i++) b[i] = Math.floor(Math.random() * 256); }
+  return Array.from(b, (x) => ABC[x % 32]).join("");
+}
+const SHA_K = new Uint32Array([0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,
+  0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,
+  0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+  0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,
+  0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2]);
+function sha256(bytes) {
+  const l = bytes.length, bl = ((l + 9 + 63) >> 6) << 6, m = new Uint8Array(bl);
+  m.set(bytes); m[l] = 0x80;
+  const dv = new DataView(m.buffer);
+  dv.setUint32(bl - 4, (l * 8) >>> 0); dv.setUint32(bl - 8, Math.floor(l / 0x20000000));
+  const H = new Uint32Array([0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19]), W = new Uint32Array(64);
+  const ror = (x, n) => (x >>> n) | (x << (32 - n));
+  for (let o = 0; o < bl; o += 64) {
+    for (let i = 0; i < 16; i++) W[i] = dv.getUint32(o + i * 4);
+    for (let i = 16; i < 64; i++) W[i] = W[i - 16] + (ror(W[i - 15], 7) ^ ror(W[i - 15], 18) ^ (W[i - 15] >>> 3)) + W[i - 7] + (ror(W[i - 2], 17) ^ ror(W[i - 2], 19) ^ (W[i - 2] >>> 10));
+    let a = H[0], b = H[1], c = H[2], d = H[3], e = H[4], f = H[5], g = H[6], h = H[7];
+    for (let i = 0; i < 64; i++) {
+      const t1 = (h + (ror(e, 6) ^ ror(e, 11) ^ ror(e, 25)) + ((e & f) ^ (~e & g)) + SHA_K[i] + W[i]) | 0;
+      const t2 = ((ror(a, 2) ^ ror(a, 13) ^ ror(a, 22)) + ((a & b) ^ (a & c) ^ (b & c))) | 0;
+      h = g; g = f; f = e; e = (d + t1) | 0; d = c; c = b; b = a; a = (t1 + t2) | 0;
+    }
+    H[0] += a; H[1] += b; H[2] += c; H[3] += d; H[4] += e; H[5] += f; H[6] += g; H[7] += h;
+  }
+  const out = new Uint8Array(32), ov = new DataView(out.buffer);
+  for (let i = 0; i < 8; i++) ov.setUint32(i * 4, H[i]);
+  return out;
+}
+function utf8(s) { return new TextEncoder().encode(s); }
+function hmacHex(key, msg) {
+  let k = utf8(key); if (k.length > 64) k = sha256(k);
+  const kb = new Uint8Array(64); kb.set(k);
+  const m = utf8(msg), ip = new Uint8Array(64 + m.length), op = new Uint8Array(96);
+  for (let i = 0; i < 64; i++) { ip[i] = kb[i] ^ 0x36; op[i] = kb[i] ^ 0x5c; }
+  ip.set(m, 64); op.set(sha256(ip), 64);
+  return Array.from(sha256(op), (x) => x.toString(16).padStart(2, "0")).join("");
+}
+const codeNorm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 64);
+let ccode = LS.get("tbfe.cc", "");                    // the control code: stays on this phone, never in the address
+const pend = {};                                     // command id -> what happened to it
+let lastPend = "", askFn = null, codeFn = null, toastT = 0;
+function ctlState(a) {
+  if (conn.mode === "demo") return { ok: false, why: "Demo data - connect your PC first (gear button)." };
+  if (!state.meta || bridge().stale) return { ok: false, why: "Your PC is offline - the buttons work when it is back." };
+  if (+state.meta.ctl !== 1) return { ok: false, why: (state.meta.v || 0) < 110 ? "Update TBFE Cloud Bridge on the PC to v1.10 to use the buttons." : "Phone control is OFF in the TBFE Cloud Bridge inputs." };
+  if (!(a.v >= 640)) return { ok: false, why: "Update the copier on " + a.id + " to v6.40 to use the buttons." };
+  if (+a.ctl !== 1) return { ok: false, why: "Phone control is OFF in the copier inputs on " + a.id + "." };
+  if (!accOnline(a)) return { ok: false, why: a.id + " is offline right now." };
+  return { ok: true, why: "" };
+}
+function isBusy(accId, key) { return Object.keys(pend).some((id) => { const p = pend[id]; return !p.final && p.acc === accId && p.key === key; }); }
+function toast(msg, kind, onTap) {
+  const el = $("toast");
+  el.className = "toast " + (kind || "");
+  el.innerHTML = (kind === "busy" ? '<span class="spin"></span>' : kind === "ok" ? '<span class="tk">&#10003;</span>' : kind === "bad" ? '<span class="tk">!</span>' : "") + "<span>" + esc(msg) + "</span>";
+  el.hidden = false;
+  el.onclick = onTap || (() => { el.hidden = true; });
+  clearTimeout(toastT);
+  if (kind !== "busy") toastT = setTimeout(() => { el.hidden = true; }, kind === "bad" ? 9000 : 5000);
+}
+function showPend(id) {
+  const p = pend[id];
+  if (!p || id !== lastPend) return;
+  if (!p.final) toast(p.label + (p.stage === "relayed" ? " - working on your PC..." : " - sending..."), "busy");
+  else if (p.ok) toast("Done: " + (p.msg || p.label), "ok");
+  else toast("Not done: " + p.msg + (p.fix ? " - tap here to type the code again" : ""), "bad",
+    p.fix ? () => { $("toast").hidden = true; ccode = ""; LS.set("tbfe.cc", ""); openCode(null); } : null);
+}
+function sendCmd(a, op, m, v, label, key) {
+  const cs = /^EA/.test(op) ? ctlStateM(a, op) : ctlState(a);
+  if (!cs.ok) { toast(cs.why, "bad"); return; }
+  if (!ccode) { openCode(() => sendCmd(a, op, m, v, label, key)); return; }
+  const id = rid(10), t = String(Date.now()), acc = String(a.login);
+  const cmd = { id: id, t: t, acc: acc, op: op, m: m || "", v: String(v || 0) };
+  cmd.sig = hmacHex(ccode, ["tbfe1", id, t, acc, op, cmd.m, cmd.v].join("|"));
+  pend[id] = { label: label, acc: a.id, key: key, t0: Date.now(), stage: "sent", final: false, ok: false, msg: "" };
+  lastPend = id;
+  showPend(id);
+  lastHtml = ""; render();
+  fetch((cfg.db || "").replace(/\/+$/, "") + "/tbfe/" + encodeURIComponent(cfg.key || "") + "/cmd.json", { method: "POST", body: JSON.stringify(cmd) })
+    .then((r) => { if (!r.ok) throw new Error(r.status === 401 || r.status === 403 ? "the database refused it (Rules)" : "the database answered " + r.status); })
+    .catch((e) => { const p = pend[id]; if (p && p.stage === "sent") p.netErr = (e && e.message) || "no connection"; });
+}
+function findAck(id) {
+  for (const a of accList()) for (const x of (a.acks || [])) if (x && x.id === id) return x;
+  return null;
+}
+//--- returns true when something changed (the page is drawn again)
+function checkPend() {
+  const now = Date.now();
+  let any = false;
+  Object.keys(pend).forEach((id) => {
+    const p = pend[id];
+    if (p.final) { if (now - p.tf > 120000) delete pend[id]; return; }
+    const r = state.res && state.res[id], ak = findAck(id), was = p.stage;
+    if (ak) { p.final = true; p.ok = +ak.ok === 1; p.msg = ak.msg || ""; }
+    else if (r && r.s === "refused") { p.final = true; p.msg = r.why || "refused"; p.fix = /wrong control code/.test(p.msg); }
+    else if (r && r.s === "relayed") p.stage = "relayed";
+    else if (p.netErr && now - p.t0 > 8000) { p.final = true; p.msg = "could not send - " + p.netErr; }
+    else if (p.stage === "sent" && now - p.t0 > 25000) { p.final = true; p.msg = "no answer from your PC - is MT5 with the TBFE Cloud Bridge running?"; }
+    if (p.stage === "relayed" && !p.final && now - p.t0 > 40000) { p.final = true; p.msg = "sent to your PC, but the copier did not answer"; }
+    if (p.final) p.tf = now;
+    if (p.final || p.stage !== was) { any = true; showPend(id); }
+  });
+  return any;
+}
+function ask(title, text, yes, fn) {
+  $("askT").textContent = title; $("askP").textContent = text; $("askYes").textContent = yes;
+  askFn = fn; $("toast").hidden = true; $("askSheet").hidden = false;
+}
+function openCode(fn) {
+  codeFn = fn; $("fCode2").value = ""; $("fCode2").style.borderColor = ""; $("toast").hidden = true;
+  $("codeSheet").hidden = false;
+  setTimeout(() => { try { $("fCode2").focus(); } catch (e) {} }, 60);
+}
+const ICO = {
+  pause: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2.5" width="3.6" height="11" rx="1"/><rect x="9.4" y="2.5" width="3.6" height="11" rx="1"/></svg>',
+  play: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.6v10.8c0 .7.8 1.1 1.4.7l8.2-5.4a.85.85 0 0 0 0-1.4L5.4 1.9C4.8 1.5 4 1.9 4 2.6z"/></svg>',
+  close: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>',
+  stop: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="3" width="10" height="10" rx="2.2"/></svg>'
+};
+//--- the master account of a master row (its own data, sent by the copier on that terminal)
+function masterAcc(id) { return state.acc && state.acc["a" + String(id || "").replace(/^Acc_/, "")]; }
+function eaText(ma) {
+  const f = (l) => l.map((e) => e.n + " (" + e.sym + " " + e.tf + ")").join(", ");
+  if (!ma) return "";
+  if (ma.eaStop) return "EA stopped from the phone: " + f(ma.eaSt || []);
+  if (ma.eas && ma.eas.length) return "EA running: " + f(ma.eas);
+  return ma.eas ? "No signal EA running on this terminal" : "";
+}
+//--- can the phone stop / resume the EA of this master?
+function ctlStateM(ma, op) {
+  if (conn.mode === "demo") return { ok: false, why: "Demo data - connect your PC first (gear button)." };
+  if (!state.meta || bridge().stale) return { ok: false, why: "Your PC is offline - the buttons work when it is back." };
+  if ((state.meta.v || 0) < 111) return { ok: false, why: "Update TBFE Cloud Bridge on the PC to v1.11 for EA stop / resume." };
+  if (+state.meta.ctl !== 1) return { ok: false, why: "Phone control is OFF in the TBFE Cloud Bridge inputs." };
+  if (!ma) return { ok: false, why: "This master is not sending its data - update its copier to v6.42." };
+  if (!(ma.v >= 642)) return { ok: false, why: "Update the copier on " + ma.id + " to v6.42 for EA stop / resume." };
+  if (+ma.ctl !== 1) return { ok: false, why: "Phone control is OFF in the copier inputs on " + ma.id + "." };
+  if (!accOnline(ma)) return { ok: false, why: ma.id + " is offline right now." };
+  if (+ma.trade !== 1) return { ok: false, why: "On " + ma.id + " tick 'Allow Algo Trading' in the copier settings (needed to resume the EA)." };
+  if (op === "EASTOP" && !ma.eaStop && !(ma.eas && ma.eas.length)) return { ok: false, why: "No signal EA is running on " + ma.id + "." };
+  return { ok: true, why: "" };
+}
+function eaBtn(ma, id, cls) {
+  const stopped = !!(ma && ma.eaStop), op = stopped ? "EARESUME" : "EASTOP", cs = ctlStateM(ma, op);
+  return '<button class="cbtn ' + cls + " " + (stopped ? "green" : "red") + (cs.ok ? "" : " off") + (isBusy(id, "EA:" + id) || (ma && +ma.eaBusy === 1) ? " busy" : "") +
+    '" data-cmd="' + op + '" data-t="' + esc(id) + '">' + (stopped ? ICO.play + "Resume EA" : ICO.stop + "Stop EA") + "</button>";
+}
+function ctlBar(a) {
+  const cs = ctlState(a), dis = cs.ok ? "" : " off";
+  const pz = a.paused
+    ? '<button class="cbtn green' + dis + (isBusy(a.id, "PAUSE") ? " busy" : "") + '" data-cmd="RESUME">' + ICO.play + "RESUME</button>"
+    : '<button class="cbtn amber' + dis + (isBusy(a.id, "PAUSE") ? " busy" : "") + '" data-cmd="PAUSE">' + ICO.pause + "PAUSE</button>";
+  const cl = '<button class="cbtn red' + dis + (isBusy(a.id, "CLOSEALL") ? " busy" : "") + '" data-cmd="CLOSEALL">' + ICO.close + "CLOSE ALL</button>";
+  return '<div class="ctlbar">' + pz + cl + "</div>" + (cs.ok ? "" : '<div class="small mut ctlwhy">' + esc(cs.why) + "</div>");
+}
 
 //--- small drawings -----------------------------------------------------
 function ring(frac, color, label, sub) {
@@ -424,7 +653,7 @@ function slaveView(a) {
   if (a.ping > 0) chips.push(chip("PING " + fmt(a.ping, 0) + " ms", "var(--sec)"));
   if (a.paused) chips.push(chip("PAUSED", "var(--amber)"));
   if (a.guard) chips.push(chip("GUARD: " + a.guard, "var(--red)"));
-  let h = statusCard(a, chips);
+  let h = statusCard(a, chips) + ctlBar(a);
   h += tabBar(a.id, [["ov", "Overview"], ["ms", "Masters", ms_.length], ["tr", "Trades", tr.length], ["ac", "Activity"]], tab);
   if (tab === "ms") return h + mastersList(a);
   if (tab === "tr") return h + tradesList(tr);
@@ -475,19 +704,37 @@ function slaveView(a) {
 function mastersList(a) {
   const list = a.masters || [];
   if (!list.length) return '<div class="empty">No masters yet.</div>';
+  const cs = ctlState(a);
+  const fund = a.broker && /FTMO/i.test(a.broker) ? "FTMO" : "FUNDED";
   return '<div class="list">' + list.map((m) => {
-    const st = !m.live ? chip("OFFLINE", "var(--red)") : !m.on ? chip("OFF", "var(--red)") : chip("COPY ON", "var(--green)");
+    const lot = m.lot || 100, mid = esc(m.id), ma = masterAcc(m.id);
+    //--- funded account vs the master itself, today (closed + open)
+    const fToday = (m.today || 0) + (m.flt || 0), mToday = ma ? dayPL(ma) : null;
+    const ratio = mToday != null && Math.abs(mToday) >= 0.5 ? fToday / mToday : null;
+    const cmp = '<div class="cmp num"><div><span>' + fund + ' TODAY</span><b class="' + pcls(fToday) + '">' + sgn(fToday, 2) + "</b></div>" +
+      '<div><span>MASTER TODAY</span><b class="' + (mToday == null ? "mut" : pcls(mToday)) + '">' + (mToday == null ? "update" : sgn(mToday, 2)) + "</b></div>" +
+      '<div><span>RATIO</span><b class="sec">' + (ratio == null ? "-" : "&times;" + fmt(ratio, 1)) + "</b></div></div>";
+    const busyC = isBusy(a.id, "COPY:" + m.id);
+    const copyBtn = '<button class="cbtn sm ' + (m.on ? "amber" : "green") + (cs.ok ? "" : " off") + (busyC ? " busy" : "") + '" data-cmd="' + (m.on ? "COPYOFF" : "COPYON") +
+      '" data-m="' + mid + '">' + (m.on ? ICO.stop + "Stop copy" : ICO.play + "Start copy") + "</button>";
+    const lotRow = '<div class="mctl' + (cs.ok ? "" : " off") + '"><span class="lbl">Lot size</span>' +
+      (lot !== 100 ? '<button class="rst" data-cmd="LOTSET" data-m="' + mid + '" data-v="100">reset</button>' : "") +
+      '<div class="stepper" style="margin-left:0"><button data-cmd="LOTDN" data-m="' + mid + '" aria-label="Lot size down">&minus;</button><span class="num">' + lot +
+      '%</span><button data-cmd="LOTUP" data-m="' + mid + '" aria-label="Lot size up">+</button></div></div>';
+    const st = !m.live ? chip("OFFLINE", "var(--red)") : !m.on ? chip("COPY OFF", "var(--red)") : chip("COPY ON", "var(--green)");
+    const eaChip = ma && ma.eaStop ? chip("EA STOPPED", "var(--red)") : "";
     let det = [];
     if (m.speed != null) det.push("speed " + ms(m.speed));
     if (m.slip != null) det.push("slip " + sgn(m.slip, 1) + " pts");
     if (!det.length) det.push(m.q ? "turbo queue linked" : m.ver && m.ver < 600 ? "classic files (update to v6)" : "waiting for data");
-    return '<div class="item"><div class="h"><span class="dot ' + (m.live ? (m.ready ? "on" : "warn") : "off") + '"></span><span class="name">' + esc(m.id) + "</span>" + lotPill(m.lot) + '<span class="r">' + st + "</span></div>" +
+    return '<div class="item"><div class="h"><span class="dot ' + (m.live ? (m.ready ? "on" : "warn") : "off") + '"></span><span class="name">' + esc(m.id) + "</span>" + lotPill(m.lot) +
+      '<span class="r">' + eaChip + st + "</span></div>" +
       '<div class="small" style="margin:3px 0 0 16px">' + esc(short(m.bal)) + " " + esc(m.ccy) + " | " + esc(m.broker) + (m.x && Math.abs(m.x - (m.lot || 100) / 100) > 0.001 ? " | factor x" + fmt(m.x, 2) : "") + "</div>" +
       '<div class="stats num"><div><b>' + m.sig + "</b><span>SIG</span></div><div><b class=\"up\">" + m.cop + "</b><span>COPIED</span></div><div><b class=\"" + (m.skip ? "dn" : "mut") + "\">" + m.skip +
-      "</b><span>SKIP</span></div><div><b>" + m.open + "</b><span>OPEN</span></div></div>" +
-      '<div class="kv" style="margin-top:9px"><span class="small">' + esc(det.join("   ")) + (m.lag ? ' <b class="k3">LAGGING</b>' : "") + '</span><span class="num"><span class="' + pcls(m.flt) + '">' + sgn(m.flt, 2) +
-      '</span> <span class="mut">|</span> <span class="' + pcls(m.today) + '">' + sgn(m.today, 2) + "</span></span></div></div>";
-  }).join("") + '<div class="small mut">Change LOT size and COPY on/off in the MASTERS tab on the PC.</div></div>';
+      "</b><span>SKIP</span></div><div><b>" + m.open + "</b><span>OPEN</span></div></div>" + cmp +
+      '<div class="small" style="margin-top:8px">' + esc(det.join("   ")) + (m.lag ? ' <b class="k3">LAGGING</b>' : "") + (eaText(ma) ? " | " + esc(eaText(ma)) : "") + "</div>" +
+      '<div class="mbtns">' + copyBtn + eaBtn(ma, m.id, "sm") + "</div>" + lotRow + "</div>";
+  }).join("") + '<div class="small mut">' + (cs.ok ? "Stop copy and LOT size: only for " + esc(a.id) + ", new copies only. Stop EA: the master itself stops trading (open trades keep their SL/TP)." : esc(cs.why)) + "</div></div>";
 }
 function tri(t) {
   return '<div class="tri num"><div><span>OPEN</span><b>' + (t.open > 0 ? t.open : "-") + '</b></div><div><span>SL</span><b>' + (t.sl > 0 ? t.sl : "-") +
@@ -508,6 +755,10 @@ function masterView(a) {
   if (a.wait > 0) chips.push(chip("QUEUE BUSY " + a.wait, "var(--amber)"));
   if (a.ping > 0) chips.push(chip("PING " + fmt(a.ping, 0) + " ms", "var(--sec)"));
   let h = statusCard(a, chips);
+  if (a.eas || a.eaStop != null) {
+    const csm = ctlStateM(a, a.eaStop ? "EARESUME" : "EASTOP");
+    h += '<div class="ctlbar">' + eaBtn(a, a.id, "") + "</div>" + '<div class="eainfo">' + esc(eaText(a)) + "</div>" + (csm.ok ? "" : '<div class="small mut ctlwhy">' + esc(csm.why) + "</div>");
+  }
   h += tabBar(a.id, [["ov", "Overview"], ["ps", "Positions", ps.length], ["ac", "Activity"]], tab);
   if (tab === "ps") {
     if (!ps.length) return h + '<div class="empty">No copyable positions open.</div>';
@@ -523,7 +774,10 @@ function masterView(a) {
   h += '<div class="stack"><div class="grid2">' +
     '<div class="card"><div class="lbl">Balance ' + esc(a.ccy) + '</div><div class="big num">' + fmt(a.bal, 2) + '</div><div class="small">magics ' + esc(a.mags || "-") + "</div></div>" +
     '<div class="card"><div class="lbl">Equity</div><div class="big num ' + (eqUp ? "" : "dn") + '">' + fmt(a.eq, 2) + "</div>" + spark(a.eqh, eqUp) + "</div>" +
-    '<div class="card"><div class="lbl">Floating (copied)</div><div class="big num ' + pcls(a.flt) + '">' + sgn(a.flt, 2) + '</div><div class="small">' + ps.length + " positions</div></div>" +
+    (a.today != null
+      ? '<div class="card"><div class="lbl">Today</div><div class="big num ' + pcls(dayPL(a)) + '">' + sgn(dayPL(a), 2) + '</div><div class="small num">closed ' + sgn(a.today, 2) +
+        " | open " + sgn(a.fltAll != null ? a.fltAll : (a.flt || 0), 2) + "</div></div>"
+      : '<div class="card"><div class="lbl">Floating (copied)</div><div class="big num ' + pcls(a.flt) + '">' + sgn(a.flt, 2) + '</div><div class="small">' + ps.length + " positions</div></div>") +
     '<div class="card"><div class="lbl">Signals today</div><div class="big num">' + (a.sigToday || 0) + '</div><div class="small">last ' + esc(a.lastSig || "-") + "</div></div></div>";
   h += '<div class="card"><div class="row2"><div><div class="lbl">Turbo broadcast engine</div><div class="big" style="color:' + (a.live ? "var(--green)" : "var(--amber)") + '">' + (a.live ? "LIVE" : "STARTING") +
     '</div><div class="small num">queue seq ' + (a.qseq || 0) + '</div></div><div class="small num" style="text-align:right"><div>write <b style="color:var(--txt)">' + (a.wr > 0 ? (a.wr < 1000 ? fmt(a.wr, 0) + " us" : ms(a.wr / 1000)) : "-") +
@@ -560,6 +814,7 @@ function banner() {
 }
 let lastHtml = "";
 function render() {
+  checkPend();
   header();
   banner();
   const list = accList();
@@ -579,31 +834,62 @@ function render() {
     (sl.length ? chip("MAX SL RISK " + fmt(maxRisk, 2) + "%", "var(--sec)") : "");
   //--- account strip
   $("strip").innerHTML = list.map((a) => {
-    const on = accOnline(a), sub = a.role === "S" ? sgn(a.today + a.flt, 2) + " today" : (a.pos || []).length + " pos | " + (a.sigToday || 0) + " signals";
-    const subc = a.role === "S" ? pcls(a.today + a.flt) : "sec";
+    const on = accOnline(a), td = dayPL(a);
+    const sub = td == null ? "Today: -" : "Today: " + sgn(td, 2), subc = td == null ? "mut" : pcls(td) || "sec";
+    const sub2 = a.role === "S" ? (a.copies || 0) + " copies open" : (a.pos || []).length + " pos | " + (a.sigToday || 0) + " signals";
     return '<button class="acc' + (a.id === sel ? " sel" : "") + '" data-acc="' + esc(a.id) + '"><span class="row"><span class="role ' + a.role + '">' + (a.role === "S" ? "SLAVE" : "MASTER") + '</span></span>' +
       '<span class="dot ' + (on ? (a.sk === 1 ? "on" : a.sk === 2 ? "off" : "warn") : "off") + '"></span>' +
-      '<span class="id">' + esc(a.id) + '</span><span class="eq num">' + fmt(a.eq, 2) + '</span><span class="sub num ' + subc + '">' + sub + "</span></button>";
+      '<span class="id">' + esc(a.id) + '</span><span class="eq num">' + fmt(a.eq, 2) + '</span><span class="sub num ' + subc + '">' + sub + '</span><span class="sub2 num">' + esc(sub2) + "</span></button>";
   }).join("");
   const a = list.find((x) => x.id === sel);
   const h = a.role === "S" ? slaveView(a) : masterView(a);
   if (h !== lastHtml) { $("view").innerHTML = h; lastHtml = h; }
 }
+const LBL = { LOTUP: "LOT +", LOTDN: "LOT -", LOTSET: "LOT reset", COPYON: "Start copy", COPYOFF: "Stop copy", PAUSE: "PAUSE", RESUME: "RESUME", CLOSEALL: "CLOSE ALL", EASTOP: "Stop EA", EARESUME: "Resume EA" };
 document.addEventListener("click", (e) => {
+  const cb = e.target.closest("[data-cmd]");
+  if (cb) {
+    const a = accList().find((x) => x.id === sel);
+    if (!a) return;
+    const op = cb.getAttribute("data-cmd"), m = cb.getAttribute("data-m") || "", v = cb.getAttribute("data-v") || "0";
+    if (/^EA/.test(op)) {
+      const ma = masterAcc(cb.getAttribute("data-t")), mid = cb.getAttribute("data-t"), csm = ctlStateM(ma, op);
+      if (!csm.ok) { toast(csm.why, "bad"); return; }
+      if (op === "EASTOP") {
+        ask("Stop the EA on " + mid + "?", (eaText(ma).replace(/^EA running: /, "") || "The signal EA") + " stops - no new trades on " + mid + ". Open trades stay with their SL/TP. Resume EA puts it back with the same settings.",
+          "Stop EA", () => sendCmd(ma, op, "", "0", LBL[op] + " " + mid, "EA:" + mid));
+      } else sendCmd(ma, op, "", "0", LBL[op] + " " + mid, "EA:" + mid);
+      return;
+    }
+    const key = /^COPY/.test(op) ? "COPY:" + m : /^LOT/.test(op) ? "LOT:" + m : op === "RESUME" ? "PAUSE" : op;
+    const label = LBL[op] + " " + (m || a.id);
+    if (op === "CLOSEALL") {
+      const cs = ctlState(a);
+      if (!cs.ok) { toast(cs.why, "bad"); return; }
+      ask("Close ALL copied trades?", (a.copies || 0) + " copied trades on " + a.id + ", floating " + sgn(a.flt || 0, 2) + " " + (a.ccy || "") + ". Only trades copied by TBFE are closed. This cannot be undone.",
+        "Close all", () => sendCmd(a, op, "", "0", label, key));
+      return;
+    }
+    sendCmd(a, op, m, v, label, key);
+    return;
+  }
   const acc = e.target.closest("[data-acc]");
   if (acc) { sel = acc.getAttribute("data-acc"); LS.set("tbfe.sel", sel); lastHtml = ""; render(); return; }
   const t = e.target.closest("[data-tab]");
   if (t && sel) { tabs[sel] = t.getAttribute("data-tab"); LS.set("tbfe.tabs", tabs); lastHtml = ""; render(); }
 });
-setInterval(() => { header(); banner(); }, 1000);
+setInterval(() => { header(); banner(); if (checkPend()) { lastHtml = ""; render(); } }, 1000);
 setInterval(() => { if (conn.mode !== "demo") render(); }, 5000);          // stale accounts turn grey even when no data comes
 
 //--- settings -----------------------------------------------------------
 function paintSkin() { document.querySelectorAll("#fSkin button").forEach((b) => b.classList.toggle("on", b.getAttribute("data-s") === (cfg.skin || "midnight"))); }
 function openSettings() {
   $("fDb").value = cfg.db || ""; $("fKey").value = cfg.key || "";
+  $("fCode").value = ""; $("fCode").style.borderColor = "";
+  $("fCode").placeholder = ccode ? "saved on this phone - type a new one to change" : "shown on the bridge chart: xxxx-xxxx-xxxx";
   paintSkin();
   $("setHint").hidden = !!window.navigator.standalone;
+  $("toast").hidden = true;
   $("sheet").hidden = false;
 }
 $("openSet").onclick = openSettings;
@@ -615,6 +901,9 @@ $("setSave").onclick = () => {
   const db = $("fDb").value.trim().replace(/\/+$/, ""), key = $("fKey").value.trim();
   if (!/^https:\/\//.test(db)) { $("fDb").focus(); $("fDb").style.borderColor = "var(--red)"; return; }
   if (key.length < 24) { $("fKey").focus(); $("fKey").style.borderColor = "var(--red)"; return; }
+  const cc = codeNorm($("fCode").value);
+  if ($("fCode").value.trim() && cc.length < 8) { $("fCode").focus(); $("fCode").style.borderColor = "var(--red)"; return; }
+  if (cc) { ccode = cc; LS.set("tbfe.cc", cc); }
   cfg.db = db; cfg.key = key; cfg.demo = false;
   LS.set("tbfe.cfg", cfg);
   //--- keep the settings in the address, so "Add to Home Screen" saves a ready-to-use app
@@ -623,6 +912,19 @@ $("setSave").onclick = () => {
   state = { meta: null, acc: {} }; lastHtml = "";
   connect();
 };
+$("askNo").onclick = () => { $("askSheet").hidden = true; askFn = null; };
+$("askYes").onclick = () => { $("askSheet").hidden = true; const f = askFn; askFn = null; if (f) f(); };
+$("askSheet").addEventListener("click", (e) => { if (e.target === $("askSheet")) { $("askSheet").hidden = true; askFn = null; } });
+$("codeCancel").onclick = () => { $("codeSheet").hidden = true; codeFn = null; };
+$("codeSave").onclick = () => {
+  const c = codeNorm($("fCode2").value);
+  if (c.length < 8) { $("fCode2").style.borderColor = "var(--red)"; $("fCode2").focus(); return; }
+  ccode = c; LS.set("tbfe.cc", c);
+  $("codeSheet").hidden = true;
+  const f = codeFn; codeFn = null;
+  if (f) f(); else toast("Control code saved on this phone.", "ok");
+};
+$("fCode2").addEventListener("keydown", (e) => { if (e.key === "Enter") $("codeSave").click(); });
 connect();
 </script>
 </body>
