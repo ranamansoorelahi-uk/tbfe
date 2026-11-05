@@ -270,16 +270,7 @@ button{font:inherit;color:inherit}
 :focus-visible{outline:2px solid var(--acc);outline-offset:2px}
 @media (prefers-reduced-motion: reduce){.dot.on{animation:none}.spin{animation-duration:2.4s}}
 @media (min-width:700px){body{max-width:620px;margin:0 auto}}
-/* v6.60b - the new cards in the classic look: the "today" card (all accounts), copy status ("what happened"), copied-by, last 7 days per master */
-.hero{padding:15px 14px 13px}
-.hero .hnum{font-size:40px;font-weight:800;letter-spacing:-1.2px;line-height:1.05;margin-top:6px;display:flex;align-items:baseline;gap:8px;font-variant-numeric:tabular-nums}
-.hero .hnum span{font-size:14px;font-weight:600;letter-spacing:0;color:var(--mut)}
-.hero .grid2{margin-top:12px;gap:8px}
-.hero .grid2 .card{background:var(--zebra);border:0;border-radius:12px;padding:10px 11px}
-.hero .grid2 .big{font-size:19px}
-.cst{display:flex;align-items:center;gap:10px;margin-top:10px;flex-wrap:wrap}
-.cst .badge{font-size:11.5px;font-weight:700;letter-spacing:.5px;padding:5px 10px;border-radius:999px;background:color-mix(in srgb, currentColor 14%, transparent)}
-.cst .when{font-size:12px;color:var(--sec)}
+/* v6.60c - the original design; the new cards are extra cards in the same look: copy status ("what happened"), copied-by lines, last 7 days per master */
 .cslog{margin-top:10px;padding-top:9px;border-top:1px solid var(--line);display:flex;flex-direction:column;gap:5px}
 .cslog .r{display:grid;grid-template-columns:42px 9px minmax(0,1fr);gap:8px;align-items:start;font-size:12.5px}
 .cslog time{font-family:var(--mono);font-size:11.5px;color:var(--mut);padding-top:1px}
@@ -765,28 +756,39 @@ function statusCard(a, chips, extra) {
   const txt = on ? a.status : (/STOPPED/.test(a.status || "") ? a.status : "OFFLINE - no data for " + dur(accAge(a)));
   const k = on ? a.sk : 2;
   return '<div class="card"><div class="status"><span class="dot ' + (on ? (k === 1 ? "on" : k === 2 ? "off" : "warn") : "off") + '"></span><span class="txt" style="color:' + kcol(k) + '">' + esc(txt) + "</span></div>" +
-    csBlock(a) + '<div class="chips">' + chips.join("") + "</div>" + (extra || "") + "</div>";
+    '<div class="chips">' + chips.join("") + "</div>" + (extra || "") + "</div>";
 }
 //--- v6.60: copy status - what the funded account is doing, since when, when it copies again, what happened today (copier v6.60)
+//--- v6.60c: its own card under the "today" card, in the same look as the other cards - and only when copying stopped today (a normal day shows nothing new)
 const CSN = { COPYING: ["COPYING", "var(--green)"], PAUSED: ["PAUSED", "var(--amber)"], HOURS: ["COPY HOURS", "var(--amber)"], CLOSED: ["MARKET CLOSED", "var(--acc)"],
   DAYTGT: ["DAY TARGET HIT", "var(--gold)"], DAYLOSS: ["DAY LOSS LIMIT", "var(--red)"], GUARD: ["GUARD", "var(--red)"], TARGET: ["PROFIT TARGET", "var(--gold)"],
   MOFF: ["ALL MASTERS OFF", "var(--red)"], "ALGO OFF": ["ALGO TRADING OFF", "var(--red)"], NEWS: ["NEWS WINDOW", "var(--amber)"], LAG: ["LAG", "var(--amber)"],
   SKIPPING: ["SKIPPING TRADES", "var(--red)"], STOPPED: ["EA STOPPED", "var(--red)"], WARMUP: ["STARTING", "var(--amber)"], OFFLINE: ["OFFLINE", "var(--red)"] };
 const csName = (s) => CSN[s] || [String(s || "?"), "var(--sec)"];
 function csHead(t) { t = String(t || ""); const i = t.indexOf(" - "); return i > 0 ? "<b>" + esc(t.slice(0, i)) + "</b>" + esc(t.slice(i)) : "<b>" + esc(t) + "</b>"; }
-function csBlock(a) {
+function csCard(a) {
   const c = a.cs;
   if (a.role !== "S" || !c || typeof c !== "object") return "";
   const on = accOnline(a), s = on ? String(c.s || a.short || "") : "OFFLINE", nm = csName(s);
+  const from = +dayFrom(a) || 0;
+  const log = Array.isArray(c.log) ? c.log.filter((x) => Array.isArray(x) && x.length >= 3 && +x[0] >= from - 60).slice(0, 8) : [];
+  if (s === "COPYING" && !log.some((x) => String(x[1]) !== "COPYING")) return "";        // copying all day - nothing to show
   const now = state.meta && state.meta.t ? state.meta.t : nowS(), st = +c.since > 0 ? +c.since : 0, un = +c.until > 0 ? +c.until : 0;
   let when = st ? "since " + hhmm(st) + " &middot; " + dur(Math.max(0, now - st)) : "";
   if (un && s !== "COPYING") when += (when ? " &middot; " : "") + "copies again " + esc(dayHM(un));
   else if (s === "PAUSED") when += (when ? " &middot; " : "") + "until you press RESUME";
-  const from = +dayFrom(a) || 0;
-  const log = Array.isArray(c.log) ? c.log.filter((x) => Array.isArray(x) && x.length >= 3 && +x[0] >= from - 60).slice(0, 8) : [];
   const rows = log.map((x) => '<div class="r"><time>' + esc(hhmm(+x[0])) + '</time><span class="d" style="background:' + csName(String(x[1]))[1] + '"></span><span class="t">' + csHead(x[2]) + "</span></div>").join("");
-  return '<div class="cst"><span class="badge" style="color:' + nm[1] + '">' + esc(nm[0]) + '</span><span class="when num">' + when + "</span></div>" +
-    (rows ? '<div class="cslog"><div class="lbl">What happened today</div>' + rows + "</div>" : "");
+  return '<div class="card cscard"><div class="row2"><div style="min-width:0"><div class="lbl">What happened today</div>' +
+    (when ? '<div class="small num cswhen" style="margin-top:4px">' + when + "</div>" : "") + "</div>" + '<div style="flex:none">' + chip(nm[0], nm[1]) + "</div></div>" +
+    (rows ? '<div class="cslog">' + rows + "</div>" : "") + "</div>";
+}
+//--- v6.60c: the "today" card (all accounts) - in the same look as the Daily target card
+function todayCard(a, net, hm, from) {
+  const ccy = /^USC$/i.test(a.ccy || "") ? " USC" : "";
+  return '<div class="card tdc"><div class="row2"><div style="min-width:0"><div class="lbl">Today &middot; NET since the ' + esc(hhmm(from) || "market") + " open</div>" +
+    '<div class="big num ' + pcls(net) + '">' + sgn(net, 2) + ccy + "</div></div>" +
+    (hm && hm.pct != null ? '<div style="flex:none">' + chip("MATCH " + pctTxt(hm.pct), pctCol(hm.pct)) + "</div>" : "") + "</div>" +
+    (hm && hm.n ? '<div class="small num" style="margin-top:6px">masters expected ' + bv(hm.e) + " &middot; difference " + bv(hm.f - hm.e) + "</div>" : "") + "</div>";
 }
 const chip = (txt, color) => '<span class="chip" style="color:' + color + '">' + esc(txt) + "</span>";
 
@@ -844,9 +846,7 @@ function calCard(a) {
       if (r) h += '<div class="v ' + pcls(+r[1]) + '">' + calN(+r[1]) + '</div><div class="t">' + (+r[2] || 0) + " tr</div>" + (r.length >= 5 ? mcell(+r[3], +r[4]) : "");
       g += '<div class="calc' + (lab === tl ? " today" : "") + '">' + h + "</div>";
     }
-    const wp = S && Math.abs(W.e) >= 1 ? pctOf(W.f, W.e) : null;                       // v6.60: the week's MATCH in money
-    g += '<div class="calc wk">' + (W.any ? '<div class="d">week</div><div class="v ' + pcls(W.pl) + '">' + calN(W.pl) + '</div><div class="t">' + W.n + " tr</div>" +
-      (wp != null ? '<div class="m ' + pctCls(wp) + '">' + calN(W.f - W.e) + " " + pctTxt(wp) + "</div>" : "") : "") + "</div>";
+    g += '<div class="calc wk">' + (W.any ? '<div class="d">week</div><div class="v ' + pcls(W.pl) + '">' + calN(W.pl) + '</div><div class="t">' + W.n + " tr</div>" + mcell(W.f, W.e) : "") + "</div>";
   }
   const mp = S && Math.abs(M.e) >= 1 ? pctOf(M.f, M.e) : null;
   const sub = S && /FTMO/i.test(a.broker || "") ? "same days as FTMO's calendar" : "days from the market open";
@@ -1014,16 +1014,12 @@ function slaveView(a) {
   //--- overview
   const eqUp = a.eq >= a.bal - 0.004;
   const tdp = a.init > 0 ? a.today / a.init * 100 : 0;
-  const hnet = a.dt ? +a.dt.net || 0 : (a.today || 0) + (a.flt || 0), hm = matchAll(a);          // v6.60: the hero - today's NET since the market open
-  h += '<div class="stack"><div class="card hero"><div class="row2"><span class="lbl">Today &middot; NET since the ' + esc(hhmm(dayFrom(a)) || "market") + " open</span>" +
-    (hm.pct != null ? chip("MATCH " + pctTxt(hm.pct), pctCol(hm.pct)) : "") + "</div>" +
-    '<div class="hnum num ' + pcls(hnet) + '">' + sgn(hnet, 2) + "<span>" + esc(a.ccy) + "</span></div>" +
-    (hm.n ? '<div class="small num">masters expected ' + bv(hm.e) + " &middot; difference " + bv(hm.f - hm.e) + "</div>" : "") +
-    '<div class="grid2">' +
+  const hnet = a.dt ? +a.dt.net || 0 : (a.today || 0) + (a.flt || 0);                            // v6.60c: today's NET since the market open + what happened - own cards
+  h += '<div class="stack">' + todayCard(a, hnet, matchAll(a), dayFrom(a)) + csCard(a) + '<div class="grid2">' +
     '<div class="card"><div class="lbl">Balance ' + esc(a.ccy) + '</div><div class="big num">' + fmt(a.bal, 2) + '</div><div class="small">initial ' + short(a.init) + " (" + esc(a.initSrc) + ")</div></div>" +
     '<div class="card"><div class="lbl">Equity</div><div class="big num ' + (eqUp ? "" : "dn") + '">' + fmt(a.eq, 2) + "</div>" + spark(a.eqh, eqUp) + "</div>" +
     '<div class="card"><div class="lbl">Floating</div><div class="big num ' + pcls(a.flt) + '">' + sgn(a.flt, 2) + '</div><div class="small">' + (a.copies || 0) + " copies open</div></div>" +
-    '<div class="card"><div class="lbl">Closed today</div><div class="big num ' + pcls(a.today) + '">' + sgn(a.today, 2) + '</div><div class="small">' + sgn(tdp, 2) + "% of initial" + since(a) + "</div></div></div></div>";
+    '<div class="card"><div class="lbl">Closed today</div><div class="big num ' + pcls(a.today) + '">' + sgn(a.today, 2) + '</div><div class="small">' + sgn(tdp, 2) + "% of initial" + since(a) + "</div></div></div>";
   h += dtCard(a) + chCard(a);
   //--- prop-firm gauges
   const g = (lbl, val, lim, target) => {
@@ -1257,10 +1253,8 @@ function masterView(a) {
   }
   if (tab === "ac") return h + '<div class="list">' + events(a.ev) + "</div>";
   const eqUp = a.eq >= a.bal - 0.004;
-  const mnet = mDay(a) ? mDay(a).pl : dayPL(a);                       // v6.60: the hero
-  h += '<div class="stack">' + eaDays(a).map(edCard).join("") +
-    (mnet != null ? '<div class="card hero"><div class="row2"><span class="lbl">Today &middot; NET since the ' + esc(hhmm(mDay(a) ? mDay(a).from : dayFrom(a)) || "market") + " open</span></div>" +
-      '<div class="hnum num ' + pcls(mnet) + '">' + sgn(mnet, 2) + "<span>" + esc(a.ccy) + "</span></div>" : '<div class="card hero">') + '<div class="grid2">' +
+  const mnet = mDay(a) ? mDay(a).pl : dayPL(a);                       // v6.60c: the "today" card - own card
+  h += '<div class="stack">' + eaDays(a).map(edCard).join("") + (mnet != null ? todayCard(a, mnet, null, mDay(a) ? mDay(a).from : dayFrom(a)) : "") + '<div class="grid2">' +
     '<div class="card"><div class="lbl">Balance ' + esc(a.ccy) + '</div><div class="big num">' + fmt(a.bal, 2) + '</div><div class="small">magics ' + esc(a.mags || "-") + "</div></div>" +
     '<div class="card"><div class="lbl">Equity</div><div class="big num ' + (eqUp ? "" : "dn") + '">' + fmt(a.eq, 2) + "</div>" + spark(a.eqh, eqUp) + "</div>" +
     (mDay(a)
@@ -1270,12 +1264,12 @@ function masterView(a) {
       ? '<div class="card"><div class="lbl">Today</div><div class="big num ' + pcls(dayPL(a)) + '">' + sgn(dayPL(a), 2) + '</div><div class="small num">closed ' + sgn(a.today, 2) +
         " | open " + sgn(a.fltAll != null ? a.fltAll : (a.flt || 0), 2) + since(a) + "</div></div>"
       : '<div class="card"><div class="lbl">Floating (copied)</div><div class="big num ' + pcls(a.flt) + '">' + sgn(a.flt, 2) + '</div><div class="small">' + ps.length + " positions</div></div>") +
-    '<div class="card"><div class="lbl">Signals today</div><div class="big num">' + (a.sigToday || 0) + '</div><div class="small">last ' + esc(a.lastSig || "-") + "</div></div></div></div>";
+    '<div class="card"><div class="lbl">Signals today</div><div class="big num">' + (a.sigToday || 0) + '</div><div class="small">last ' + esc(a.lastSig || "-") + "</div></div></div>";
   h += calCard(a);
   h += '<div class="card"><div class="row2"><div><div class="lbl">Turbo broadcast engine</div><div class="big" style="color:' + (a.live ? "var(--green)" : "var(--amber)") + '">' + (a.live ? "LIVE" : "STARTING") +
     '</div><div class="small num">queue seq ' + (a.qseq || 0) + '</div></div><div class="small num" style="text-align:right"><div>write <b style="color:var(--txt)">' + (a.wr > 0 ? (a.wr < 1000 ? fmt(a.wr, 0) + " us" : ms(a.wr / 1000)) : "-") +
     "</b></div><div>queue " + (a.qsize < 1024 ? a.qsize + " B" : fmt(a.qsize / 1024, 1) + " KB") + "</div><div>sent " + (a.sigSent || 0) + "</div></div></div></div>";
-  h += '<div class="lbl" style="margin:4px 2px 0">Copied by - the funded accounts</div>';
+  h += '<div class="lbl" style="margin:4px 2px 0">Target accounts</div>';
   h += sl.length ? '<div class="list" style="margin-top:0">' + sl.map((s) => {
     const sa = accList().find((x) => x.id === s.id && x.role === "S"), on = sa ? accOnline(sa) : s.live;           // v6.60: the funded account's own data
     const ss = sa && on && sa.cs ? String(sa.cs.s || "") : String(s.state || ""), nm = sa && on && sa.cs ? csName(ss) : [s.state, s.state === "COPYING" ? "var(--green)" : /GUARD|ALGO OFF|OFFLINE|STOPPED|LOSS/.test(s.state) ? "var(--red)" : "var(--amber)"];
@@ -1294,8 +1288,9 @@ function masterView(a) {
       const st = sa.cs && +sa.cs.since > 0 ? " &middot; since " + hhmm(+sa.cs.since) : "", un = sa.cs && +sa.cs.until > 0 ? " &middot; copies again " + esc(dayHM(+sa.cs.until)) : "";
       det += '<div class="small" style="color:' + nm[1] + '">' + esc(sa.status || "") + st + un + "</div>";
     }
-    return '<div class="item"><div class="h"><span class="dot ' + (on ? "on" : "off") + '"></span><span class="name">' + esc(s.id) + "</span>" + (s.lot && s.lot !== 100 ? lotPill(s.lot) : "") +
-      '<span class="r">' + chip(nm[0], nm[1]) + '</span></div><div class="kv" style="margin-top:6px"><span class="small">' + esc(s.broker) + '</span><span class="num ' + pcls(s.eq - s.bal) + '">' + short(s.eq) + " " + esc(s.ccy) +
+    const k = s.state === "COPYING" ? "var(--green)" : /GUARD|ALGO OFF|OFFLINE|STOPPED/.test(s.state) ? "var(--red)" : "var(--amber)";   // v6.60c: the item as before + the lines below
+    return '<div class="item"><div class="h"><span class="dot ' + (s.live ? "on" : "off") + '"></span><span class="name">' + esc(s.id) + "</span>" + (s.lot && s.lot !== 100 ? lotPill(s.lot) : "") +
+      '<span class="r">' + chip(s.state, k) + '</span></div><div class="kv" style="margin-top:6px"><span class="small">' + esc(s.broker) + '</span><span class="num ' + pcls(s.eq - s.bal) + '">' + short(s.eq) + " " + esc(s.ccy) +
       ' <span class="small mut">' + s.open + " open</span></span></div>" + (det ? '<div class="cby">' + det + "</div>" : "") + "</div>";
   }).join("") + "</div>" : '<div class="empty">No slaves seen yet.</div>';
   return h + "</div>";
