@@ -948,7 +948,7 @@ function slaveView(a) {
   let h = statusCard(a, chips, ncBlock(a));
   h += tabBar(a.id, [["ov", "Overview"], ["ms", "Masters", ms_.length], ["tr", "Trades", tr.length], ["ac", "Activity"], ["sk", "Skipped", skCount(a)]], tab);
   if (tab === "ms") return h + mastersList(a);
-  if (tab === "tr") return h + tradesList(tr);
+  if (tab === "tr") return h + tradesList(a, tr);
   if (tab === "ac") return h + dayActivity(a);
   if (tab === "sk") return h + skTab(a);
   //--- overview
@@ -1098,11 +1098,11 @@ function mastersList(a) {
       (gh ? "SL / TP hidden from the broker" : "SL / TP at the broker (normal)") + "</span></span>" +
       '<button class="sw gh' + (gh ? " on" : "") + (busyG ? " busy" : "") + '" data-cmd="' + (gh ? "GHOSTOFF" : "GHOSTON") + '" data-m="' + mid + '"><i></i>' + (gh ? "ON" : "OFF") + "</button></div>";
     const trl = +m.trl || 0, tOn = trl > 0, tv = Math.round(trl * 100), busyT = isBusy(a.id, "TRAIL:" + m.id), csT = ctlState(a, "TRAILSET");   // v6.57: TP TRAIL for this master
-    const tStart = Math.min(300, Math.max(30, Math.round((a.trd != null ? +a.trd : 0.5) * 100)));
+    const tStart = Math.min(300, Math.max(10, Math.round((a.trd != null ? +a.trd : 0.5) * 100)));   // v6.57b: down to 0.10 (the copier takes 0.10 - 20.00)
     const trRow = '<div class="mctl' + (csT.ok ? "" : " off") + '"><span class="lbl">TP TRAIL<span class="small mut" style="display:block;font-weight:500;letter-spacing:0;text-transform:none">' +
       (tOn ? "at the TP: not closed, SL " + fmt(trl, 2) + " behind" : "closes at the TP (normal)") + "</span></span>" +
       '<button class="sw tr' + (tOn ? " on" : "") + (busyT ? " busy" : "") + '" data-cmd="TRAILSET" data-m="' + mid + '" data-v="' + (tOn ? 0 : tStart) + '"><i></i>' + (tOn ? "ON" : "OFF") + "</button></div>" +
-      (tOn ? '<div class="mctl' + (csT.ok ? "" : " off") + '"><span class="lbl">Trail distance</span><div class="stepper" style="margin-left:0"><button data-cmd="TRAILSET" data-m="' + mid + '" data-v="' + Math.max(30, tv - 10) +
+      (tOn ? '<div class="mctl' + (csT.ok ? "" : " off") + '"><span class="lbl">Trail distance</span><div class="stepper" style="margin-left:0"><button data-cmd="TRAILSET" data-m="' + mid + '" data-v="' + Math.max(10, tv - 10) +
         '" aria-label="Trail distance down">&minus;</button><span class="num">' + fmt(trl, 2) + '</span><button data-cmd="TRAILSET" data-m="' + mid + '" data-v="' + Math.min(300, tv + 10) + '" aria-label="Trail distance up">+</button></div></div>' : "");
     const eaChip = ma && ma.eaStop ? chip("EA STOPPED", "var(--red)") : "";
     let det = [];
@@ -1121,15 +1121,20 @@ function mastersList(a) {
       '<div class="mbtns">' + copyBtn + eaBtn(ma, m.id, "sm") + "</div>" + lotRow + ghRow + trRow + "</div>";
   }).join("") + '<div class="small mut">' + (cs.ok ? "Stop copy and LOT size: only for " + esc(a.id) + ", new copies only. GHOST SL/TP and TP TRAIL: only for " + esc(a.id) + ", also its open copies. Stop EA: the master itself stops trading (open trades keep their SL/TP)." : esc(cs.why)) + "</div></div>";
 }
-function tri(t) {
-  return '<div class="tri num"><div><span>OPEN</span><b>' + (t.open > 0 ? t.open : "-") + '</b></div><div><span>' + (+t.tr === 2 ? "TRAIL SL" : "SL") + "</span><b>" + (t.sl > 0 ? t.sl : "-") +
-    '</b></div><div><span>' + (+t.tr === 1 ? "TP (trail)" : "TP") + "</span><b>" + (+t.tr === 2 ? "trailing" : t.tp > 0 ? t.tp : "-") + "</b></div></div>";
+function tri(t, g) {                                                   // g: a GHOST SL/TP copy - its SL / TP shown here are the hidden ones
+  const h = g ? " (hidden)" : "", tr = +t.tr;
+  return '<div class="tri num"><div><span>OPEN</span><b>' + (t.open > 0 ? t.open : "-") + '</b></div><div><span>' + (tr === 2 ? "TRAIL SL" : "SL") + h + "</span><b>" + (t.sl > 0 ? t.sl : "-") +
+    '</b></div><div><span>' + (tr === 1 ? "TP (trail)" : tr === 2 ? "TP" : "TP" + h) + "</span><b>" + (tr === 2 ? "trailing" : t.tp > 0 ? t.tp : "-") + "</b></div></div>";
 }
-function tradesList(tr) {
+function tradesList(a, tr) {
   if (!tr.length) return '<div class="empty">No copied trades open.</div>';
-  return '<div class="list">' + tr.map((t) => '<div class="item"><div class="h"><span class="tag ' + (t.d > 0 ? "buy" : "sell") + '">' + (t.d > 0 ? "BUY" : "SELL") + '</span><span class="name">' + esc(t.sym) +
+  const gAll = +a.ghost >= 99, gh = {};                                  // v6.57b: GHOST SL/TP copies marked like TP TRAIL (the master's switch, or ON for every master)
+  (a.masters || []).forEach((m) => { if (m.gh) gh[m.id] = 1; });
+  return '<div class="list">' + tr.map((t) => { const g = gAll || !!gh[t.m];
+    return '<div class="item"><div class="h"><span class="tag ' + (t.d > 0 ? "buy" : "sell") + '">' + (t.d > 0 ? "BUY" : "SELL") + '</span><span class="name">' + esc(t.sym) +
     ' <span class="num">' + fmt(t.lots, 2) + "</span></span>" + (+t.tr === 2 ? chip("TRAILING", "var(--green)") : "") + '<span class="pl num ' + pcls(t.pl) + '">' + sgn(t.pl, 2) + "</span></div>" +
-    '<div class="small" style="margin-top:3px">from ' + esc(t.m || "?") + (+t.tr === 1 ? ' &middot; <b style="color:var(--green)">TP TRAIL</b>' : "") + "</div>" + tri(t) + "</div>").join("") + "</div>";
+    '<div class="small" style="margin-top:3px">from ' + esc(t.m || "?") + (g ? ' &middot; <b style="color:var(--acc)">GHOST SL/TP</b>' : "") + (+t.tr === 1 ? ' &middot; <b style="color:var(--green)">TP TRAIL</b>' : "") + "</div>" +
+    tri(t, g) + "</div>"; }).join("") + "</div>";
 }
 function masterView(a) {
   const tab = tabs[a.id] || "ov";
