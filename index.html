@@ -279,16 +279,38 @@ button{font:inherit;color:inherit}
 .cslog .t b{color:var(--txt);font-weight:650}
 .cby{display:flex;flex-direction:column;gap:3px;margin-top:6px}
 .cby .small b{font-weight:700}
-.w7{display:flex;flex-direction:column;margin-top:4px}
-.w7r{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;padding:9px 0;border-top:1px solid var(--line)}
-.w7r:first-child{border-top:0}
-.w7r .nm{font-size:13.5px;font-weight:700;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
-.w7r .pl7{font-size:15px;font-weight:750;text-align:right}
-.w7r .st7{grid-column:1 / span 2;font-size:12px;color:var(--sec)}
-.w7r .st7 b{font-weight:700}
-.w7bars{grid-column:1 / span 2;display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:4px;align-items:end;height:24px;margin-top:4px}
-.w7bars i{display:block;width:100%;max-width:16px;justify-self:center;border-radius:3px;min-height:3px;background:var(--track)}
-.w7r.tot{border-top:1px solid var(--line);margin-top:2px}
+/* v6.60d - last 7 days per master as a table (design A): FTMO GOT / MASTERS MADE / MATCH, one line per master, tap for its days */
+.w7s{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:4px;margin-top:9px}
+.w7s div{background:var(--zebra);border-radius:9px;padding:6px 8px;min-width:0}
+.w7s span{display:block;font-size:9.5px;font-weight:700;letter-spacing:.6px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.w7s b{display:block;font-size:16px;font-weight:700;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.w7sum{margin-top:7px}
+.w7t{margin-top:10px}
+.w7hd,.w7row{display:grid;grid-template-columns:minmax(0,1fr) 30px 36px 78px 44px;gap:6px;align-items:center}
+.w7hd{padding:0 0 6px;font-size:9.5px;font-weight:700;letter-spacing:.6px;color:var(--mut)}
+.w7hd span:not(:first-child),.w7row > :not(.nm){text-align:right;white-space:nowrap}
+.w7row{-webkit-appearance:none;appearance:none;border:0;border-top:1px solid var(--line);border-radius:0;background:transparent;color:inherit;font:inherit;font-size:13px;line-height:1.35;text-align:left;width:100%;padding:8px 0;margin:0;cursor:pointer;-webkit-tap-highlight-color:transparent}
+.w7row > span{color:var(--sec)}
+.w7row > b{font-weight:700}
+.w7row .nm{display:flex;align-items:center;gap:5px;min-width:0;font-weight:650;color:var(--txt)}
+.w7row .nm span{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.w7row .nm svg{flex:none;color:var(--mut)}
+.w7row[aria-expanded="true"] .nm svg{color:var(--sec)}
+.w7row.tot{cursor:default;font-weight:700;border-top-color:var(--track);padding:9px 0 2px}
+.w7row.tot > span{color:var(--txt)}
+.w7d{background:var(--zebra);border-radius:11px;padding:9px 10px;margin:0 0 8px;display:flex;flex-direction:column;gap:5px}
+.w7d .small{margin:0}
+.w7days{display:grid;grid-template-columns:repeat(7,minmax(0,1fr));gap:3px;margin-top:2px}
+.w7days div{border-radius:7px;padding:4px 0;text-align:center;background:var(--card2);min-width:0}
+.w7days span{display:block;font-size:9px;font-weight:700;color:var(--sec)}
+.w7days b{display:block;font-size:11px;font-weight:700;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.w7days .p{background:color-mix(in srgb, var(--green) 14%, transparent)}
+.w7days .p b{color:var(--green)}
+.w7days .m{background:color-mix(in srgb, var(--red) 14%, transparent)}
+.w7days .m b{color:var(--red)}
+.w7row .w7dot{flex:none;width:6px;height:6px;border-radius:50%;background:var(--red)}
+.w7d .warn7{margin:2px 0 0;padding:7px 9px;border-radius:8px;font-size:12px;line-height:1.4;background:color-mix(in srgb, var(--red) 12%, transparent)}
+@media (max-width:360px){.w7hd,.w7row{grid-template-columns:minmax(0,1fr) 26px 32px 70px 40px;gap:5px}.w7row{font-size:12px}.w7s b{font-size:14px}}
 .warn7{margin-top:10px;padding:9px 11px;border-radius:11px;font-size:12.5px;line-height:1.45;background:color-mix(in srgb, var(--red) 12%, var(--zebra))}
 .warn7 b{color:var(--red);font-weight:700}
 </style>
@@ -1183,35 +1205,60 @@ function mastersList(a) {
   }).join("") + '<div class="small mut">' + (cs.ok ? "Stop copy and LOT size: only for " + esc(a.id) + ", new copies only. GHOST SL/TP and TP TRAIL: only for " + esc(a.id) + ", also its open copies. Stop EA: the master itself stops trading (open trades keep their SL/TP)." : esc(cs.why)) + "</div></div>";
 }
 //--- v6.60: the last 7 market days per master (copier v6.60): trades, wins, NET with all costs, commission, MATCH in money + %.
+//--- v6.60d: shown as a table (design A) - FTMO GOT / MASTERS MADE (the masters at this account's lot size) / MATCH on top,
+//--- one line per master (TR, WIN, NET, MATCH; best NET first), tap a master to open its 7 days, average and commission.
 //--- A warning when this account loses most of a master's edge per trade (spread, commission, fills) - copying it may not pay here.
+const w7Open = {};                                                       // account id -> the master open in the table ("" = none)
 function labDay(l) { l = +l || 0; if (!l) return ""; try { return new Date(Date.UTC(Math.floor(l / 10000), Math.floor(l / 100) % 100 - 1, l % 100)).toLocaleDateString([], { day: "numeric", month: "short", timeZone: "UTC" }); } catch (e) { return String(l); } }
+function labWd(l) { l = +l || 0; if (!l) return ""; try { return new Date(Date.UTC(Math.floor(l / 10000), Math.floor(l / 100) % 100 - 1, l % 100)).toLocaleDateString([], { weekday: "short", timeZone: "UTC" }); } catch (e) { return ""; } }
+const w7Pct = (p) => (p == null ? "-" : p < 0 ? "&lt;0%" : Math.round(Math.min(999, p)) + "%");
+const w7N = (v) => (Math.abs(v) >= 10000 ? sgn(v, 0) : sgn(v, 2));
+const W7CHEV = { o: '<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M2 3.5 5 6.5 8 3.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>',
+  c: '<svg width="10" height="10" viewBox="0 0 10 10" aria-hidden="true"><path d="M3.5 2 6.5 5 3.5 8" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"></path></svg>' };
 function w7Card(a) {
   const w = a.w7;
   if (!w || !Array.isArray(w.d) || !Array.isArray(w.m)) return "";
-  const fund = a.broker && /FTMO/i.test(a.broker) ? "FTMO" : "this account", ccy = /^USC$/i.test(a.ccy || "") ? " USC" : "";
-  const T = { n: 0, w: 0, pl: 0, c: 0, k: 0, f: 0, e: 0 }, rows = [], warns = [];
-  const line = (S) => S.n + " tr &middot; win " + Math.round(S.w / S.n * 100) + "% &middot; avg " + bv(S.pl / S.n) + " &middot; comm " + bv(S.c) +
-    (S.k ? " &middot; MATCH " + bv(S.f - S.e) + ' <span class="' + pctCls(pctOf(S.f, S.e)) + '">' + pctTxt(pctOf(S.f, S.e)) + "</span>" : "");
+  const usc = /^USC$/i.test(a.ccy || ""), fund = a.broker && /FTMO/i.test(a.broker) ? "FTMO" : usc ? "CENT" : "", fundTxt = fund || "this account";
+  const T = { n: 0, w: 0, pl: 0, c: 0, k: 0, f: 0, e: 0 }, list = [], warns = [];
   w.m.forEach((m) => {
-    const S = { n: 0, w: 0, pl: 0, c: 0, k: 0, f: 0, e: 0 };
-    const day = (Array.isArray(m.r) ? m.r : []).map((x) => { const n = +x[0] || 0, pl = +x[2] || 0; S.n += n; S.w += +x[1] || 0; S.pl += pl; S.c += +x[3] || 0; S.k += +x[4] || 0; S.f += +x[5] || 0; S.e += +x[6] || 0; return { n: n, pl: pl }; });
+    const S = { id: String(m.id || ""), n: 0, w: 0, pl: 0, c: 0, k: 0, f: 0, e: 0 };
+    S.day = (Array.isArray(m.r) ? m.r : []).map((x) => { const n = +x[0] || 0, pl = +x[2] || 0; S.n += n; S.w += +x[1] || 0; S.pl += pl; S.c += +x[3] || 0; S.k += +x[4] || 0; S.f += +x[5] || 0; S.e += +x[6] || 0; return { n: n, pl: pl }; });
     if (!S.n) return;
     Object.keys(T).forEach((k) => { T[k] += S[k]; });
-    const mx = Math.max(0.01, ...day.map((d) => Math.abs(d.pl)));
-    const bars = '<div class="w7bars" aria-hidden="true">' + day.map((d) => '<i style="height:' + (d.n ? Math.max(3, Math.round(Math.abs(d.pl) / mx * 26)) : 3) + "px;background:" +
-      (!d.n ? "var(--track)" : d.pl >= 0 ? "var(--green)" : "var(--red)") + '"></i>').join("") + "</div>";
-    rows.push('<div class="w7r"><span class="nm">' + esc(m.id) + '</span><span class="pl7 num ' + pcls(S.pl) + '">' + sgn(S.pl, 2) + ccy + '</span><span class="st7 num">' + line(S) + "</span>" + bars + "</div>");
+    list.push(S);
     if (S.k >= 5) {
       const edge = S.e / S.k, cost = (S.e - S.f) / S.k;
-      if (edge > 0 && cost >= edge * 0.6)
-        warns.push('<div class="warn7"><b>' + esc(m.id) + "</b> makes " + bv(edge) + " per trade at this size, " + esc(fund) + " loses " + fmt(cost, 2) + " of it per trade (spread, commission, fills)" +
-          (cost >= edge ? " - copying it loses money here." : " - most of its edge is gone here.") + "</div>");
+      if (edge > 0 && cost >= edge * 0.6) {
+        S.warn = '<div class="warn7"><b>' + esc(S.id) + "</b> makes " + bv(edge) + " per trade at this size, " + esc(fundTxt) + " loses " + fmt(cost, 2) + " of it per trade (spread, commission, fills)" +
+          (cost >= edge ? " - copying it loses money here." : " - most of its edge is gone here.") + "</div>";
+        warns.push(S.id);
+      }
     }
   });
-  if (!rows.length) return '<div class="card"><div class="lbl">Last 7 days per master</div><div class="small mut" style="margin-top:6px">No closed copies in the last 7 market days.</div></div>';
-  const tot = '<div class="w7r tot"><span class="nm">All masters</span><span class="pl7 num ' + pcls(T.pl) + '">' + sgn(T.pl, 2) + ccy + '</span><span class="st7 num">' + line(T) + "</span></div>";
-  return '<div class="card w7c"><div class="row2"><span class="lbl">Last 7 days per master</span><span class="small mut">' + esc(labDay(w.d[0])) + " - " + esc(labDay(w.d[w.d.length - 1])) + "</span></div>" +
-    '<div class="w7">' + rows.join("") + tot + "</div>" + warns.join("") + "</div>";
+  if (!list.length) return '<div class="card"><div class="lbl">Last 7 days per master</div><div class="small mut" style="margin-top:6px">No closed copies in the last 7 market days.</div></div>';
+  list.sort((x, y) => y.pl - x.pl);
+  if (!(a.id in w7Open) || (w7Open[a.id] && !list.some((S) => S.id === w7Open[a.id]))) w7Open[a.id] = list[0].id;   // first look (or that master gone): the best one open
+  const open = w7Open[a.id], pc = (S) => (S.k ? pctOf(S.f, S.e) : null), win = (S) => Math.round(S.w / S.n * 100) + "%";
+  const detail = (S) => {
+    const d = S.f - S.e;
+    return '<div class="w7d">' + (S.k ? '<div class="small num">master ' + bv(S.e) + " &rarr; " + esc(fundTxt) + " " + bv(S.f) + " &middot; " + (d < 0 ? "lost " : "gained ") + bv(d) +
+        (S.k < S.n ? " &middot; " + S.k + " of " + S.n + " trades matched" : "") + "</div>" : '<div class="small">master trades not found here - no MATCH for this master</div>') +
+      '<div class="small num">avg ' + bv(S.pl / S.n) + " per trade &middot; commission " + bv(S.c) + "</div>" + (S.warn || "") +
+      '<div class="w7days num">' + w.d.map((l, i) => { const x = S.day[i] || { n: 0, pl: 0 }; return '<div class="' + (!x.n ? "" : x.pl >= 0 ? "p" : "m") + '"><span>' + esc(labWd(l)) + "</span><b>" + (x.n ? calN(x.pl) : "&ndash;") + "</b></div>"; }).join("") + "</div></div>";
+  };
+  const rows = list.map((S) => { const on = S.id === open, p = pc(S);
+    return '<button type="button" class="w7row num" data-w7="' + esc(S.id) + '" aria-expanded="' + on + '"><span class="nm">' + (on ? W7CHEV.o : W7CHEV.c) + "<span>" + esc(S.id) + "</span>" + (S.warn ? '<i class="w7dot" aria-hidden="true"></i>' : "") + "</span><span>" + S.n + "</span><span>" + win(S) + "</span>" +
+      '<b class="' + pcls(S.pl) + '">' + w7N(S.pl) + '</b><b class="' + pctCls(p) + '">' + w7Pct(p) + "</b></button>" + (on ? detail(S) : ""); }).join("");
+  const tp = pc(T), td = T.f - T.e;
+  const tot = '<div class="w7row tot num"><span class="nm"><span>All masters</span></span><span>' + T.n + "</span><span>" + win(T) + '</span><b class="' + pcls(T.pl) + '">' + w7N(T.pl) + '</b><b class="' + pctCls(tp) + '">' + w7Pct(tp) + "</b></div>";
+  return '<div class="card w7c"><div class="row2"><span class="lbl">Last 7 days per master</span><span class="small">' + esc(labDay(w.d[0])) + " &ndash; " + esc(labDay(w.d[w.d.length - 1])) + "</span></div>" +
+    '<div class="w7s num"><div><span>' + (fund || "ACCOUNT") + ' GOT</span><b class="' + pcls(T.pl) + '">' + w7N(T.pl) + "</b></div>" +
+    '<div><span>MASTERS MADE</span><b class="' + (T.k ? pcls(T.e) : "mut") + '">' + (T.k ? w7N(T.e) : "-") + "</b></div>" +
+    '<div><span>MATCH</span><b class="' + pctCls(tp) + '">' + w7Pct(tp) + "</b></div></div>" +
+    '<div class="small num w7sum">' + (T.k ? (td < 0 ? "lost in copying " : "gained in copying ") + bv(td) + " &middot; " : "") + "commission " + bv(T.c) + (T.k ? " &middot; masters at " + esc(fundTxt) + " lot size" : "") +
+      (T.k && T.k < T.n ? " &middot; " + T.k + " of " + T.n + " trades matched" : "") + "</div>" +
+    '<div class="w7t"><div class="w7hd"><span>MASTER</span><span>TR</span><span>WIN</span><span>NET' + (usc ? " USC" : "") + "</span><span>MATCH</span></div>" + rows + tot + "</div>" +
+    '<div class="small mut" style="margin-top:6px">Tap a master: its 7 days, average and commission.' + (warns.length ? ' <b class="dn">&#9679;</b> = copying loses most of its edge here.' : "") + "</div></div>";
 }
 function tri(t, g) {                                                   // g: a GHOST SL/TP copy - its SL / TP shown here are the hidden ones
   const h = g ? " (hidden)" : "", tr = +t.tr;
@@ -1444,6 +1491,8 @@ document.addEventListener("click", (e) => {
     lastHtml = ""; render();
     return;
   }
+  const w7b = e.target.closest("[data-w7]");                             // v6.60d: open / close a master in the 7-day table
+  if (w7b && sel) { const id = w7b.getAttribute("data-w7"); w7Open[sel] = w7Open[sel] === id ? "" : id; lastHtml = ""; render(); return; }
   const acc = e.target.closest("[data-acc]");
   if (acc) { sel = acc.getAttribute("data-acc"); LS.set("tbfe.sel", sel); acShow = 250; lastHtml = ""; render(); return; }
   if (e.target.closest("[data-acmore]")) { acShow += 500; lastHtml = ""; render(); return; }
