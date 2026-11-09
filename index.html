@@ -325,6 +325,52 @@ button{font:inherit;color:inherit}
 @media (max-width:360px){.w7hd,.w7row{grid-template-columns:minmax(0,1fr) 26px 32px 70px 40px;gap:5px}.w7row{font-size:12px}.w7s b{font-size:14px}}
 .warn7{margin-top:10px;padding:9px 11px;border-radius:11px;font-size:12.5px;line-height:1.45;background:color-mix(in srgb, var(--red) 12%, var(--zebra))}
 .warn7 b{color:var(--red);font-weight:700}
+/* v6.66: the Equity tab + tap the overview boxes to open their tab */
+.box{display:flex;flex-direction:column;cursor:pointer;-webkit-user-select:none;user-select:none}
+.box .gol{margin-top:auto;padding-top:9px;display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:650;color:color-mix(in srgb, var(--acc) 72%, var(--txt))}
+.box:active{background:var(--card2)}
+.box.new{border-color:var(--acc)}
+.tabs .nd{display:inline-block;width:6px;height:6px;border-radius:3px;background:var(--acc);margin-left:4px;vertical-align:middle}
+.tabs.t6{gap:1px}
+.tabs.t6 button{padding:8px 3px;font-size:11.5px}
+@media (max-width:374px){.tabs.t6 button{font-size:11px;padding:8px 2px}}
+@media (max-width:340px){.tabs.t6 button{font-size:10.5px;padding:8px 1px}.tabs.t6 .n{margin-left:1px}}
+.eqc{display:flex;flex-direction:column;gap:12px}
+.eqtop{display:flex;justify-content:space-between;align-items:center;gap:8px}
+.eqseg{display:flex;padding:3px;border-radius:11px;background:var(--bg);border:1px solid var(--line);flex:none}
+.eqseg button{min-width:44px;height:34px;border:0;border-radius:8px;background:transparent;color:var(--sec);font-size:14px;font-weight:800;cursor:pointer;padding:0 8px}
+.eqseg button.on{background:var(--card2);color:var(--txt);box-shadow:0 1px 0 var(--line)}
+.eqrg{display:flex;gap:4px;min-width:0}
+.eqrg button{height:34px;padding:0 9px;border-radius:9px;border:1px solid var(--line);background:transparent;color:var(--sec);font-size:12.5px;font-weight:650;cursor:pointer;white-space:nowrap}
+.eqrg button.on{border-color:var(--acc);background:color-mix(in srgb, var(--acc) 18%, var(--card));color:color-mix(in srgb, var(--acc) 45%, var(--txt));font-weight:700}
+.eqpills{display:flex;gap:8px;flex-wrap:wrap}
+.eqpill{display:inline-flex;align-items:center;gap:7px;padding:6px 10px;border-radius:9px;font-size:13px;font-weight:700}
+.eqpill i{display:inline-block;width:14px}
+.eqpill.pb{background:color-mix(in srgb, var(--acc) 16%, transparent);color:color-mix(in srgb, var(--acc) 30%, var(--txt))}
+.eqpill.pg{background:color-mix(in srgb, var(--green) 15%, transparent);color:color-mix(in srgb, var(--green) 35%, var(--txt))}
+.eqpill.pr{background:color-mix(in srgb, var(--red) 15%, transparent);color:color-mix(in srgb, var(--red) 35%, var(--txt))}
+.eqpill.pn{background:var(--card2);color:var(--txt)}
+.eqrail{display:flex;align-items:center;gap:6px;font-size:12px;font-weight:650;flex-wrap:wrap}
+.eqrail .d{color:var(--mut);font-weight:500}
+.eqrail .r{color:var(--sec);font-weight:500}
+.eqrails{display:flex;flex-direction:column;gap:4px;margin-top:-4px}
+.eqsvg{display:block;width:100%;height:auto;touch-action:pan-y;-webkit-user-select:none;user-select:none;font-size:10.5px;font-family:var(--font);font-variant-numeric:tabular-nums;cursor:crosshair}
+.eqsvg.scr .eqlab{display:none}
+.eqsw{display:flex;justify-content:space-between;align-items:center;gap:10px;border-top:1px solid var(--line);padding-top:6px;font-size:13.5px;font-weight:650;color:var(--sec)}
+.eqobj{display:flex;flex-direction:column;gap:6px}
+.eqobj .hd{display:flex;justify-content:space-between;align-items:baseline;gap:10px}
+.eqobj .hd span{font-size:13.5px;font-weight:650}
+.eqobj .hd b{font-size:14px;font-weight:750}
+.eqobj .bar{height:8px}
+.eqobj .ft{display:flex;justify-content:space-between;gap:10px;font-size:12px;color:var(--sec)}
+.eqobj .ft span:last-child{text-align:right;white-space:nowrap}
+.eqst{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:8px}
+.eqst div{background:var(--bg2);border:1px solid var(--line);border-radius:12px;padding:10px 12px;display:flex;flex-direction:column;gap:2px;min-width:0}
+.eqst div.w{grid-column:1 / -1}
+.eqst span{font-size:11.5px;color:var(--sec);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eqst b{font-size:18px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eqst b.mv{color:color-mix(in srgb, var(--acc) 60%, var(--txt))}
+@media (max-width:360px){.eqrg button{padding:0 7px;font-size:12px}.eqseg button{min-width:38px}.eqst b{font-size:16px}}
 </style>
 </head>
 <body>
@@ -385,7 +431,7 @@ button{font:inherit;color:inherit}
 
 <script>
 "use strict";
-const DEMO = {"meta":{"t":1792575162,"n":7,"v":118,"every":5,"ctl":1,"lock":0,"by":"Acc_70010001"},"acc":{"a1500000001":{"v":663,"role":"S","id":"Acc_1500000001","login":1500000001,"broker":"FTMO Global Markets Ltd","server":"FTMO-Server","ccy":"USD","t":1792575162,"status":"NOT COPIED: SPREAD 1.35 > max 1.00  (1 today)","cs":{"s":"SKIPPING","since":1792575061,"until":0,"log":[[1792575061,"SKIPPING","NOT COPIED: SPREAD 1.35 > max 1.00  (1 today)"],[1792575000,"COPYING","COPYING - all systems normal"]]},"sk":2,"short":"SKIPPING","bal":100035.68,"eq":99770.88,"flt":-264.8,"today":35.68,"dayGmt":1792533600,"init":100000.0,"initSrc":"auto","dl":0.229,"dlLim":4.5,"dlf":1792533600,"ml":0.229,"mlLim":9.0,"pp":-0.229,"ppTgt":10.0,"risk":0.962,"room":4.271,"noSL":0,"copies":4,"req":15,"reqMax":1700,"pos":4,"posMax":180,"turbo":2.72,"ping":12.4,"fast":1,"ghost":0,"ghs":3.0,"ghsec":2,"trail":0,"trd":0.5,"bec":0,"bed":2.0,"pcc":0,"pcp0":50,"pcd0":2.0,"pcn0":1,"rec":0,"res0":10,"rea0":10,"paused":0,"guard":"","news":"USD NEWS in 2h 10m","newsK":4,"days":1,"lots":"same lot","day":{"copies":6,"skips":1,"closes":2,"heals":0,"held":1,"avg":34.4},"dt":{"net":-229.12,"cl":35.68,"op":-264.8,"tgt":1000.0,"lim":1000.0,"hit":0,"hp":1,"from":1792533600},"ch":{"s":540,"on":0,"a":1792587600,"b":1792620000,"mc":0},"nc":[["MASTER SWITCHED OFF",1,1,"MASTER SWITCHED OFF"],["SPREAD",1,0,"SPREAD 1.35 > max 1.00"],["CANCELLED",1,0,"CANCELLED - closed on master while the copy waited (spread / market closed)"]],"spr":{"max":1.0},"lat":{"n":6,"last":28.12,"sig":0.13,"brk":27.99,"avg":33.6,"best":28.12,"slip":2.5,"hist":[31.0,32.0,35.1,37.0,43.0,28.1]},"eqh":[100000.0,100070.08,99971.48,100206.08,100206.08,100206.08,99770.88],"masters":[{"id":"Acc_70010001","broker":"Exness Technologies Ltd","bal":990.4,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":663,"lot":100,"x":1.0,"sig":2,"cop":1,"skip":1,"held":0,"open":1,"flt":-16.4,"today":-0.28,"fee":-0.28,"speed":31.0,"slip":-0.0,"lag":0,"q":1},{"id":"Acc_70010002","broker":"Exness Technologies Ltd","bal":1498.02,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":663,"lot":100,"x":1.0,"sig":2,"cop":1,"skip":0,"held":0,"open":0,"flt":0.0,"today":-2.92,"fee":-1.12,"speed":32.0,"slip":4.0,"lag":0,"q":1},{"id":"Acc_70010003","broker":"Exness Technologies Ltd","bal":2000.0,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":663,"lot":200,"x":2.0,"sig":2,"cop":2,"skip":0,"held":0,"open":2,"flt":-166.4,"today":-3.08,"fee":-3.08,"speed":31.6,"slip":3.6,"lag":0,"q":1},{"id":"Acc_70010004","broker":"Exness Technologies Ltd","bal":2547.92,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":663,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"held":0,"open":0,"flt":0.0,"today":43.36,"fee":-2.24,"speed":37.0,"slip":4.0,"lag":0,"q":1},{"id":"Acc_70010005","broker":"Exness Technologies Ltd","bal":3040.2,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":663,"lot":100,"x":1.0,"sig":2,"cop":1,"skip":0,"held":1,"open":1,"flt":-82.0,"today":-1.4,"fee":-1.4,"speed":43.0,"slip":-0.0,"lag":0,"q":1}],"w7":{"d":[20261013,20261014,20261015,20261016,20261019,20261020,20261021],"m":[{"id":"Acc_70010002","r":[[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[1,0,-2.92,-1.12,1,-2.92,1.22]]},{"id":"Acc_70010004","r":[[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[1,1,43.36,-2.24,1,43.36,47.92]]}]},"trades":[{"m":"Acc_70010003","sym":"XAUUSD","d":1,"lots":0.5,"open":4099.66,"sl":4093.57,"tp":4111.66,"tr":0,"be":0,"pc":0,"re":0,"pl":-68.0},{"m":"Acc_70010005","sym":"XAUUSD","d":1,"lots":0.5,"open":4099.94,"sl":4090.92,"tp":4113.94,"tr":0,"be":0,"pc":0,"re":0,"pl":-82.0},{"m":"Acc_70010003","sym":"XAUUSD","d":1,"lots":0.6,"open":4099.94,"sl":4092.92,"tp":4111.94,"tr":0,"be":0,"pc":0,"re":0,"pl":-98.4},{"m":"Acc_70010001","sym":"XAUUSD","d":1,"lots":0.1,"open":4099.94,"sl":4094.92,"tp":4109.94,"tr":0,"be":0,"pc":0,"re":0,"pl":-16.4}],"ev":[{"t":"14:31:18","k":6,"m":"CANCEL XAUUSDm - closed on master while the copy was waiting (spread / market closed)  <Acc_70010002"},{"t":"14:31:03","k":3,"m":"WAIT SELL XAUUSD - market closed on this broker: copying when it opens (max 10 min; a master trade in loss wai"},{"t":"14:31:00","k":2,"m":"SKIP SELL XAUUSDm - SPREAD 1.35 > max 1.00  <Acc_70010001"},{"t":"14:30:30","k":3,"m":"WAIT SELL XAUUSD - spread 1.35 > max 1.00  <Acc_70010001"},{"t":"14:30:26","k":3,"m":"HOLD BUY XAUUSDm - MASTER SWITCHED OFF  <Acc_70010005"},{"t":"14:30:16","k":1,"m":"CLOSE XAUUSD 0.40  P/L +45.60  <Acc_70010004"},{"t":"14:30:09","k":4,"m":"SL/TP XAUUSD  SL 4093.57  TP 4111.66"},{"t":"14:30:08","k":1,"m":"COPY BUY XAUUSD 0.50  <Acc_70010003  28 ms"},{"t":"14:30:06","k":1,"m":"CLOSE XAUUSD 0.20  P/L +0.20  <Acc_70010002"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4094.92  TP 4109.94"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4105.80  TP 4088.74"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4092.92  TP 4111.94"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4107.80  TP 4086.74"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4090.92  TP 4113.94"}],"ctl":1,"acks":[]},"a26000001":{"v":663,"role":"S","id":"Acc_26000001","login":26000001,"broker":"FundedNext Ltd","server":"FundedNext-Server","ccy":"USD","t":1792575162,"status":"COPYING - all systems normal","cs":{"s":"COPYING","since":1792575000,"until":0,"log":[[1792575000,"COPYING","COPYING - all systems normal"]]},"sk":1,"short":"COPYING","bal":50064.8,"eq":49876.3,"flt":-188.5,"today":64.8,"dayGmt":1792533600,"init":50000.0,"initSrc":"auto","dl":0.247,"dlLim":4.5,"dlf":1792533600,"ml":0.247,"mlLim":9.0,"pp":-0.247,"ppTgt":10.0,"risk":1.365,"room":4.253,"noSL":0,"copies":4,"req":23,"reqMax":1700,"pos":4,"posMax":180,"turbo":3.43,"ping":12.4,"fast":1,"ghost":0,"ghs":3.0,"ghsec":2,"trail":0,"trd":0.5,"bec":0,"bed":2.0,"pcc":0,"pcp0":50,"pcd0":2.0,"pcn0":1,"rec":0,"res0":10,"rea0":10,"paused":0,"guard":"","news":"USD NEWS in 2h 10m","newsK":4,"days":1,"lots":"same lot","day":{"copies":9,"skips":0,"closes":5,"heals":0,"held":0,"avg":36.2},"dt":{"net":-123.7,"cl":64.8,"op":-188.5,"tgt":1000.0,"lim":1000.0,"hit":0,"hp":1,"from":1792533600},"ch":{"s":540,"on":0,"a":1792587600,"b":1792620000,"mc":0},"nc":[],"spr":{"max":1.0},"lat":{"n":9,"last":30.98,"sig":0.0,"brk":30.98,"avg":34.84,"best":30.98,"slip":5.1,"hist":[31.5,37.2,38.9,42.0,43.1,33.5,31.0,38.0,31.0]},"eqh":[50000.0,50094.2,50091.7,50170.7,50170.7,50170.7,49876.3],"masters":[{"id":"Acc_70010001","broker":"Exness Technologies Ltd","bal":990.4,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":663,"lot":100,"x":1.0,"sig":2,"cop":2,"skip":0,"held":0,"open":1,"flt":-17.0,"today":-10.5,"fee":0.0,"speed":37.6,"slip":4.2,"lag":0,"q":1},{"id":"Acc_70010002","broker":"Exness Technologies Ltd","bal":1498.02,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":663,"lot":100,"x":1.0,"sig":2,"cop":2,"skip":0,"held":0,"open":0,"flt":0.0,"today":-7.8,"fee":0.0,"speed":36.5,"slip":5.2,"lag":0,"q":1},{"id":"Acc_70010003","broker":"Exness Technologies Ltd","bal":2000.0,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":663,"lot":100,"x":1.0,"sig":2,"cop":2,"skip":0,"held":0,"open":2,"flt":-86.5,"today":0.0,"fee":0.0,"speed":32.5,"slip":7.1,"lag":0,"q":1},{"id":"Acc_70010004","broker":"Exness Technologies Ltd","bal":2547.92,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":663,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"held":0,"open":0,"flt":0.0,"today":45.6,"fee":0.0,"speed":43.1,"slip":5.5,"lag":0,"q":1},{"id":"Acc_70010005","broker":"Exness Technologies Ltd","bal":3040.2,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":663,"lot":100,"x":1.0,"sig":2,"cop":2,"skip":0,"held":0,"open":1,"flt":-85.0,"today":37.5,"fee":0.0,"speed":35.0,"slip":3.8,"lag":0,"q":1}],"w7":{"d":[20261013,20261014,20261015,20261016,20261019,20261020,20261021],"m":[{"id":"Acc_70010002","r":[[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[2,0,-7.8,0.0,2,-7.8,-1.98]]},{"id":"Acc_70010004","r":[[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[1,1,45.6,0.0,1,45.6,47.92]]},{"id":"Acc_70010005","r":[[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[1,1,37.5,0.0,1,37.5,40.2]]},{"id":"Acc_70010001","r":[[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[1,0,-10.5,0.0,1,-10.5,-9.6]]}]},"trades":[{"m":"Acc_70010003","sym":"XAUUSD","d":1,"lots":0.25,"open":4099.54,"sl":4093.39,"tp":4111.54,"tr":0,"be":0,"pc":0,"re":0,"pl":-35.5},{"m":"Acc_70010005","sym":"XAUUSD","d":1,"lots":0.5,"open":4099.82,"sl":4090.74,"tp":4113.82,"tr":0,"be":0,"pc":0,"re":0,"pl":-85.0},{"m":"Acc_70010001","sym":"XAUUSD","d":1,"lots":0.1,"open":4099.82,"sl":4094.74,"tp":4109.82,"tr":0,"be":0,"pc":0,"re":0,"pl":-17.0},{"m":"Acc_70010003","sym":"XAUUSD","d":1,"lots":0.3,"open":4099.82,"sl":4092.74,"tp":4111.82,"tr":0,"be":0,"pc":0,"re":0,"pl":-51.0}],"ev":[{"t":"14:31:18","k":2,"m":"CLOSE XAUUSD 0.20  P/L -5.00  <Acc_70010002"},{"t":"14:31:04","k":4,"m":"SL/TP XAUUSD  SL 4105.77  TP 4090.68"},{"t":"14:31:03","k":1,"m":"COPY SELL XAUUSD 0.20  <Acc_70010002  31 ms"},{"t":"14:31:03","k":2,"m":"CLOSE XAUUSD 0.10  P/L -10.50  <Acc_70010001"},{"t":"14:30:31","k":4,"m":"SL/TP XAUUSD  SL 4104.97  TP 4089.88"},{"t":"14:30:30","k":1,"m":"COPY SELL XAUUSD 0.10  <Acc_70010001  38 ms"},{"t":"14:30:29","k":1,"m":"CLOSE XAUUSD 0.30  P/L +37.50  <Acc_70010005"},{"t":"14:30:27","k":4,"m":"SL/TP XAUUSD  SL 4092.54  TP 4110.63"},{"t":"14:30:26","k":1,"m":"COPY BUY XAUUSD 0.30  <Acc_70010005  31 ms"},{"t":"14:30:16","k":1,"m":"CLOSE XAUUSD 0.40  P/L +44.00  <Acc_70010004"},{"t":"14:30:09","k":4,"m":"SL/TP XAUUSD  SL 4093.39  TP 4111.54"},{"t":"14:30:08","k":1,"m":"COPY BUY XAUUSD 0.25  <Acc_70010003  33 ms"},{"t":"14:30:06","k":2,"m":"CLOSE XAUUSD 0.20  P/L -0.80  <Acc_70010002"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4092.74  TP 4111.82"}],"ctl":1,"acks":[]},"a70010001":{"v":663,"role":"M","id":"Acc_70010001","login":70010001,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575162,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":990.4,"eq":974.19,"flt":-16.21,"today":-9.6,"dayGmt":1792533600,"fltAll":-16.21,"tdf":{"Acc_1500000001":-9.6,"Acc_26000001":-9.6},"tdx":{"Acc_1500000001":[0.0,-9.6,-16.21,0.0,1,1,1,0],"Acc_26000001":[-9.6,0.0,-16.21,0.0,1,1,1,1]},"sigToday":3,"sigSent":3,"lastSig":"CLOSE  14:31:03","mags":"20240601","live":1,"qseq":3,"qsize":778,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[1000.0,1001.44,999.84,999.84,999.84,999.84,974.19],"pos":[{"tk":50000001,"mg":20240601,"sym":"XAUUSDm","d":1,"lots":0.1,"open":4099.585,"sl":4094.585,"tp":4109.585,"pl":-16.21,"got":2,"tot":2}],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"SKIPPING","live":1,"bal":100035.68,"eq":99774.28,"ccy":"USD","open":4,"lot":100,"ver":663,"dl":0.23},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":50064.8,"eq":49878.6,"ccy":"USD","open":4,"lot":100,"ver":663,"dl":0.24}],"ev":[{"t":"14:31:03","k":2,"m":"CLOSE SELL XAUUSDm 0.10  #50000003  2 us"},{"t":"14:30:30","k":1,"m":"OPEN SELL XAUUSDm 0.10  #50000003  2 us"},{"t":"14:30:03","k":1,"m":"OPEN BUY XAUUSDm 0.10  #50000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"GoldScalper","sym":"XAUUSDm","tf":"M5"}],"eaDay":[{"n":"GoldScalper","sym":"XAUUSDm","mg":20240601,"tgt":200.0,"lim":200.0,"net":-25.81,"cl":-9.6,"op":-16.21,"tr":2,"from":1792533600,"hit":0,"hp":1,"mkt":1}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]},"a70010002":{"v":663,"role":"M","id":"Acc_70010002","login":70010002,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575162,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":1498.02,"eq":1498.02,"flt":0.0,"today":-1.98,"dayGmt":1792533600,"fltAll":0.0,"tdf":{"Acc_1500000001":-1.98,"Acc_26000001":-1.98},"tdx":{"Acc_1500000001":[1.22,-3.2,0.0,0.0,0,0,2,1],"Acc_26000001":[-1.98,0.0,0.0,0.0,0,0,2,2]},"sigToday":4,"sigSent":4,"lastSig":"CLOSE  14:31:18","mags":"20240602","live":1,"qseq":4,"qsize":1039,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[1500.0,1501.22,1501.22,1498.02,1498.02,1498.02,1498.02],"pos":[],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"SKIPPING","live":1,"bal":100035.68,"eq":99774.28,"ccy":"USD","open":4,"lot":100,"ver":663,"dl":0.23},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":50064.8,"eq":49878.6,"ccy":"USD","open":4,"lot":100,"ver":663,"dl":0.24}],"ev":[{"t":"14:31:18","k":2,"m":"CLOSE SELL XAUUSDm 0.20  #51000004  2 us"},{"t":"14:31:03","k":1,"m":"OPEN SELL XAUUSDm 0.20  #51000004  2 us"},{"t":"14:30:06","k":2,"m":"CLOSE SELL XAUUSDm 0.20  #51000001  2 us"},{"t":"14:30:03","k":1,"m":"OPEN SELL XAUUSDm 0.20  #51000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"TrendRider","sym":"XAUUSDm","tf":"M15"}],"eaDay":[{"n":"TrendRider","sym":"XAUUSDm","mg":20240602,"tgt":200.0,"lim":200.0,"net":-1.98,"cl":-1.98,"op":0.0,"tr":2,"from":1792533600,"hit":0,"hp":1,"mkt":1}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]},"a70010003":{"v":663,"role":"M","id":"Acc_70010003","login":70010003,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575162,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":2000.0,"eq":1919.64,"flt":-80.36,"today":0.0,"dayGmt":1792533600,"fltAll":-80.36,"tdf":{"Acc_1500000001":0.0,"Acc_26000001":0.0},"tdx":{"Acc_1500000001":[0.0,0.0,-160.72,0.0,2,2,0,0],"Acc_26000001":[0.0,0.0,-80.36,0.0,2,2,0,0]},"sigToday":2,"sigSent":2,"lastSig":"OPEN  14:30:08","mags":"20240603","live":1,"qseq":2,"qsize":516,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[2000.0,2016.72,2016.72,2060.72,2060.72,2060.72,1919.64],"pos":[{"tk":52000001,"mg":20240603,"sym":"XAUUSDm","d":1,"lots":0.3,"open":4099.585,"sl":4092.585,"tp":4111.585,"pl":-48.63,"got":2,"tot":2},{"tk":52000003,"mg":20240603,"sym":"XAUUSDm","d":1,"lots":0.25,"open":4099.233,"sl":4093.233,"tp":4111.233,"pl":-31.73,"got":2,"tot":2}],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"SKIPPING","live":1,"bal":100035.68,"eq":99774.28,"ccy":"USD","open":4,"lot":200,"ver":663,"dl":0.23},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":50064.8,"eq":49878.6,"ccy":"USD","open":4,"lot":100,"ver":663,"dl":0.24}],"ev":[{"t":"14:30:08","k":1,"m":"OPEN BUY XAUUSDm 0.25  #52000003  2 us"},{"t":"14:30:03","k":1,"m":"OPEN BUY XAUUSDm 0.30  #52000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"BreakoutPro","sym":"XAUUSDm","tf":"M1"}],"eaDay":[{"n":"BreakoutPro","sym":"XAUUSDm","mg":20240603,"tgt":200.0,"lim":200.0,"net":-80.36,"cl":0.0,"op":-80.36,"tr":2,"from":1792533600,"hit":0,"hp":1,"mkt":1}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]},"a70010004":{"v":663,"role":"M","id":"Acc_70010004","login":70010004,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575162,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":2547.92,"eq":2547.92,"flt":0.0,"today":47.92,"dayGmt":1792533600,"fltAll":0.0,"tdf":{"Acc_1500000001":47.92,"Acc_26000001":47.92},"tdx":{"Acc_1500000001":[47.92,0.0,0.0,0.0,0,0,1,1],"Acc_26000001":[47.92,0.0,0.0,0.0,0,0,1,1]},"sigToday":2,"sigSent":2,"lastSig":"CLOSE  14:30:16","mags":"20240604","live":1,"qseq":2,"qsize":520,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[2500.0,2547.92,2547.92,2547.92,2547.92,2547.92,2547.92],"pos":[],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"SKIPPING","live":1,"bal":100035.68,"eq":99774.28,"ccy":"USD","open":4,"lot":100,"ver":663,"dl":0.23},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":50064.8,"eq":49878.6,"ccy":"USD","open":4,"lot":100,"ver":663,"dl":0.24}],"ev":[{"t":"14:30:16","k":2,"m":"CLOSE SELL XAUUSDm 0.40  #53000001  2 us"},{"t":"14:30:03","k":1,"m":"OPEN SELL XAUUSDm 0.40  #53000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"NightGrid","sym":"XAUUSDm","tf":"H1"}],"eaDay":[{"n":"NightGrid","sym":"XAUUSDm","mg":20240604,"tgt":20.0,"lim":200.0,"net":47.92,"cl":47.92,"op":0.0,"tr":1,"from":1792533600,"hit":1792574976,"hp":1,"mkt":1}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]},"a70010005":{"v":663,"role":"M","id":"Acc_70010005","login":70010005,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575162,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":3040.2,"eq":2959.15,"flt":-81.05,"today":40.2,"dayGmt":1792533600,"fltAll":-81.05,"tdf":{"Acc_1500000001":40.2,"Acc_26000001":40.2},"tdx":{"Acc_1500000001":[0.0,0.0,-81.05,0.0,1,1,0,0],"Acc_26000001":[40.2,0.0,-81.05,0.0,2,2,0,0]},"sigToday":3,"sigSent":3,"lastSig":"CLOSE  14:30:29","mags":"20240605","live":1,"qseq":3,"qsize":775,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[3000.0,3047.4,3047.4,3087.4,3087.4,3087.4,2959.15],"pos":[{"tk":54000001,"mg":20240605,"sym":"XAUUSDm","d":1,"lots":0.5,"open":4099.585,"sl":4090.585,"tp":4113.585,"pl":-81.05,"got":2,"tot":2}],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"SKIPPING","live":1,"bal":100035.68,"eq":99774.28,"ccy":"USD","open":4,"lot":100,"ver":663,"dl":0.23},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":50064.8,"eq":49878.6,"ccy":"USD","open":4,"lot":100,"ver":663,"dl":0.24}],"ev":[{"t":"14:30:29","k":2,"m":"CLOSE BUY XAUUSDm 0.30  #54000003  2 us"},{"t":"14:30:26","k":1,"m":"OPEN BUY XAUUSDm 0.30  #54000003  2 us"},{"t":"14:30:03","k":1,"m":"OPEN BUY XAUUSDm 0.50  #54000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"SwingMaster","sym":"XAUUSDm","tf":"M30"}],"eaDay":[{"n":"SwingMaster","sym":"XAUUSDm","mg":20240605,"tgt":200.0,"lim":200.0,"net":-40.85,"cl":40.2,"op":-81.05,"tr":2,"from":1792533600,"hit":0,"hp":1,"mkt":1}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]}},"cal":{"a1500000001":{"v":663,"id":"Acc_1500000001","role":"S","ccy":"USD","d":[[20260907,609.06,120,609.06,640.4],[20260908,361.13,105,361.13,438.05],[20260909,85.96,127,85.96,106.7],[20260910,28.14,123,28.14,34.17],[20260911,818.06,76,818.06,864.25],[20260914,-5.21,123,-5.21,-5.05],[20260915,886.42,103,886.42,924.12],[20260916,757.39,114,757.39,899.6],[20260917,-92.22,87,-92.22,-85.49],[20260918,361.71,107,361.71,363.33],[20260921,668.38,120,668.38,681.87],[20260922,190.26,77,190.26,194.65],[20260923,77.0,67,77.0,83.88],[20260924,-34.53,52,-34.53,-27.66],[20260925,253.07,116,253.07,295.1],[20260928,315.97,80,315.97,364.11],[20260929,-260.43,105,-260.43,-244.51],[20260930,-289.03,73,-289.03,-236.47],[20261001,232.38,46,232.38,245.75],[20261002,345.84,54,345.84,367.39],[20261005,-39.51,65,-39.51,-34.34],[20261006,6.67,53,6.67,7.97],[20261007,-342.68,121,-342.68,-322.32],[20261008,-357.45,88,-357.45,-307.32],[20261009,-210.84,82,-210.84,-171.66],[20261012,151.77,42,151.77,155.7],[20261013,796.31,42,796.31,908.97],[20261014,871.5,84,871.5,887.43],[20261015,351.69,115,351.69,427.34],[20261016,741.7,83,741.7,817.09],[20261019,877.86,69,877.86,1064.39],[20261020,441.77,113,441.77,507.91],[20261021,40.44,2,40.44,43.48]]},"a26000001":{"v":663,"id":"Acc_26000001","role":"S","ccy":"USD","d":[[20260907,424.57,83,424.57,453.56],[20260908,724.69,63,724.69,833.97],[20260909,-51.16,78,-51.16,-44.61],[20260910,-241.08,105,-241.08,-226.81],[20260911,569.93,65,569.93,589.96],[20260914,194.45,67,194.45,205.45],[20260915,697.13,68,697.13,691.19],[20260916,410.5,130,410.5,429.33],[20260917,107.19,51,107.19,120.61],[20260918,128.69,124,128.69,138.59],[20260921,119.2,92,119.2,129.1],[20260922,-123.8,84,-123.8,-122.74],[20260923,329.82,80,329.82,404.04],[20260924,-194.61,130,-194.61,-175.17],[20260925,803.0,118,803.0,968.98],[20260928,572.12,82,572.12,618.07],[20260929,-205.25,91,-205.25,-171.23],[20260930,873.14,112,873.14,925.01],[20261001,219.55,40,219.55,263.06],[20261002,1.75,40,1.75,1.95],[20261005,278.05,48,278.05,290.14],[20261006,854.28,106,854.28,941.04],[20261007,706.22,47,706.22,702.97],[20261008,167.11,84,167.11,199.68],[20261009,515.11,79,515.11,584.24],[20261012,-47.56,55,-47.56,-41.41],[20261013,855.27,59,855.27,996.28],[20261014,529.88,75,529.88,644.0],[20261015,-39.04,115,-39.04,-35.1],[20261016,231.83,66,231.83,241.48],[20261019,497.02,94,497.02,614.27],[20261020,239.19,120,239.19,270.09],[20261021,64.8,5,64.8,69.68]]},"a70010001":{"v":663,"id":"Acc_70010001","role":"M","ccy":"USD","d":[[20260907,110.17,17],[20260908,39.04,19],[20260909,31.47,21],[20260910,82.25,8],[20260911,144.84,26],[20260914,15.75,18],[20260915,87.16,22],[20260916,116.38,22],[20260917,149.05,18],[20260918,-25.36,15],[20260921,-48.81,17],[20260922,-28.4,13],[20260923,139.06,7],[20260924,58.71,26],[20260925,-33.32,11],[20260928,121.87,24],[20260929,53.93,7],[20260930,67.15,22],[20261001,72.4,20],[20261002,-15.85,13],[20261005,147.33,18],[20261006,-52.47,6],[20261007,49.87,11],[20261008,-33.08,8],[20261009,75.96,6],[20261012,134.01,29],[20261013,83.76,29],[20261014,144.65,15],[20261015,92.94,28],[20261016,9.0,26],[20261019,-22.38,20],[20261020,31.65,27],[20261021,-9.6,1]]},"a70010002":{"v":663,"id":"Acc_70010002","role":"M","ccy":"USD","d":[[20260907,55.98,26],[20260908,-44.88,16],[20260909,25.44,10],[20260910,-6.37,24],[20260911,132.76,9],[20260914,5.38,13],[20260915,-20.96,16],[20260916,-18.19,28],[20260917,7.2,24],[20260918,99.22,29],[20260921,115.44,25],[20260922,92.53,24],[20260923,143.74,27],[20260924,-33.23,13],[20260925,-58.3,28],[20260928,31.36,19],[20260929,-50.42,10],[20260930,-32.71,11],[20261001,112.32,24],[20261002,-2.55,21],[20261005,-15.66,24],[20261006,7.53,11],[20261007,123.99,11],[20261008,17.73,28],[20261009,91.45,26],[20261012,16.61,19],[20261013,73.86,6],[20261014,-2.79,24],[20261015,-0.59,6],[20261016,-6.5,25],[20261019,27.98,23],[20261020,-55.59,14],[20261021,-1.98,2]]},"a70010003":{"v":663,"id":"Acc_70010003","role":"M","ccy":"USD","d":[[20260907,-2.69,21],[20260908,124.07,16],[20260909,-6.84,20],[20260910,114.63,16],[20260911,-11.72,21],[20260914,55.19,29],[20260915,-57.37,29],[20260916,100.81,9],[20260917,67.91,6],[20260918,89.29,24],[20260921,42.17,22],[20260922,103.41,22],[20260923,-51.59,7],[20260924,-56.18,17],[20260925,41.21,7],[20260928,87.4,29],[20260929,60.86,26],[20260930,46.52,22],[20261001,63.33,24],[20261002,-35.34,14],[20261005,120.73,24],[20261006,39.82,25],[20261007,-26.73,8],[20261008,-22.99,25],[20261009,-32.46,7],[20261012,127.42,26],[20261013,26.43,9],[20261014,9.87,9],[20261015,74.85,15],[20261016,118.96,16],[20261019,41.5,30],[20261020,68.5,17]]},"a70010004":{"v":663,"id":"Acc_70010004","role":"M","ccy":"USD","d":[[20260907,-8.42,9],[20260908,91.39,18],[20260909,35.5,27],[20260910,96.91,16],[20260911,-47.15,28],[20260914,61.05,18],[20260915,67.15,21],[20260916,59.84,25],[20260917,126.0,25],[20260918,90.58,7],[20260921,34.29,23],[20260922,36.17,12],[20260923,-40.66,19],[20260924,35.86,29],[20260925,67.4,27],[20260928,127.54,30],[20260929,-57.25,15],[20260930,-46.27,13],[20261001,107.29,23],[20261002,12.68,14],[20261005,-59.18,13],[20261006,32.06,17],[20261007,51.96,12],[20261008,120.02,30],[20261009,-37.04,19],[20261012,108.16,13],[20261013,135.59,15],[20261014,29.59,14],[20261015,38.03,21],[20261016,117.51,12],[20261019,45.23,18],[20261020,-2.68,8],[20261021,47.92,1]]},"a70010005":{"v":663,"id":"Acc_70010005","role":"M","ccy":"USD","d":[[20260907,64.2,14],[20260908,75.73,17],[20260909,57.69,9],[20260910,54.0,17],[20260911,78.34,14],[20260914,4.14,20],[20260915,-17.97,26],[20260916,46.9,25],[20260917,-4.42,15],[20260918,-23.11,20],[20260921,25.26,9],[20260922,120.89,30],[20260923,120.08,23],[20260924,65.51,7],[20260925,1.22,28],[20260928,100.52,29],[20260929,-43.89,6],[20260930,10.02,11],[20261001,45.59,6],[20261002,-48.98,29],[20261005,-31.6,6],[20261006,146.1,29],[20261007,130.99,21],[20261008,147.26,19],[20261009,19.92,15],[20261012,-39.97,18],[20261013,-51.59,22],[20261014,32.27,8],[20261015,-3.7,11],[20261016,-45.95,21],[20261019,91.02,9],[20261020,-47.05,7],[20261021,40.2,1]]}},"day":{"a1500000001":{"c0":{"k":0,"from":1792533600,"ev":[[1792575000,4,"SLAVE live - initial balance 100,000.00 (auto)"],[1792575003,3,"LOT Acc_70010003 200% (x2.00) - new copies only"],[1792575003,6,"Symbol map XAUUSDm -> XAUUSD"],[1792575003,1,"COPY BUY XAUUSD 0.10  <Acc_70010001  31 ms"],[1792575003,1,"COPY SELL XAUUSD 0.20  <Acc_70010002  32 ms"],[1792575003,1,"COPY BUY XAUUSD 0.60  <Acc_70010003  35 ms"],[1792575003,1,"COPY SELL XAUUSD 0.40  <Acc_70010004  37 ms"],[1792575003,1,"COPY BUY XAUUSD 0.50  <Acc_70010005  43 ms"],[1792575004,4,"SL/TP XAUUSD  SL 4090.92  TP 4113.94"],[1792575004,4,"SL/TP XAUUSD  SL 4107.80  TP 4086.74"],[1792575004,4,"SL/TP XAUUSD  SL 4092.92  TP 4111.94"],[1792575004,4,"SL/TP XAUUSD  SL 4105.80  TP 4088.74"],[1792575004,4,"SL/TP XAUUSD  SL 4094.92  TP 4109.94"],[1792575006,1,"CLOSE XAUUSD 0.20  P/L +0.20  <Acc_70010002"],[1792575008,1,"COPY BUY XAUUSD 0.50  <Acc_70010003  28 ms"],[1792575009,4,"SL/TP XAUUSD  SL 4093.57  TP 4111.66"],[1792575016,1,"CLOSE XAUUSD 0.40  P/L +45.60  <Acc_70010004"],[1792575026,3,"HOLD BUY XAUUSDm - MASTER SWITCHED OFF  <Acc_70010005"],[1792575030,3,"WAIT SELL XAUUSD - spread 1.35 > max 1.00  <Acc_70010001"],[1792575060,2,"SKIP SELL XAUUSDm - SPREAD 1.35 > max 1.00  <Acc_70010001"],[1792575063,3,"WAIT SELL XAUUSD - market closed on this broker: copying when it opens (max 10 min; a master trade in loss waits for its entry)  <Acc_70010002"],[1792575078,6,"CANCEL XAUUSDm - closed on master while the copy was waiting (spread / market closed)  <Acc_70010002"]]},"s":{"v":663,"from":1792533600,"ccy":"USD","sk":[[1792575026,"Acc_70010005",54000003,1,0.3,"XAUUSDm",4098.389,1,"MASTER SWITCHED OFF","c",40.2],[1792575060,"Acc_70010001",50000003,-1,0.1,"XAUUSDm",4099.729,0,"SPREAD 1.35 > max 1.00","c",-9.6],[1792575078,"Acc_70010002",51000004,-1,0.2,"XAUUSDm",4100.529,0,"CANCELLED - closed on master while the copy waited (spread / market closed)","c",-3.2]]}},"a26000001":{"c0":{"k":0,"from":1792533600,"ev":[[1792575000,4,"SLAVE live - initial balance 50,000.00 (auto)"],[1792575003,6,"Symbol map XAUUSDm -> XAUUSD"],[1792575003,1,"COPY BUY XAUUSD 0.30  <Acc_70010003  31 ms"],[1792575003,1,"COPY BUY XAUUSD 0.10  <Acc_70010001  37 ms"],[1792575003,1,"COPY BUY XAUUSD 0.50  <Acc_70010005  39 ms"],[1792575003,1,"COPY SELL XAUUSD 0.20  <Acc_70010002  42 ms"],[1792575003,1,"COPY SELL XAUUSD 0.40  <Acc_70010004  43 ms"],[1792575004,4,"SL/TP XAUUSD  SL 4107.67  TP 4086.57"],[1792575004,4,"SL/TP XAUUSD  SL 4105.67  TP 4088.57"],[1792575004,4,"SL/TP XAUUSD  SL 4090.74  TP 4113.82"],[1792575004,4,"SL/TP XAUUSD  SL 4094.74  TP 4109.82"],[1792575004,4,"SL/TP XAUUSD  SL 4092.74  TP 4111.82"],[1792575006,2,"CLOSE XAUUSD 0.20  P/L -0.80  <Acc_70010002"],[1792575008,1,"COPY BUY XAUUSD 0.25  <Acc_70010003  33 ms"],[1792575009,4,"SL/TP XAUUSD  SL 4093.39  TP 4111.54"],[1792575016,1,"CLOSE XAUUSD 0.40  P/L +44.00  <Acc_70010004"],[1792575026,1,"COPY BUY XAUUSD 0.30  <Acc_70010005  31 ms"],[1792575027,4,"SL/TP XAUUSD  SL 4092.54  TP 4110.63"],[1792575029,1,"CLOSE XAUUSD 0.30  P/L +37.50  <Acc_70010005"],[1792575030,1,"COPY SELL XAUUSD 0.10  <Acc_70010001  38 ms"],[1792575031,4,"SL/TP XAUUSD  SL 4104.97  TP 4089.88"],[1792575063,2,"CLOSE XAUUSD 0.10  P/L -10.50  <Acc_70010001"],[1792575063,1,"COPY SELL XAUUSD 0.20  <Acc_70010002  31 ms"],[1792575064,4,"SL/TP XAUUSD  SL 4105.77  TP 4090.68"],[1792575078,2,"CLOSE XAUUSD 0.20  P/L -5.00  <Acc_70010002"]]},"s":{"v":663,"from":1792533600,"ccy":"USD","sk":[]}}}};
+const DEMO = {"meta":{"t":1792575162,"n":7,"v":118,"every":5,"ctl":1,"lock":0,"by":"Acc_70010001"},"acc":{"a1500000001":{"v":666,"role":"S","id":"Acc_1500000001","login":1500000001,"broker":"FTMO Global Markets Ltd","server":"FTMO-Server","ccy":"USD","t":1792575162,"status":"NOT COPIED: SPREAD 1.35 > max 1.00  (1 today)","cs":{"s":"SKIPPING","since":1792575061,"until":0,"log":[[1792575061,"SKIPPING","NOT COPIED: SPREAD 1.35 > max 1.00  (1 today)"],[1792575000,"COPYING","COPYING - all systems normal"]]},"sk":2,"short":"SKIPPING","bal":100035.68,"eq":99770.88,"flt":-264.8,"today":35.68,"dayGmt":1792533600,"init":100000.0,"initSrc":"auto","dl":0.229,"dlLim":4.5,"dlf":1792533600,"ml":0.229,"mlLim":9.0,"pp":-0.229,"ppTgt":10.0,"obj":{"dfl":95500.0,"mfl":91000.0,"tgl":110000.0,"st":100000.0,"prop":1},"risk":0.962,"room":4.271,"noSL":0,"copies":4,"req":15,"reqMax":1700,"pos":4,"posMax":180,"turbo":2.72,"ping":12.4,"fast":1,"ghost":0,"ghs":3.0,"ghsec":2,"trail":0,"trd":0.5,"bec":0,"bed":2.0,"pcc":0,"pcp0":50,"pcd0":2.0,"pcn0":1,"rec":0,"res0":10,"rea0":10,"paused":0,"guard":"","news":"USD NEWS in 2h 10m","newsK":4,"days":1,"lots":"same lot","day":{"copies":6,"skips":1,"closes":2,"heals":0,"held":1,"avg":34.4},"dt":{"net":-229.12,"cl":35.68,"op":-264.8,"tgt":1000.0,"lim":1000.0,"hit":0,"hp":1,"from":1792533600},"ch":{"s":540,"on":0,"a":1792587600,"b":1792620000,"mc":0},"nc":[["MASTER SWITCHED OFF",1,1,"MASTER SWITCHED OFF"],["SPREAD",1,0,"SPREAD 1.35 > max 1.00"],["CANCELLED",1,0,"CANCELLED - closed on master while the copy waited (spread / market closed)"]],"spr":{"max":1.0},"lat":{"n":6,"last":28.12,"sig":0.13,"brk":27.99,"avg":33.6,"best":28.12,"slip":2.5,"hist":[31.0,32.0,35.1,37.0,43.0,28.1]},"eqh":[100000.0,100070.08,99971.48,100206.08,100206.08,100206.08,99770.88],"masters":[{"id":"Acc_70010001","broker":"Exness Technologies Ltd","bal":990.4,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":666,"lot":100,"x":1.0,"sig":2,"cop":1,"skip":1,"held":0,"open":1,"flt":-16.4,"today":-0.28,"fee":-0.28,"speed":31.0,"slip":-0.0,"lag":0,"q":1},{"id":"Acc_70010002","broker":"Exness Technologies Ltd","bal":1498.02,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":666,"lot":100,"x":1.0,"sig":2,"cop":1,"skip":0,"held":0,"open":0,"flt":0.0,"today":-2.92,"fee":-1.12,"speed":32.0,"slip":4.0,"lag":0,"q":1},{"id":"Acc_70010003","broker":"Exness Technologies Ltd","bal":2000.0,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":666,"lot":200,"x":2.0,"sig":2,"cop":2,"skip":0,"held":0,"open":2,"flt":-166.4,"today":-3.08,"fee":-3.08,"speed":31.6,"slip":3.6,"lag":0,"q":1},{"id":"Acc_70010004","broker":"Exness Technologies Ltd","bal":2547.92,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":666,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"held":0,"open":0,"flt":0.0,"today":43.36,"fee":-2.24,"speed":37.0,"slip":4.0,"lag":0,"q":1},{"id":"Acc_70010005","broker":"Exness Technologies Ltd","bal":3040.2,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":666,"lot":100,"x":1.0,"sig":2,"cop":1,"skip":0,"held":1,"open":1,"flt":-82.0,"today":-1.4,"fee":-1.4,"speed":43.0,"slip":-0.0,"lag":0,"q":1}],"w7":{"d":[20261013,20261014,20261015,20261016,20261019,20261020,20261021],"m":[{"id":"Acc_70010002","r":[[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[1,0,-2.92,-1.12,1,-2.92,1.22]]},{"id":"Acc_70010004","r":[[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[1,1,43.36,-2.24,1,43.36,47.92]]}]},"trades":[{"m":"Acc_70010003","sym":"XAUUSD","d":1,"lots":0.5,"open":4099.66,"sl":4093.57,"tp":4111.66,"tr":0,"be":0,"pc":0,"re":0,"pl":-68.0},{"m":"Acc_70010005","sym":"XAUUSD","d":1,"lots":0.5,"open":4099.94,"sl":4090.92,"tp":4113.94,"tr":0,"be":0,"pc":0,"re":0,"pl":-82.0},{"m":"Acc_70010003","sym":"XAUUSD","d":1,"lots":0.6,"open":4099.94,"sl":4092.92,"tp":4111.94,"tr":0,"be":0,"pc":0,"re":0,"pl":-98.4},{"m":"Acc_70010001","sym":"XAUUSD","d":1,"lots":0.1,"open":4099.94,"sl":4094.92,"tp":4109.94,"tr":0,"be":0,"pc":0,"re":0,"pl":-16.4}],"ev":[{"t":"14:31:18","k":6,"m":"CANCEL XAUUSDm - closed on master while the copy was waiting (spread / market closed)  <Acc_70010002"},{"t":"14:31:03","k":3,"m":"WAIT SELL XAUUSD - market closed on this broker: copying when it opens (max 10 min; a master trade in loss wai"},{"t":"14:31:00","k":2,"m":"SKIP SELL XAUUSDm - SPREAD 1.35 > max 1.00  <Acc_70010001"},{"t":"14:30:30","k":3,"m":"WAIT SELL XAUUSD - spread 1.35 > max 1.00  <Acc_70010001"},{"t":"14:30:26","k":3,"m":"HOLD BUY XAUUSDm - MASTER SWITCHED OFF  <Acc_70010005"},{"t":"14:30:16","k":1,"m":"CLOSE XAUUSD 0.40  P/L +45.60  <Acc_70010004"},{"t":"14:30:09","k":4,"m":"SL/TP XAUUSD  SL 4093.57  TP 4111.66"},{"t":"14:30:08","k":1,"m":"COPY BUY XAUUSD 0.50  <Acc_70010003  28 ms"},{"t":"14:30:06","k":1,"m":"CLOSE XAUUSD 0.20  P/L +0.20  <Acc_70010002"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4094.92  TP 4109.94"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4105.80  TP 4088.74"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4092.92  TP 4111.94"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4107.80  TP 4086.74"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4090.92  TP 4113.94"}],"ctl":1,"acks":[]},"a26000001":{"v":666,"role":"S","id":"Acc_26000001","login":26000001,"broker":"FundedNext Ltd","server":"FundedNext-Server","ccy":"USD","t":1792575162,"status":"COPYING - all systems normal","cs":{"s":"COPYING","since":1792575000,"until":0,"log":[[1792575000,"COPYING","COPYING - all systems normal"]]},"sk":1,"short":"COPYING","bal":50064.8,"eq":49876.3,"flt":-188.5,"today":64.8,"dayGmt":1792533600,"init":50000.0,"initSrc":"auto","dl":0.247,"dlLim":4.5,"dlf":1792533600,"ml":0.247,"mlLim":9.0,"pp":-0.247,"ppTgt":10.0,"obj":{"dfl":47750.0,"mfl":45500.0,"tgl":55000.0,"st":50000.0,"prop":1},"risk":1.365,"room":4.253,"noSL":0,"copies":4,"req":23,"reqMax":1700,"pos":4,"posMax":180,"turbo":3.43,"ping":12.4,"fast":1,"ghost":0,"ghs":3.0,"ghsec":2,"trail":0,"trd":0.5,"bec":0,"bed":2.0,"pcc":0,"pcp0":50,"pcd0":2.0,"pcn0":1,"rec":0,"res0":10,"rea0":10,"paused":0,"guard":"","news":"USD NEWS in 2h 10m","newsK":4,"days":1,"lots":"same lot","day":{"copies":9,"skips":0,"closes":5,"heals":0,"held":0,"avg":36.2},"dt":{"net":-123.7,"cl":64.8,"op":-188.5,"tgt":1000.0,"lim":1000.0,"hit":0,"hp":1,"from":1792533600},"ch":{"s":540,"on":0,"a":1792587600,"b":1792620000,"mc":0},"nc":[],"spr":{"max":1.0},"lat":{"n":9,"last":30.98,"sig":0.0,"brk":30.98,"avg":34.84,"best":30.98,"slip":5.1,"hist":[31.5,37.2,38.9,42.0,43.1,33.5,31.0,38.0,31.0]},"eqh":[50000.0,50094.2,50091.7,50170.7,50170.7,50170.7,49876.3],"masters":[{"id":"Acc_70010001","broker":"Exness Technologies Ltd","bal":990.4,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":666,"lot":100,"x":1.0,"sig":2,"cop":2,"skip":0,"held":0,"open":1,"flt":-17.0,"today":-10.5,"fee":0.0,"speed":37.6,"slip":4.2,"lag":0,"q":1},{"id":"Acc_70010002","broker":"Exness Technologies Ltd","bal":1498.02,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":666,"lot":100,"x":1.0,"sig":2,"cop":2,"skip":0,"held":0,"open":0,"flt":0.0,"today":-7.8,"fee":0.0,"speed":36.5,"slip":5.2,"lag":0,"q":1},{"id":"Acc_70010003","broker":"Exness Technologies Ltd","bal":2000.0,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":666,"lot":100,"x":1.0,"sig":2,"cop":2,"skip":0,"held":0,"open":2,"flt":-86.5,"today":0.0,"fee":0.0,"speed":32.5,"slip":7.1,"lag":0,"q":1},{"id":"Acc_70010004","broker":"Exness Technologies Ltd","bal":2547.92,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":666,"lot":100,"x":1.0,"sig":1,"cop":1,"skip":0,"held":0,"open":0,"flt":0.0,"today":45.6,"fee":0.0,"speed":43.1,"slip":5.5,"lag":0,"q":1},{"id":"Acc_70010005","broker":"Exness Technologies Ltd","bal":3040.2,"ccy":"USD","on":1,"gh":0,"trl":0.0,"be":0.0,"pcp":0,"pcd":2.0,"pcn":1,"res":0,"rea":10,"live":1,"ready":1,"ver":666,"lot":100,"x":1.0,"sig":2,"cop":2,"skip":0,"held":0,"open":1,"flt":-85.0,"today":37.5,"fee":0.0,"speed":35.0,"slip":3.8,"lag":0,"q":1}],"w7":{"d":[20261013,20261014,20261015,20261016,20261019,20261020,20261021],"m":[{"id":"Acc_70010002","r":[[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[2,0,-7.8,0.0,2,-7.8,-1.98]]},{"id":"Acc_70010004","r":[[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[1,1,45.6,0.0,1,45.6,47.92]]},{"id":"Acc_70010005","r":[[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[1,1,37.5,0.0,1,37.5,40.2]]},{"id":"Acc_70010001","r":[[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[0,0,0.0,0.0,0,0.0,0.0],[1,0,-10.5,0.0,1,-10.5,-9.6]]}]},"trades":[{"m":"Acc_70010003","sym":"XAUUSD","d":1,"lots":0.25,"open":4099.54,"sl":4093.39,"tp":4111.54,"tr":0,"be":0,"pc":0,"re":0,"pl":-35.5},{"m":"Acc_70010005","sym":"XAUUSD","d":1,"lots":0.5,"open":4099.82,"sl":4090.74,"tp":4113.82,"tr":0,"be":0,"pc":0,"re":0,"pl":-85.0},{"m":"Acc_70010001","sym":"XAUUSD","d":1,"lots":0.1,"open":4099.82,"sl":4094.74,"tp":4109.82,"tr":0,"be":0,"pc":0,"re":0,"pl":-17.0},{"m":"Acc_70010003","sym":"XAUUSD","d":1,"lots":0.3,"open":4099.82,"sl":4092.74,"tp":4111.82,"tr":0,"be":0,"pc":0,"re":0,"pl":-51.0}],"ev":[{"t":"14:31:18","k":2,"m":"CLOSE XAUUSD 0.20  P/L -5.00  <Acc_70010002"},{"t":"14:31:04","k":4,"m":"SL/TP XAUUSD  SL 4105.77  TP 4090.68"},{"t":"14:31:03","k":1,"m":"COPY SELL XAUUSD 0.20  <Acc_70010002  31 ms"},{"t":"14:31:03","k":2,"m":"CLOSE XAUUSD 0.10  P/L -10.50  <Acc_70010001"},{"t":"14:30:31","k":4,"m":"SL/TP XAUUSD  SL 4104.97  TP 4089.88"},{"t":"14:30:30","k":1,"m":"COPY SELL XAUUSD 0.10  <Acc_70010001  38 ms"},{"t":"14:30:29","k":1,"m":"CLOSE XAUUSD 0.30  P/L +37.50  <Acc_70010005"},{"t":"14:30:27","k":4,"m":"SL/TP XAUUSD  SL 4092.54  TP 4110.63"},{"t":"14:30:26","k":1,"m":"COPY BUY XAUUSD 0.30  <Acc_70010005  31 ms"},{"t":"14:30:16","k":1,"m":"CLOSE XAUUSD 0.40  P/L +44.00  <Acc_70010004"},{"t":"14:30:09","k":4,"m":"SL/TP XAUUSD  SL 4093.39  TP 4111.54"},{"t":"14:30:08","k":1,"m":"COPY BUY XAUUSD 0.25  <Acc_70010003  33 ms"},{"t":"14:30:06","k":2,"m":"CLOSE XAUUSD 0.20  P/L -0.80  <Acc_70010002"},{"t":"14:30:04","k":4,"m":"SL/TP XAUUSD  SL 4092.74  TP 4111.82"}],"ctl":1,"acks":[]},"a70010001":{"v":666,"role":"M","id":"Acc_70010001","login":70010001,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575162,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":990.4,"eq":974.19,"flt":-16.21,"today":-9.6,"dayGmt":1792533600,"fltAll":-16.21,"tdf":{"Acc_1500000001":-9.6,"Acc_26000001":-9.6},"tdx":{"Acc_1500000001":[0.0,-9.6,-16.21,0.0,1,1,1,0],"Acc_26000001":[-9.6,0.0,-16.21,0.0,1,1,1,1]},"sigToday":3,"sigSent":3,"lastSig":"CLOSE  14:31:03","mags":"20240601","live":1,"qseq":3,"qsize":778,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[1000.0,1001.44,999.84,999.84,999.84,999.84,974.19],"pos":[{"tk":50000001,"mg":20240601,"sym":"XAUUSDm","d":1,"lots":0.1,"open":4099.585,"sl":4094.585,"tp":4109.585,"pl":-16.21,"got":2,"tot":2}],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"SKIPPING","live":1,"bal":100035.68,"eq":99774.28,"ccy":"USD","open":4,"lot":100,"ver":666,"dl":0.23},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":50064.8,"eq":49878.6,"ccy":"USD","open":4,"lot":100,"ver":666,"dl":0.24}],"ev":[{"t":"14:31:03","k":2,"m":"CLOSE SELL XAUUSDm 0.10  #50000003  2 us"},{"t":"14:30:30","k":1,"m":"OPEN SELL XAUUSDm 0.10  #50000003  2 us"},{"t":"14:30:03","k":1,"m":"OPEN BUY XAUUSDm 0.10  #50000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"GoldScalper","sym":"XAUUSDm","tf":"M5"}],"eaDay":[{"n":"GoldScalper","sym":"XAUUSDm","mg":20240601,"tgt":200.0,"lim":200.0,"net":-25.81,"cl":-9.6,"op":-16.21,"tr":2,"from":1792533600,"hit":0,"hp":1,"mkt":1}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]},"a70010002":{"v":666,"role":"M","id":"Acc_70010002","login":70010002,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575162,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":1498.02,"eq":1498.02,"flt":0.0,"today":-1.98,"dayGmt":1792533600,"fltAll":0.0,"tdf":{"Acc_1500000001":-1.98,"Acc_26000001":-1.98},"tdx":{"Acc_1500000001":[1.22,-3.2,0.0,0.0,0,0,2,1],"Acc_26000001":[-1.98,0.0,0.0,0.0,0,0,2,2]},"sigToday":4,"sigSent":4,"lastSig":"CLOSE  14:31:18","mags":"20240602","live":1,"qseq":4,"qsize":1039,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[1500.0,1501.22,1501.22,1498.02,1498.02,1498.02,1498.02],"pos":[],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"SKIPPING","live":1,"bal":100035.68,"eq":99774.28,"ccy":"USD","open":4,"lot":100,"ver":666,"dl":0.23},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":50064.8,"eq":49878.6,"ccy":"USD","open":4,"lot":100,"ver":666,"dl":0.24}],"ev":[{"t":"14:31:18","k":2,"m":"CLOSE SELL XAUUSDm 0.20  #51000004  2 us"},{"t":"14:31:03","k":1,"m":"OPEN SELL XAUUSDm 0.20  #51000004  2 us"},{"t":"14:30:06","k":2,"m":"CLOSE SELL XAUUSDm 0.20  #51000001  2 us"},{"t":"14:30:03","k":1,"m":"OPEN SELL XAUUSDm 0.20  #51000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"TrendRider","sym":"XAUUSDm","tf":"M15"}],"eaDay":[{"n":"TrendRider","sym":"XAUUSDm","mg":20240602,"tgt":200.0,"lim":200.0,"net":-1.98,"cl":-1.98,"op":0.0,"tr":2,"from":1792533600,"hit":0,"hp":1,"mkt":1}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]},"a70010003":{"v":666,"role":"M","id":"Acc_70010003","login":70010003,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575162,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":2000.0,"eq":1919.64,"flt":-80.36,"today":0.0,"dayGmt":1792533600,"fltAll":-80.36,"tdf":{"Acc_1500000001":0.0,"Acc_26000001":0.0},"tdx":{"Acc_1500000001":[0.0,0.0,-160.72,0.0,2,2,0,0],"Acc_26000001":[0.0,0.0,-80.36,0.0,2,2,0,0]},"sigToday":2,"sigSent":2,"lastSig":"OPEN  14:30:08","mags":"20240603","live":1,"qseq":2,"qsize":516,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[2000.0,2016.72,2016.72,2060.72,2060.72,2060.72,1919.64],"pos":[{"tk":52000001,"mg":20240603,"sym":"XAUUSDm","d":1,"lots":0.3,"open":4099.585,"sl":4092.585,"tp":4111.585,"pl":-48.63,"got":2,"tot":2},{"tk":52000003,"mg":20240603,"sym":"XAUUSDm","d":1,"lots":0.25,"open":4099.233,"sl":4093.233,"tp":4111.233,"pl":-31.73,"got":2,"tot":2}],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"SKIPPING","live":1,"bal":100035.68,"eq":99774.28,"ccy":"USD","open":4,"lot":200,"ver":666,"dl":0.23},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":50064.8,"eq":49878.6,"ccy":"USD","open":4,"lot":100,"ver":666,"dl":0.24}],"ev":[{"t":"14:30:08","k":1,"m":"OPEN BUY XAUUSDm 0.25  #52000003  2 us"},{"t":"14:30:03","k":1,"m":"OPEN BUY XAUUSDm 0.30  #52000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"BreakoutPro","sym":"XAUUSDm","tf":"M1"}],"eaDay":[{"n":"BreakoutPro","sym":"XAUUSDm","mg":20240603,"tgt":200.0,"lim":200.0,"net":-80.36,"cl":0.0,"op":-80.36,"tr":2,"from":1792533600,"hit":0,"hp":1,"mkt":1}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]},"a70010004":{"v":666,"role":"M","id":"Acc_70010004","login":70010004,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575162,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":2547.92,"eq":2547.92,"flt":0.0,"today":47.92,"dayGmt":1792533600,"fltAll":0.0,"tdf":{"Acc_1500000001":47.92,"Acc_26000001":47.92},"tdx":{"Acc_1500000001":[47.92,0.0,0.0,0.0,0,0,1,1],"Acc_26000001":[47.92,0.0,0.0,0.0,0,0,1,1]},"sigToday":2,"sigSent":2,"lastSig":"CLOSE  14:30:16","mags":"20240604","live":1,"qseq":2,"qsize":520,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[2500.0,2547.92,2547.92,2547.92,2547.92,2547.92,2547.92],"pos":[],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"SKIPPING","live":1,"bal":100035.68,"eq":99774.28,"ccy":"USD","open":4,"lot":100,"ver":666,"dl":0.23},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":50064.8,"eq":49878.6,"ccy":"USD","open":4,"lot":100,"ver":666,"dl":0.24}],"ev":[{"t":"14:30:16","k":2,"m":"CLOSE SELL XAUUSDm 0.40  #53000001  2 us"},{"t":"14:30:03","k":1,"m":"OPEN SELL XAUUSDm 0.40  #53000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"NightGrid","sym":"XAUUSDm","tf":"H1"}],"eaDay":[{"n":"NightGrid","sym":"XAUUSDm","mg":20240604,"tgt":20.0,"lim":200.0,"net":47.92,"cl":47.92,"op":0.0,"tr":1,"from":1792533600,"hit":1792574976,"hp":1,"mkt":1}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]},"a70010005":{"v":666,"role":"M","id":"Acc_70010005","login":70010005,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real","ccy":"USD","t":1792575162,"status":"BROADCASTING - slaves copy through the turbo queue","sk":1,"bal":3040.2,"eq":2959.15,"flt":-81.05,"today":40.2,"dayGmt":1792533600,"fltAll":-81.05,"tdf":{"Acc_1500000001":40.2,"Acc_26000001":40.2},"tdx":{"Acc_1500000001":[0.0,0.0,-81.05,0.0,1,1,0,0],"Acc_26000001":[40.2,0.0,-81.05,0.0,2,2,0,0]},"sigToday":3,"sigSent":3,"lastSig":"CLOSE  14:30:29","mags":"20240605","live":1,"qseq":3,"qsize":775,"wait":0,"wr":2.0,"legacy":0,"ping":12.4,"eqh":[3000.0,3047.4,3047.4,3087.4,3087.4,3087.4,2959.15],"pos":[{"tk":54000001,"mg":20240605,"sym":"XAUUSDm","d":1,"lots":0.5,"open":4099.585,"sl":4090.585,"tp":4113.585,"pl":-81.05,"got":2,"tot":2}],"slaves":[{"id":"Acc_1500000001","broker":"FTMO Global Markets Ltd","state":"SKIPPING","live":1,"bal":100035.68,"eq":99774.28,"ccy":"USD","open":4,"lot":100,"ver":666,"dl":0.23},{"id":"Acc_26000001","broker":"FundedNext Ltd","state":"COPYING","live":1,"bal":50064.8,"eq":49878.6,"ccy":"USD","open":4,"lot":100,"ver":666,"dl":0.24}],"ev":[{"t":"14:30:29","k":2,"m":"CLOSE BUY XAUUSDm 0.30  #54000003  2 us"},{"t":"14:30:26","k":1,"m":"OPEN BUY XAUUSDm 0.30  #54000003  2 us"},{"t":"14:30:03","k":1,"m":"OPEN BUY XAUUSDm 0.50  #54000001  2 us"},{"t":"14:30:00","k":5,"m":"MASTER live - 0 open positions registered (not re-sent)"}],"eas":[{"n":"SwingMaster","sym":"XAUUSDm","tf":"M30"}],"eaDay":[{"n":"SwingMaster","sym":"XAUUSDm","mg":20240605,"tgt":200.0,"lim":200.0,"net":-40.85,"cl":40.2,"op":-81.05,"tr":2,"from":1792533600,"hit":0,"hp":1,"mkt":1}],"eaSt":[],"eaStop":0,"eaBusy":0,"trade":1,"ctl":1,"acks":[]}},"cal":{"a1500000001":{"v":666,"id":"Acc_1500000001","role":"S","ccy":"USD","d":[[20260907,609.06,120,609.06,640.4],[20260908,361.13,105,361.13,438.05],[20260909,85.96,127,85.96,106.7],[20260910,28.14,123,28.14,34.17],[20260911,818.06,76,818.06,864.25],[20260914,-5.21,123,-5.21,-5.05],[20260915,886.42,103,886.42,924.12],[20260916,757.39,114,757.39,899.6],[20260917,-92.22,87,-92.22,-85.49],[20260918,361.71,107,361.71,363.33],[20260921,668.38,120,668.38,681.87],[20260922,190.26,77,190.26,194.65],[20260923,77.0,67,77.0,83.88],[20260924,-34.53,52,-34.53,-27.66],[20260925,253.07,116,253.07,295.1],[20260928,315.97,80,315.97,364.11],[20260929,-260.43,105,-260.43,-244.51],[20260930,-289.03,73,-289.03,-236.47],[20261001,232.38,46,232.38,245.75],[20261002,345.84,54,345.84,367.39],[20261005,-39.51,65,-39.51,-34.34],[20261006,6.67,53,6.67,7.97],[20261007,-342.68,121,-342.68,-322.32],[20261008,-357.45,88,-357.45,-307.32],[20261009,-210.84,82,-210.84,-171.66],[20261012,151.77,42,151.77,155.7],[20261013,796.31,42,796.31,908.97],[20261014,871.5,84,871.5,887.43],[20261015,351.69,115,351.69,427.34],[20261016,741.7,83,741.7,817.09],[20261019,877.86,69,877.86,1064.39],[20261020,441.77,113,441.77,507.91],[20261021,40.44,2,40.44,43.48]]},"a26000001":{"v":666,"id":"Acc_26000001","role":"S","ccy":"USD","d":[[20260907,424.57,83,424.57,453.56],[20260908,724.69,63,724.69,833.97],[20260909,-51.16,78,-51.16,-44.61],[20260910,-241.08,105,-241.08,-226.81],[20260911,569.93,65,569.93,589.96],[20260914,194.45,67,194.45,205.45],[20260915,697.13,68,697.13,691.19],[20260916,410.5,130,410.5,429.33],[20260917,107.19,51,107.19,120.61],[20260918,128.69,124,128.69,138.59],[20260921,119.2,92,119.2,129.1],[20260922,-123.8,84,-123.8,-122.74],[20260923,329.82,80,329.82,404.04],[20260924,-194.61,130,-194.61,-175.17],[20260925,803.0,118,803.0,968.98],[20260928,572.12,82,572.12,618.07],[20260929,-205.25,91,-205.25,-171.23],[20260930,873.14,112,873.14,925.01],[20261001,219.55,40,219.55,263.06],[20261002,1.75,40,1.75,1.95],[20261005,278.05,48,278.05,290.14],[20261006,854.28,106,854.28,941.04],[20261007,706.22,47,706.22,702.97],[20261008,167.11,84,167.11,199.68],[20261009,515.11,79,515.11,584.24],[20261012,-47.56,55,-47.56,-41.41],[20261013,855.27,59,855.27,996.28],[20261014,529.88,75,529.88,644.0],[20261015,-39.04,115,-39.04,-35.1],[20261016,231.83,66,231.83,241.48],[20261019,497.02,94,497.02,614.27],[20261020,239.19,120,239.19,270.09],[20261021,64.8,5,64.8,69.68]]},"a70010001":{"v":666,"id":"Acc_70010001","role":"M","ccy":"USD","d":[[20260907,110.17,17],[20260908,39.04,19],[20260909,31.47,21],[20260910,82.25,8],[20260911,144.84,26],[20260914,15.75,18],[20260915,87.16,22],[20260916,116.38,22],[20260917,149.05,18],[20260918,-25.36,15],[20260921,-48.81,17],[20260922,-28.4,13],[20260923,139.06,7],[20260924,58.71,26],[20260925,-33.32,11],[20260928,121.87,24],[20260929,53.93,7],[20260930,67.15,22],[20261001,72.4,20],[20261002,-15.85,13],[20261005,147.33,18],[20261006,-52.47,6],[20261007,49.87,11],[20261008,-33.08,8],[20261009,75.96,6],[20261012,134.01,29],[20261013,83.76,29],[20261014,144.65,15],[20261015,92.94,28],[20261016,9.0,26],[20261019,-22.38,20],[20261020,31.65,27],[20261021,-9.6,1]]},"a70010002":{"v":666,"id":"Acc_70010002","role":"M","ccy":"USD","d":[[20260907,55.98,26],[20260908,-44.88,16],[20260909,25.44,10],[20260910,-6.37,24],[20260911,132.76,9],[20260914,5.38,13],[20260915,-20.96,16],[20260916,-18.19,28],[20260917,7.2,24],[20260918,99.22,29],[20260921,115.44,25],[20260922,92.53,24],[20260923,143.74,27],[20260924,-33.23,13],[20260925,-58.3,28],[20260928,31.36,19],[20260929,-50.42,10],[20260930,-32.71,11],[20261001,112.32,24],[20261002,-2.55,21],[20261005,-15.66,24],[20261006,7.53,11],[20261007,123.99,11],[20261008,17.73,28],[20261009,91.45,26],[20261012,16.61,19],[20261013,73.86,6],[20261014,-2.79,24],[20261015,-0.59,6],[20261016,-6.5,25],[20261019,27.98,23],[20261020,-55.59,14],[20261021,-1.98,2]]},"a70010003":{"v":666,"id":"Acc_70010003","role":"M","ccy":"USD","d":[[20260907,-2.69,21],[20260908,124.07,16],[20260909,-6.84,20],[20260910,114.63,16],[20260911,-11.72,21],[20260914,55.19,29],[20260915,-57.37,29],[20260916,100.81,9],[20260917,67.91,6],[20260918,89.29,24],[20260921,42.17,22],[20260922,103.41,22],[20260923,-51.59,7],[20260924,-56.18,17],[20260925,41.21,7],[20260928,87.4,29],[20260929,60.86,26],[20260930,46.52,22],[20261001,63.33,24],[20261002,-35.34,14],[20261005,120.73,24],[20261006,39.82,25],[20261007,-26.73,8],[20261008,-22.99,25],[20261009,-32.46,7],[20261012,127.42,26],[20261013,26.43,9],[20261014,9.87,9],[20261015,74.85,15],[20261016,118.96,16],[20261019,41.5,30],[20261020,68.5,17]]},"a70010004":{"v":666,"id":"Acc_70010004","role":"M","ccy":"USD","d":[[20260907,-8.42,9],[20260908,91.39,18],[20260909,35.5,27],[20260910,96.91,16],[20260911,-47.15,28],[20260914,61.05,18],[20260915,67.15,21],[20260916,59.84,25],[20260917,126.0,25],[20260918,90.58,7],[20260921,34.29,23],[20260922,36.17,12],[20260923,-40.66,19],[20260924,35.86,29],[20260925,67.4,27],[20260928,127.54,30],[20260929,-57.25,15],[20260930,-46.27,13],[20261001,107.29,23],[20261002,12.68,14],[20261005,-59.18,13],[20261006,32.06,17],[20261007,51.96,12],[20261008,120.02,30],[20261009,-37.04,19],[20261012,108.16,13],[20261013,135.59,15],[20261014,29.59,14],[20261015,38.03,21],[20261016,117.51,12],[20261019,45.23,18],[20261020,-2.68,8],[20261021,47.92,1]]},"a70010005":{"v":666,"id":"Acc_70010005","role":"M","ccy":"USD","d":[[20260907,64.2,14],[20260908,75.73,17],[20260909,57.69,9],[20260910,54.0,17],[20260911,78.34,14],[20260914,4.14,20],[20260915,-17.97,26],[20260916,46.9,25],[20260917,-4.42,15],[20260918,-23.11,20],[20260921,25.26,9],[20260922,120.89,30],[20260923,120.08,23],[20260924,65.51,7],[20260925,1.22,28],[20260928,100.52,29],[20260929,-43.89,6],[20260930,10.02,11],[20261001,45.59,6],[20261002,-48.98,29],[20261005,-31.6,6],[20261006,146.1,29],[20261007,130.99,21],[20261008,147.26,19],[20261009,19.92,15],[20261012,-39.97,18],[20261013,-51.59,22],[20261014,32.27,8],[20261015,-3.7,11],[20261016,-45.95,21],[20261019,91.02,9],[20261020,-47.05,7],[20261021,40.2,1]]}},"day":{"a1500000001":{"c0":{"k":0,"from":1792533600,"ev":[[1792575000,4,"SLAVE live - initial balance 100,000.00 (auto)"],[1792575003,3,"LOT Acc_70010003 200% (x2.00) - new copies only"],[1792575003,6,"Symbol map XAUUSDm -> XAUUSD"],[1792575003,1,"COPY BUY XAUUSD 0.10  <Acc_70010001  31 ms"],[1792575003,1,"COPY SELL XAUUSD 0.20  <Acc_70010002  32 ms"],[1792575003,1,"COPY BUY XAUUSD 0.60  <Acc_70010003  35 ms"],[1792575003,1,"COPY SELL XAUUSD 0.40  <Acc_70010004  37 ms"],[1792575003,1,"COPY BUY XAUUSD 0.50  <Acc_70010005  43 ms"],[1792575004,4,"SL/TP XAUUSD  SL 4090.92  TP 4113.94"],[1792575004,4,"SL/TP XAUUSD  SL 4107.80  TP 4086.74"],[1792575004,4,"SL/TP XAUUSD  SL 4092.92  TP 4111.94"],[1792575004,4,"SL/TP XAUUSD  SL 4105.80  TP 4088.74"],[1792575004,4,"SL/TP XAUUSD  SL 4094.92  TP 4109.94"],[1792575006,1,"CLOSE XAUUSD 0.20  P/L +0.20  <Acc_70010002"],[1792575008,1,"COPY BUY XAUUSD 0.50  <Acc_70010003  28 ms"],[1792575009,4,"SL/TP XAUUSD  SL 4093.57  TP 4111.66"],[1792575016,1,"CLOSE XAUUSD 0.40  P/L +45.60  <Acc_70010004"],[1792575026,3,"HOLD BUY XAUUSDm - MASTER SWITCHED OFF  <Acc_70010005"],[1792575030,3,"WAIT SELL XAUUSD - spread 1.35 > max 1.00  <Acc_70010001"],[1792575060,2,"SKIP SELL XAUUSDm - SPREAD 1.35 > max 1.00  <Acc_70010001"],[1792575063,3,"WAIT SELL XAUUSD - market closed on this broker: copying when it opens (max 10 min; a master trade in loss waits for its entry)  <Acc_70010002"],[1792575078,6,"CANCEL XAUUSDm - closed on master while the copy was waiting (spread / market closed)  <Acc_70010002"]]},"s":{"v":666,"from":1792533600,"ccy":"USD","sk":[[1792575026,"Acc_70010005",54000003,1,0.3,"XAUUSDm",4098.389,1,"MASTER SWITCHED OFF","c",40.2],[1792575060,"Acc_70010001",50000003,-1,0.1,"XAUUSDm",4099.729,0,"SPREAD 1.35 > max 1.00","c",-9.6],[1792575078,"Acc_70010002",51000004,-1,0.2,"XAUUSDm",4100.529,0,"CANCELLED - closed on master while the copy waited (spread / market closed)","c",-3.2]]}},"a26000001":{"c0":{"k":0,"from":1792533600,"ev":[[1792575000,4,"SLAVE live - initial balance 50,000.00 (auto)"],[1792575003,6,"Symbol map XAUUSDm -> XAUUSD"],[1792575003,1,"COPY BUY XAUUSD 0.30  <Acc_70010003  31 ms"],[1792575003,1,"COPY BUY XAUUSD 0.10  <Acc_70010001  37 ms"],[1792575003,1,"COPY BUY XAUUSD 0.50  <Acc_70010005  39 ms"],[1792575003,1,"COPY SELL XAUUSD 0.20  <Acc_70010002  42 ms"],[1792575003,1,"COPY SELL XAUUSD 0.40  <Acc_70010004  43 ms"],[1792575004,4,"SL/TP XAUUSD  SL 4107.67  TP 4086.57"],[1792575004,4,"SL/TP XAUUSD  SL 4105.67  TP 4088.57"],[1792575004,4,"SL/TP XAUUSD  SL 4090.74  TP 4113.82"],[1792575004,4,"SL/TP XAUUSD  SL 4094.74  TP 4109.82"],[1792575004,4,"SL/TP XAUUSD  SL 4092.74  TP 4111.82"],[1792575006,2,"CLOSE XAUUSD 0.20  P/L -0.80  <Acc_70010002"],[1792575008,1,"COPY BUY XAUUSD 0.25  <Acc_70010003  33 ms"],[1792575009,4,"SL/TP XAUUSD  SL 4093.39  TP 4111.54"],[1792575016,1,"CLOSE XAUUSD 0.40  P/L +44.00  <Acc_70010004"],[1792575026,1,"COPY BUY XAUUSD 0.30  <Acc_70010005  31 ms"],[1792575027,4,"SL/TP XAUUSD  SL 4092.54  TP 4110.63"],[1792575029,1,"CLOSE XAUUSD 0.30  P/L +37.50  <Acc_70010005"],[1792575030,1,"COPY SELL XAUUSD 0.10  <Acc_70010001  38 ms"],[1792575031,4,"SL/TP XAUUSD  SL 4104.97  TP 4089.88"],[1792575063,2,"CLOSE XAUUSD 0.10  P/L -10.50  <Acc_70010001"],[1792575063,1,"COPY SELL XAUUSD 0.20  <Acc_70010002  31 ms"],[1792575064,4,"SL/TP XAUUSD  SL 4105.77  TP 4090.68"],[1792575078,2,"CLOSE XAUUSD 0.20  P/L -5.00  <Acc_70010002"]]},"s":{"v":666,"from":1792533600,"ccy":"USD","sk":[]}}}};
 const LS = {
   get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
   set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
@@ -492,6 +538,7 @@ function startDemo() {
       if (Array.isArray(a.cs.log)) a.cs.log.forEach((x) => { if (Array.isArray(x)) x[0] += shift; });
     }
   });
+  try { demoEq(d, nowS()); } catch (e) {}                               // v6.66: the Equity tab's demo lines
   state = d;
   conn.lastMsg = Date.now();
   conn.demoTick = setInterval(() => {
@@ -798,8 +845,8 @@ function events(list) {
 
 //--- views --------------------------------------------------------------
 function tabBar(id, list, cur) {
-  return '<div class="tabs' + (list.length >= 5 ? " t5" : "") + '" role="tablist">' + list.map((t) => '<button role="tab" data-tab="' + t[0] + '" class="' + (cur === t[0] ? "on" : "") + '">' + esc(t[1]) +
-    (t[2] != null ? '<span class="n">' + t[2] + "</span>" : "") + "</button>").join("") + "</div>";
+  return '<div class="tabs' + (list.length >= 5 ? " t5" : "") + (list.length >= 6 ? " t6" : "") + '" role="tablist">' + list.map((t) => '<button role="tab" data-tab="' + t[0] + '" class="' + (cur === t[0] ? "on" : "") + '">' + esc(t[1]) +
+    (t[2] != null ? '<span class="n">' + t[2] + "</span>" : "") + (t[3] || "") + "</button>").join("") + "</div>";
 }
 function statusCard(a, chips, extra) {
   const on = accOnline(a);
@@ -843,11 +890,12 @@ function todayCard(a, net, hm, from) {
 const chip = (txt, color) => '<span class="chip" style="color:' + color + '">' + esc(txt) + "</span>";
 
 //--- v6.48: the New York clock - the market day starts when gold opens again at 18:00 New York -------------
+let nyF = null;                                                         // v6.66: one formatter for all (the Equity tab asks often)
 function nyParts(t) {
   try {
-    const f = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
+    if (!nyF) nyF = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit", hour: "2-digit", minute: "2-digit", hourCycle: "h23" });
     const p = {};
-    f.formatToParts(new Date(t * 1000)).forEach((x) => { p[x.type] = x.value; });
+    nyF.formatToParts(new Date(t * 1000)).forEach((x) => { p[x.type] = x.value; });
     return { y: +p.year, mo: +p.month, d: +p.day, h: (+p.hour) % 24, mi: +p.minute };
   } catch (e) { return null; }
 }
@@ -1035,6 +1083,425 @@ function cntLine(c, fund) {
   return '<div class="small num cost">Buy trades ' + b(c.nb, c.cb) + " &middot; Sell trades " + b(c.ns, c.cs) + ' <span class="mut">(masters : ' + esc(fund) + ")</span></div>";
 }
 
+//--- v6.66: the Equity tab - balance + equity over time (copier v6.66: every 5 minutes for 31 days, the balance at each market
+//--- day start before that, the money moved in / out). Tap the overview boxes to open their tab.
+let eqUI = LS.get("tbfe.eq", {});                                       // account id -> { u: "m" money | "p" %, r: "1d" "7d" "30d" "all", o: objective lines 1 / 0 }
+let eqSeen = LS.get("tbfe.eqseen", 0);                                  // the blue "new" mark until the Equity tab was opened once
+let eqScrub = null, eqDrag = false, eqGeo = null;                       // the point the finger is on, finger down, the chart drawn last
+const CHEV = '<svg width="12" height="12" viewBox="0 0 12 12" aria-hidden="true"><path d="M4.5 2.5 8 6 4.5 9.5" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"/></svg>';
+const TRI = (up, col) => '<svg width="10" height="8" viewBox="0 0 10 8" aria-hidden="true"><path d="' + (up ? "M5 0 10 8 0 8Z" : "M0 0 10 0 5 8Z") + '" fill="' + col + '"/></svg>';
+function box(tab, go, inner, cls) { return '<div class="card box' + (cls || "") + '" data-tab="' + tab + '" role="button" tabindex="0">' + inner + '<span class="gol">' + go + CHEV + "</span></div>"; }
+const isUSC = (a) => /^USC$/i.test(a.ccy || "");
+const ccyTag = (a) => (isUSC(a) ? " USC" : "");
+const ccySym = (c) => ({ USD: "$", EUR: "€", GBP: "£" }[String(c || "").toUpperCase()] || String(c || "$").toUpperCase());
+const eqNew = () => (eqSeen ? "" : '<span class="nd" aria-label="new"></span>');
+function eqOpt(a) {
+  const o = eqUI[a.id] || {}, prop = !!(a.obj && +a.obj.prop);
+  return { u: o.u === "p" ? "p" : "m", r: ["1d", "7d", "30d", "all"].indexOf(o.r) >= 0 ? o.r : prop ? "all" : "7d", o: +o.o ? 1 : 0 };
+}
+function eqSet(id, k, v) {
+  const a = accList().find((x) => x.id === id);
+  if (!a) return;
+  const o = eqOpt(a);
+  o[k] = v; eqUI[id] = o; LS.set("tbfe.eq", eqUI);
+  eqScrub = null; lastHtml = ""; render();
+}
+//--- New York clock helpers: h:00 New York on a New York date (GMT seconds); the market day starts 18:00 New York (Sunday - Thursday)
+function nyAt(y, mo, d, h) {
+  for (const off of [4, 5]) { const t = Date.UTC(y, mo - 1, d, h + off) / 1000, p = nyParts(t); if (p && p.h === h && p.d === d) return t; }
+  return Date.UTC(y, mo - 1, d, h + 5) / 1000;
+}
+function mktStartOf(t) {                                                // like the copier's MktStartGmt
+  const p = nyParts(t);
+  if (!p) return t - 86400;
+  let day = Date.UTC(p.y, p.mo - 1, p.d) / 1000;
+  for (let k = 0; k < 6; k++, day -= 86400) {
+    const D = new Date(day * 1000), wd = D.getUTCDay();
+    if (wd === 5 || wd === 6) continue;                                 // no open on Friday / Saturday evening
+    const s = nyAt(D.getUTCFullYear(), D.getUTCMonth() + 1, D.getUTCDate(), 18);
+    if (s <= t) return s;
+  }
+  return t - 86400;
+}
+const mLab = (t) => { const p = nyParts(t + 7 * 3600); return p ? p.y * 10000 + p.mo * 100 + p.d : 0; };   // the market day's date (= FTMO's date)
+function dLab(lab, long) {                                              // 20261109 -> "Mon 9" | long: "9 Nov" | long 2: "Mon 9 Nov"
+  const y = Math.floor(lab / 10000), m = Math.floor(lab / 100) % 100, d = lab % 100, D = new Date(Date.UTC(y, m - 1, d, 12));
+  try {
+    const wd = D.toLocaleDateString([], { weekday: "short", timeZone: "UTC" }), dm = D.toLocaleDateString([], { month: "short", day: "numeric", timeZone: "UTC" });
+    return long === 2 ? wd + " " + dm : long ? dm : wd + " " + d;
+  } catch (e) { return String(d); }
+}
+function whenT(t, r) {                                                  // a time in the range: today 14:35 | a week Mon 14:35 | longer 3 Nov 14:35
+  if (r === "1d") return hhmm(t);
+  if (r === "7d") return dayHM(t);
+  try { return new Date(t * 1000).toLocaleDateString([], { day: "numeric", month: "short" }) + " " + hhmm(t); } catch (e) { return dayHM(t); }
+}
+function wkSpans(t0, t1) {                                              // the weekends: gold is closed Friday 17:00 - Sunday 18:00 New York
+  const out = [], p = nyParts(t0);
+  if (!p) return out;
+  let day = Date.UTC(p.y, p.mo - 1, p.d) / 1000;
+  day -= ((new Date(day * 1000).getUTCDay() + 2) % 7) * 86400;          // back to Friday
+  for (let k = 0; k < 60; k++, day += 7 * 86400) {
+    const F = new Date(day * 1000), U = new Date((day + 2 * 86400) * 1000);
+    const a = nyAt(F.getUTCFullYear(), F.getUTCMonth() + 1, F.getUTCDate(), 17);
+    if (a >= t1) break;
+    const b = nyAt(U.getUTCFullYear(), U.getUTCMonth() + 1, U.getUTCDate(), 18);
+    if (b > t0) out.push([Math.max(a, t0), Math.min(b, t1)]);
+  }
+  return out;
+}
+function mktStarts(t0, t1) {                                            // market day starts inside (t0, t1) + their dates
+  const out = [];
+  for (let s = mktStartOf(t1), k = 0; k < 400 && s > t0; k++, s = mktStartOf(s - 3600)) if (s < t1) out.unshift([s, mLab(s)]);
+  return out;
+}
+//--- the x axis: weekends squeezed to a thin band, the rest even in time
+function xMap(t0, t1, pw, spans) {
+  const shut = spans.reduce((s, x) => s + (x[1] - x[0]), 0), open = t1 - t0 - shut, seg = [];
+  const gap = spans.length ? Math.min(10, pw * 0.25 / spans.length) : 0;
+  if (open <= 0 || !spans.length) seg.push([t0, t1, 0, pw]);
+  else {
+    const k = (pw - gap * spans.length) / open;
+    let t = t0, x = 0;
+    spans.forEach((s) => {
+      if (s[0] > t) { seg.push([t, s[0], x, x + (s[0] - t) * k]); x += (s[0] - t) * k; }
+      seg.push([s[0], s[1], x, x + gap]); x += gap; t = s[1];
+    });
+    if (t1 > t) seg.push([t, t1, x, pw]);
+  }
+  const xAt = (t) => { for (const s of seg) if (t <= s[1]) return s[1] > s[0] ? s[2] + (Math.max(t, s[0]) - s[0]) / (s[1] - s[0]) * (s[3] - s[2]) : s[2]; return pw; };
+  const tAt = (x) => { for (const s of seg) if (x <= s[3]) return s[3] > s[2] ? s[0] + (Math.max(x, s[2]) - s[2]) / (s[3] - s[2]) * (s[1] - s[0]) : s[0]; return t1; };
+  return { xAt: xAt, tAt: tAt };
+}
+function niceStep(rg, n) { const raw = rg / n, p = Math.pow(10, Math.floor(Math.log10(raw))), f = raw / p; return (f <= 1 ? 1 : f <= 2 ? 2 : f <= 2.5 ? 2.5 : f <= 5 ? 5 : 10) * p; }
+function eqW() { const v = $("view"), w = v && v.clientWidth ? v.clientWidth : 362; return Math.max(260, Math.min(640, Math.round(w - 30))); }
+//--- the data: [t, balance, equity, lowest equity in the step] oldest first + the live point; money moved [t, amount]
+function eqSeries(a) {
+  const c = state.cal && state.cal["a" + a.login];
+  if (!c || !Array.isArray(c.eq)) return null;
+  const pts = [];
+  c.eq.forEach((p) => { if (Array.isArray(p) && p.length >= 3 && +p[0] > 0 && isFinite(+p[1]) && isFinite(+p[2])) pts.push([+p[0], +p[1], +p[2], p.length >= 4 && isFinite(+p[3]) ? Math.min(+p[3], +p[2]) : +p[2]]); });
+  pts.sort((x, y) => x[0] - y[0]);
+  const mv = (Array.isArray(c.mv) ? c.mv : []).filter((m) => Array.isArray(m) && m.length >= 2 && +m[0] > 0 && Math.abs(+m[1]) >= 0.005).map((m) => [+m[0], +m[1]]).sort((x, y) => x[0] - y[0]);
+  const t = +a.t || 0;                                                  // + the live point: balance and equity now
+  if (pts.length && t > pts[pts.length - 1][0] && isFinite(+a.eq) && isFinite(+a.bal) && +a.eq > 0) pts.push([t, +a.bal, +a.eq, +a.eq]);
+  return { pts: pts, mv: mv, d: Array.isArray(c.d) ? c.d : [] };
+}
+function dayStart(a) { return a.role === "S" ? +dayFrom(a) || 0 : mDay(a) ? mDay(a).from : +a.dayGmt || 0; }
+function eqRange(a, S, r) {
+  const n = S.pts.length, t1 = S.pts[n - 1][0];
+  let t0;
+  if (r === "1d") { t0 = dayStart(a); if (!(t0 > 0) || t0 >= t1 || t1 - t0 > 4 * 86400) t0 = mktStartOf(t1); }
+  else t0 = r === "7d" ? t1 - 7 * 86400 : r === "30d" ? t1 - 30 * 86400 : S.pts[0][0];
+  if (!(t0 < t1)) t0 = t1 - 3600;
+  let k = 0;
+  while (k < n && S.pts[k][0] < t0) k++;
+  const P = S.pts.slice(k);
+  if (k > 0) { const b = S.pts[k - 1]; if (!P.length || P[0][0] > t0) P.unshift([t0, b[1], b[2], b[2]]); }
+  else t0 = P[0][0];
+  return { r: r, t0: t0, t1: t1, P: P, mv: S.mv.filter((m) => m[0] > t0 && m[0] <= t1) };
+}
+//--- the chart (SVG) + the numbers behind it
+function eqChart(a, R, o, ob) {
+  const W = eqW(), H = 236, top = 16, bot = 206, pct = o.u === "p", P = R.P, n = P.length, cc = ccyTag(a);
+  const M = new Array(n).fill(0);                                       // money moved in / out since the point before
+  for (let i = 1, j = 0; i < n; i++) while (j < R.mv.length && R.mv[j][0] <= P[i][0]) { M[i] += R.mv[j][1]; j++; }
+  const T = P.map((p) => p[0]), E = P.map((p) => p[2]), B = P.map((p) => p[1]), L = P.map((p, i) => (M[i] ? p[2] : p[3]));
+  let V = E, VL = L, I = null;
+  if (pct) {                                                            // %: only trading - money moved in / out taken out, step by step
+    I = [1];
+    for (let i = 1; i < n; i++) I.push(E[i - 1] > 0 && E[i] - M[i] > 0 ? I[i - 1] * (E[i] - M[i]) / E[i - 1] : I[i - 1]);
+    V = I.map((x) => (x - 1) * 100);
+    VL = I.map((x, i) => (E[i] > 0 ? (x * L[i] / E[i] - 1) * 100 : V[i]));
+  }
+  const base = V[0];
+  const lv = [];                                                        // objective lines (switch)
+  if (ob && o.o) {
+    const cv = (v) => (pct ? (E[n - 1] > 0 ? (I[n - 1] * v / E[n - 1] - 1) * 100 : null) : v);
+    if (ob.prop && ob.tgl > 0) lv.push([cv(ob.tgl), "var(--green)", "Profit target"]);
+    if (ob.dfl > 0) lv.push([cv(ob.dfl), "var(--amber)", "Daily loss limit"]);
+    if (ob.mfl > 0) lv.push([cv(ob.mfl), "var(--red)", "Max loss"]);
+  }
+  let lo = Math.min(base, Math.min.apply(null, VL), Math.min.apply(null, V)), hi = Math.max(base, Math.max.apply(null, V));
+  if (!pct) { lo = Math.min(lo, Math.min.apply(null, B)); hi = Math.max(hi, Math.max.apply(null, B)); }
+  lv.forEach((l) => { if (l[0] != null && isFinite(l[0])) { lo = Math.min(lo, l[0]); hi = Math.max(hi, l[0]); } });
+  if (hi - lo < 1e-9) { const d = pct ? 0.5 : Math.max(Math.abs(base) * 0.002, 1); lo -= d; hi += d; }
+  const pad = (hi - lo) * 0.08, step = niceStep(hi - lo + 2 * pad, 4);
+  const y0 = Math.floor((lo - pad) / step) * step, y1 = Math.ceil((hi + pad) / step) * step;
+  const Y = (v) => bot - (v - y0) / (y1 - y0) * (bot - top);
+  let dec = 0;
+  while (dec < 4 && Math.abs(Math.round(step * Math.pow(10, dec)) - step * Math.pow(10, dec)) > 1e-6) dec++;
+  const yl = (v) => (pct ? (v > 1e-9 ? "+" : v < -1e-9 ? "−" : "") + fmt(Math.abs(v), dec) + "%" : fmt(v, dec));
+  const ticks = [];
+  for (let v = y0, k = 0; v <= y1 + step * 0.01 && k < 12; v += step, k++) ticks.push(Math.round(v / step) * step);
+  const bl = pct ? "0%" : fmt(base, Math.abs(base - Math.round(base)) < 0.005 ? 0 : 2);
+  const yw = Math.ceil(Math.max(bl.length * 6.4, Math.max.apply(null, ticks.map((v) => yl(v).length * 6.0))) + 10);
+  const pw = W - yw;
+  const spans = wkSpans(R.t0, R.t1), X = xMap(R.t0, R.t1, pw, spans);
+  const eps = (y1 - y0) / 500, pts = [];
+  let li = 0, lx = 0, lowV = Infinity;                                  // the lowest point of the line as drawn
+  for (let i = 0; i < n; i++) {
+    const x = X.xAt(T[i]);
+    if (i > 0 && VL[i] < Math.min(V[i - 1], V[i]) - eps) {             // the step went lower than both ends: show how low
+      const xd = X.xAt(T[i] - Math.min(150, (T[i] - T[i - 1]) / 2));
+      pts.push([xd, Y(VL[i])]);
+      if (VL[i] < lowV) { lowV = VL[i]; li = i; lx = xd; }
+    }
+    pts.push([x, Y(V[i])]);
+    if (V[i] < lowV) { lowV = V[i]; li = i; lx = x; }
+  }
+  const f1 = (v) => v.toFixed(1);
+  const d = pts.map((p, i) => (i ? "L" : "M") + f1(p[0]) + " " + f1(p[1])).join(" ");
+  const yb = Y(base);
+  let s = '<svg class="eqsvg' + (eqScrub && eqScrub.id === a.id ? " scr" : "") + '" viewBox="0 0 ' + W + " " + H + '" width="100%" role="img" aria-label="' +
+    esc((pct ? "Trading result in %" : "Balance and equity") + ": from " + (pct ? "0%" : fmt(E[0], 2)) + " to " + (pct ? sgn(V[n - 1], 2) + "%" : fmt(E[n - 1], 2))) + '">';
+  s += '<defs><clipPath id="eqU"><rect x="0" y="0" width="' + pw + '" height="' + f1(yb) + '"/></clipPath><clipPath id="eqD"><rect x="0" y="' + f1(yb) + '" width="' + pw + '" height="' + f1(H - yb) + '"/></clipPath></defs>';
+  s += '<g stroke="var(--line)" stroke-width="1">' + ticks.map((v) => '<line x1="0" x2="' + pw + '" y1="' + f1(Y(v)) + '" y2="' + f1(Y(v)) + '"/>').join("") + "</g>";
+  spans.forEach((sp) => { const xa = X.xAt(sp[0]), xb = X.xAt(sp[1]); if (xb - xa >= 1) s += '<rect class="wk" x="' + f1(xa) + '" y="' + top + '" width="' + f1(xb - xa) + '" height="' + (bot - top) + '" fill="var(--bg2)"/>'; });
+  s += '<g fill="var(--mut)">' + ticks.filter((v) => Math.abs(Y(v) - yb) >= 12).map((v) => '<text x="' + (pw + 6) + '" y="' + f1(Y(v) + 4) + '">' + yl(v) + "</text>").join("") + "</g>";
+  const area = d + " L" + f1(pts[pts.length - 1][0]) + " " + f1(yb) + " L" + f1(pts[0][0]) + " " + f1(yb) + "Z";
+  s += '<path d="' + area + '" fill="var(--green)" fill-opacity=".13" clip-path="url(#eqU)"/><path d="' + area + '" fill="var(--red)" fill-opacity=".13" clip-path="url(#eqD)"/>';
+  s += '<line x1="0" x2="' + pw + '" y1="' + f1(yb) + '" y2="' + f1(yb) + '" stroke="var(--txt)" stroke-opacity=".6" stroke-width="1.2"/>';
+  s += '<text class="eqbase" x="' + (pw + 6) + '" y="' + f1(yb + 4) + '" font-weight="700" fill="var(--txt)">' + bl + "</text>";
+  lv.forEach((l) => {
+    if (l[0] == null || !isFinite(l[0])) return;
+    const y = Y(l[0]);
+    s += '<line class="eqlv" x1="0" x2="' + pw + '" y1="' + f1(y) + '" y2="' + f1(y) + '" stroke="' + l[1] + '" stroke-width="1.3" stroke-dasharray="5 4"/>' +
+      '<text x="4" y="' + f1(y < top + 14 ? y + 13 : y - 4) + '" fill="' + l[1] + '" font-weight="700" font-size="10">' + l[2] + "</text>";
+  });
+  if (!pct) {                                                           // balance: a dashed step line
+    let bp = "M" + f1(X.xAt(T[0])) + " " + f1(Y(B[0]));
+    for (let i = 1; i < n; i++) if (Math.abs(B[i] - B[i - 1]) >= 0.005) bp += " H" + f1(X.xAt(T[i])) + " V" + f1(Y(B[i]));
+    s += '<path class="eqbal" d="' + bp + " H" + f1(X.xAt(T[n - 1])) + '" fill="none" stroke="var(--acc)" stroke-width="1.6" stroke-dasharray="3 3"/>';
+  }
+  s += '<path class="eqln" d="' + d + '" fill="none" stroke="var(--green)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" clip-path="url(#eqU)"/>';
+  s += '<path d="' + d + '" fill="none" stroke="var(--red)" stroke-width="2.4" stroke-linejoin="round" stroke-linecap="round" clip-path="url(#eqD)"/>';
+  //--- labels: the lowest point (when below the start) and the last money moved in / out
+  const boxes = [];
+  const lbox = (x, y, w, h) => { let bx = Math.max(0, Math.min(pw - w, x + 10)); if (x + 10 + w > pw) bx = Math.max(0, x - 10 - w); let by = y + 10; if (by + h > bot - 2) by = Math.max(top + 2, y - 10 - h); return [bx, by, w, h]; };
+  const hit = (b, c) => b[0] < c[0] + c[2] && c[0] < b[0] + b[2] && b[1] < c[1] + c[3] && c[1] < b[1] + b[3];
+  const tm = (t) => whenT(t, R.r);
+  let lab = "";
+  if (lowV < base - Math.max(eps, 1e-9) && n > 2) {
+    const ly = Y(lowV), txt = tm(T[li]) + " · lowest " + (pct ? sgn(lowV, 2) + "%" : fmt(lowV, 2));
+    const b = lbox(lx, ly, Math.ceil(txt.length * 6.1) + 16, 21);
+    boxes.push(b);
+    lab += '<g class="eqlab eqlow"><line x1="' + f1(lx) + '" x2="' + f1(lx) + '" y1="' + top + '" y2="' + bot + '" stroke="var(--sec)" stroke-opacity=".45" stroke-dasharray="2 3"/>' +
+      '<circle cx="' + f1(lx) + '" cy="' + f1(ly) + '" r="4.5" fill="var(--bg)" stroke="var(--red)" stroke-width="2"/><rect x="' + f1(b[0]) + '" y="' + f1(b[1]) + '" width="' + b[2] + '" height="21" rx="6" fill="var(--card2)" stroke="var(--track)"/>' +
+      '<text x="' + f1(b[0] + 8) + '" y="' + f1(b[1] + 14.5) + '" font-size="11" fill="var(--txt)">' + esc(txt) + "</text></g>";
+  }
+  R.mv.forEach((m, k) => {                                              // money moved: a blue mark on the line
+    let i = 1;
+    while (i < n - 1 && T[i] < m[0]) i++;
+    const x = X.xAt(m[0]), y = Y(V[i]);
+    s += '<path class="eqmv" d="M' + f1(x) + " " + f1(y - 6.5) + " l6.5 6.5 l-6.5 6.5 l-6.5 -6.5Z" + '" fill="var(--acc)" stroke="var(--bg)" stroke-width="1.5"/>';
+    if (k !== R.mv.length - 1) return;
+    const t1 = sgn(m[1], 2) + cc + (m[1] < 0 ? " moved out" : " moved in"), t2 = tm(m[0]) + (m[1] < 0 ? " · not a loss" : " · not a profit");
+    const w = Math.ceil(Math.max(t1.length * 6.4, t2.length * 5.9)) + 18;
+    let b = lbox(x, y, w, 38);
+    if (boxes.some((c) => hit(b, c))) { const up = [b[0], Math.max(top + 2, y - 14 - 38), w, 38], dn = [b[0], Math.min(bot - 40, y + 14), w, 38]; b = !boxes.some((c) => hit(up, c)) ? up : !boxes.some((c) => hit(dn, c)) ? dn : null; }
+    if (!b) return;
+    lab += '<g class="eqlab"><line x1="' + f1(x) + '" x2="' + f1(x) + '" y1="' + f1(y + (b[1] > y ? 7 : -7)) + '" y2="' + f1(b[1] > y ? b[1] : b[1] + 38) + '" stroke="var(--acc)" stroke-opacity=".7" stroke-dasharray="2 3"/>' +
+      '<rect x="' + f1(b[0]) + '" y="' + f1(b[1]) + '" width="' + w + '" height="38" rx="8" fill="color-mix(in srgb, var(--acc) 16%, var(--card))" stroke="var(--acc)" stroke-opacity=".6"/>' +
+      '<text x="' + f1(b[0] + 9) + '" y="' + f1(b[1] + 15.5) + '" font-size="11" font-weight="700" fill="var(--txt)">' + esc(t1) + "</text>" +
+      '<text x="' + f1(b[0] + 9) + '" y="' + f1(b[1] + 30) + '" font-size="10.5" fill="var(--sec)">' + esc(t2) + "</text></g>";
+  });
+  s += lab;
+  const ex = X.xAt(T[n - 1]), ey = Y(V[n - 1]);
+  s += '<circle cx="' + f1(ex) + '" cy="' + f1(ey) + '" r="4.5" fill="' + (V[n - 1] >= base ? "var(--green)" : "var(--red)") + '" stroke="var(--bg)" stroke-width="2"/>';
+  //--- the time axis: start left, now right, market days (or hours today) between
+  const long = R.t1 - R.t0 > 15 * 86400, hrs = R.t1 - R.t0 <= 36 * 3600;
+  const st = hrs ? hhmm(R.t0) : dLab(mLab(R.t0), long), en = hrs ? hhmm(R.t1) : dLab(mLab(R.t1), long);
+  let xs = '<text x="0" y="226">' + esc(st) + '</text><text x="' + pw + '" y="226" text-anchor="end">' + esc(en) + "</text>";
+  const cand = [];
+  if (hrs) {
+    const hs = R.t1 - R.t0 <= 8 * 3600 ? 2 : R.t1 - R.t0 <= 18 * 3600 ? 3 : 6, d0 = new Date(R.t0 * 1000);
+    d0.setMinutes(0, 0, 0);
+    for (let t = d0.getTime() / 1000 + 3600, k = 0; t < R.t1 && k < 48; t += 3600, k++) if (new Date(t * 1000).getHours() % hs === 0 && !spans.some((q) => t > q[0] && t < q[1])) cand.push([t, hhmm(t)]);
+  } else mktStarts(R.t0, R.t1).forEach((m) => cand.push([m[0], dLab(m[1], long)]));
+  let last = st.length * 6.2;
+  cand.forEach((c) => {
+    const x = X.xAt(c[0]), w = c[1].length * 6.2;
+    if (c[1] === st || c[1] === en || x - w / 2 < last + 12 || x + w / 2 > pw - en.length * 6.2 - 12) return;
+    xs += '<text x="' + f1(x) + '" y="226" text-anchor="middle">' + esc(c[1]) + "</text>";
+    last = x + w / 2;
+  });
+  s += '<g fill="var(--mut)">' + xs + "</g>";
+  eqGeo = { id: a.id, r: R.r, W: W, pw: pw, top: top, bot: bot, n: n, T: T, V: V, E: E, B: B, M: M, X: X, Y: Y, pct: pct, cc: cc, base: base };
+  s += '<g class="eqov">' + eqOverlay(eqGeo) + "</g></svg>";
+  return { svg: s, T: T, E: E, L: L, M: M, V: V, base: base, n: n };
+}
+//--- the finger on the chart: a line, a dot and the values at that time
+function eqOverlay(G) {
+  if (!G || !eqScrub || eqScrub.id !== G.id) return "";
+  let i = 0, bd = Infinity;
+  for (let k = 0; k < G.n; k++) { const d = Math.abs(G.T[k] - eqScrub.t); if (d < bd) { bd = d; i = k; } }
+  const x = G.X.xAt(G.T[i]), y = G.Y(G.V[i]), up = G.V[i] >= G.base;
+  const lines = [[i === G.n - 1 ? "Now " + hhmm(G.T[i]) : whenT(G.T[i], G.r), "var(--sec)", ""]];
+  if (G.pct) { lines.push([sgn(G.V[i], 2) + "%", up ? "var(--green)" : "var(--red)", "700"]); lines.push(["Equity " + fmt(G.E[i], 2) + G.cc, "var(--txt)", ""]); }
+  else { lines.push(["Equity " + fmt(G.E[i], 2) + G.cc, "var(--txt)", "700"]); lines.push(["Balance " + fmt(G.B[i], 2), "var(--txt)", ""]); }
+  if (G.M[i]) lines.push([sgn(G.M[i], 2) + G.cc + (G.M[i] < 0 ? " moved out" : " moved in"), "var(--acc)", "700"]);
+  const bw = Math.ceil(Math.max.apply(null, lines.map((l) => l[0].length)) * 6.3) + 16, bh = lines.length * 15 + 9;
+  let bx = x + 10;
+  if (bx + bw > G.pw) bx = x - 10 - bw;
+  if (bx < 0) bx = Math.max(0, Math.min(G.pw - bw, x - bw / 2));
+  const by = G.top + 2, f1 = (v) => v.toFixed(1);
+  let s = '<line x1="' + f1(x) + '" x2="' + f1(x) + '" y1="' + G.top + '" y2="' + G.bot + '" stroke="var(--sec)" stroke-opacity=".7" stroke-dasharray="2 3"/>' +
+    '<circle cx="' + f1(x) + '" cy="' + f1(y) + '" r="5" fill="var(--bg)" stroke="' + (up ? "var(--green)" : "var(--red)") + '" stroke-width="2.2"/>' +
+    '<rect x="' + f1(bx) + '" y="' + by + '" width="' + bw + '" height="' + bh + '" rx="8" fill="var(--card2)" stroke="var(--track)"/>';
+  lines.forEach((l, k) => { s += '<text x="' + f1(bx + 8) + '" y="' + (by + 17 + k * 15) + '" font-size="11"' + (l[2] ? ' font-weight="' + l[2] + '"' : "") + ' fill="' + l[1] + '">' + esc(l[0]) + "</text>"; });
+  return s;
+}
+function eqPick(e) {
+  const svg = e.target && e.target.closest ? e.target.closest(".eqsvg") : null;
+  if (!svg || !eqGeo || eqGeo.id !== sel) return false;
+  const r = svg.getBoundingClientRect();
+  if (!r.width) return false;
+  const x = Math.max(0, Math.min(eqGeo.pw, (e.clientX - r.left) / r.width * eqGeo.W));
+  eqScrub = { id: sel, t: eqGeo.X.tAt(x) };
+  const ov = svg.querySelector(".eqov");
+  if (ov) ov.innerHTML = eqOverlay(eqGeo);
+  svg.classList.add("scr");
+  return true;
+}
+document.addEventListener("pointerdown", (e) => { if (eqPick(e)) eqDrag = true; });
+document.addEventListener("pointermove", (e) => { if (eqDrag || (e.pointerType === "mouse" && e.buttons === 0 && eqScrub)) eqPick(e); });
+document.addEventListener("pointerup", () => { if (eqDrag) { eqDrag = false; lastHtml = ""; } });
+document.addEventListener("pointercancel", () => { if (eqDrag) { eqDrag = false; lastHtml = ""; } });
+//--- the objective levels in money (copier v6.66 sends them: day start + money moved - daily %, start - max %, start + target %)
+function objOf(a) {
+  const o = a.obj;
+  if (a.role !== "S" || !o || typeof o !== "object" || !(+a.init > 0)) return null;
+  return { prop: !!+o.prop, dfl: +o.dfl || 0, mfl: +o.mfl || 0, tgl: +o.tgl || 0, st: +o.st > 0 ? +o.st : +a.init, init: +a.init, ftmo: /FTMO/i.test(a.broker || "") };
+}
+const rail = (up, col, name, lvl, tail) => '<div class="eqrail" style="color:' + col + '">' + TRI(up, col) + '<span class="num">' + name + " " + fmt(lvl, 2) + '</span><span class="d">&middot;</span><span class="r num">' + tail + "</span></div>";
+function objCard(a, ob) {
+  if (!ob) return "";
+  const eq = +a.eq || 0, init = ob.init, dl = +a.dlLim || 0, ml = +a.mlLim || 0;
+  const row = (name, val, vcol, frac, fcol, left, right) => '<div class="eqobj"><div class="hd"><span>' + name + '</span><b class="num"' + (vcol ? ' style="color:' + vcol + '"' : "") + ">" + val + "</b></div>" +
+    bar(frac, fcol) + '<div class="ft num"><span>' + left + "</span><span>" + right + "</span></div></div>";
+  let h = "";
+  if (ob.prop && ob.tgl > 0) {
+    const need = ob.tgl - ob.st, got = eq - ob.st, f = need > 0 ? got / need : 0;
+    h += row("Profit target", fmt(ob.tgl, 2), "", Math.max(0, f), f >= 1 ? "var(--gold)" : "var(--green)", sgn(got, 2) + " of +" + fmt(need, 2) + " &middot; " + Math.max(0, Math.round(f * 100)) + "%", f >= 1 ? "reached" : fmt(ob.tgl - eq, 2) + " to go");
+  }
+  if (!ob.prop && a.dt && +a.dt.tgt > 0) {
+    const net = +a.dt.net || 0, tg = +a.dt.tgt, f = Math.max(net, 0) / tg;
+    h += row("Day target", "+" + fmt(tg, 2), "", f, f >= 1 ? "var(--gold)" : "var(--green)", sgn(net, 2) + " today &middot; " + Math.round(Math.min(f, 9.99) * 100) + "%", f >= 1 ? "reached" : fmt(tg - Math.max(net, 0), 2) + " to go");
+  }
+  if (ob.dfl > 0) {
+    const full = dl / 100 * init, room = Math.max(eq - ob.dfl, 0), f = full > 0 ? room / full : 0, lost = Math.max(0, ob.dfl + full - eq);
+    h += row("Daily loss limit", fmt(ob.dfl, 2), "var(--amber)", f, lossCol(1 - Math.min(f, 1)), "today " + fmt(lost, 2) + " lost" + (ob.ftmo && dl > 0 && dl < 5 ? " &middot; FTMO " + fmt(ob.dfl - (5 - dl) / 100 * init, 2) : ""), fmt(room, 2) + " room");
+  }
+  if (ob.mfl > 0) {
+    const full = ml / 100 * init, room = Math.max(eq - ob.mfl, 0), f = full > 0 ? room / full : 0;
+    h += row("Max loss", fmt(ob.mfl, 2), "var(--red)", f, lossCol(1 - Math.min(f, 1)), "start " + fmt(ob.st, 2) + (ob.ftmo && ml > 0 && ml < 10 ? " &middot; FTMO " + fmt(ob.st - 0.1 * init, 2) : ""), fmt(room, 2) + " room");
+  }
+  if (!h) return "";
+  const note = ob.prop && ob.ftmo && dl > 0 && ml > 0 && (dl < 5 || ml < 10) ? "The copier stops a little before FTMO's own limits (" + dl + "% and " + ml + "% instead of 5% and 10%)."
+    : ob.prop ? "The copier stops at its own limits: " + dl + "% in one day and " + ml + "% in total, of the start balance." : "Deposits, withdrawals and transfers are never counted as a profit or a loss.";
+  return '<div class="card eqc eqobjs"><div class="lbl">Objectives' + (isUSC(a) ? " &middot; USC" : "") + "</div>" + h + '<p class="small mut" style="margin:0">' + esc(note) + "</p></div>";
+}
+function eqTab(a) {
+  const S = eqSeries(a), o = eqOpt(a), ob = objOf(a), cc = ccyTag(a);
+  if (!S || S.pts.length < 2) {
+    const raw = state.cal && state.cal["a" + a.login];
+    const why = !(a.v >= 666) ? "Update the copier on " + a.id + " to v6.66 for the Equity chart." : state.meta && (state.meta.v || 0) < 113 ? "Update TBFE Cloud Bridge on the PC to v1.13 or newer for the Equity chart."
+      : raw && Array.isArray(raw.eq) ? "The equity line builds up - the first points come a few minutes after the copier starts." : "The Equity chart comes with the next data from your PC...";
+    return '<div class="stack"><div class="card"><div class="lbl">Equity</div><div class="small mut eqwhy" style="margin-top:6px">' + esc(why) + "</div></div>" + objCard(a, ob) + "</div>";
+  }
+  const R = eqRange(a, S, o.r), G = eqChart(a, R, o, ob), n = G.n, eq = +a.eq || 0, up = G.V[n - 1] >= G.base;
+  const segB = (k, v, t) => '<button data-' + k + '="' + v + '" aria-pressed="' + (o[k === "equ" ? "u" : "r"] === v) + '" class="' + (o[k === "equ" ? "u" : "r"] === v ? "on" : "") + '">' + t + "</button>";
+  let h = '<div class="stack"><div class="card eqc"><div class="eqtop"><div class="eqseg" role="group" aria-label="Show in">' + segB("equ", "m", esc(ccySym(a.ccy))) + segB("equ", "p", "%") + "</div>" +
+    '<div class="eqrg" role="group" aria-label="Range">' + [["1d", "Today"], ["7d", "7D"], ["30d", "30D"], ["all", "All"]].map((x) => segB("eqr", x[0], x[1])).join("") + "</div></div>";
+  const pill = (k, mark, txt) => '<span class="eqpill num ' + k + '">' + mark + esc(txt) + "</span>";
+  const ln = '<i style="height:3px;border-radius:2px;background:' + (up ? "var(--green)" : "var(--red)") + '"></i>';
+  if (o.u === "m") h += '<div class="eqpills">' + pill("pb", '<i style="border-top:2px dashed var(--acc)"></i>', "Balance " + fmt(+a.bal, 2) + cc) + pill(up ? "pg" : "pr", ln, "Equity " + fmt(eq, 2) + cc) + "</div>";
+  else h += '<div class="eqpills">' + pill(up ? "pg" : "pr", ln, "Trading " + sgn(G.V[n - 1], 2) + "%") + pill("pn", "", "Now " + fmt(eq, 2) + cc) + "</div>" +
+    '<div class="small" style="margin:0">In % the line shows only trading. Money moved in or out is a blue mark, not a drop.</div>';
+  if (ob && ob.prop && ob.tgl > 0) h += rail(true, "var(--green)", "Profit target", ob.tgl, eq >= ob.tgl ? "reached" : fmt(ob.tgl - eq, 2) + " to go");
+  h += G.svg;
+  let rb = "";
+  if (ob && ob.dfl > 0) rb += rail(false, "var(--amber)", "Daily loss limit", ob.dfl, fmt(Math.max(eq - ob.dfl, 0), 2) + " room");
+  if (ob && ob.mfl > 0) rb += rail(false, "var(--red)", "Max loss", ob.mfl, fmt(Math.max(eq - ob.mfl, 0), 2) + " room");
+  if (rb) h += '<div class="eqrails">' + rb + "</div>";
+  if (ob && ((ob.prop && ob.tgl > 0) || ob.dfl > 0 || ob.mfl > 0))
+    h += '<div class="eqsw"><span>Objective lines on the chart</span><button class="sw gh' + (o.o ? " on" : "") + '" data-eqo="' + (o.o ? 0 : 1) + '" role="switch" aria-checked="' + !!o.o + '" aria-label="Objective lines on the chart"><i></i></button></div>';
+  h += "</div>" + objCard(a, ob);
+  //--- the numbers of this range: trading (money moved taken out), the biggest drop, lowest / highest, money moved, best / worst day
+  const T = G.T, E = G.E, L = G.L, M = G.M;
+  let cum = 0, peak = -Infinity, dd = 0, low = Infinity, lowT = 0, high = -Infinity, highT = 0;
+  for (let i = 0; i < n; i++) {
+    cum += M[i];
+    if (peak > -Infinity) dd = Math.max(dd, peak - (L[i] - cum));
+    peak = Math.max(peak, E[i] - cum);
+    if (L[i] < low) { low = L[i]; lowT = T[i]; }
+    if (E[i] > high) { high = E[i]; highT = T[i]; }
+  }
+  const trading = E[n - 1] - cum - E[0], tm = (t) => whenT(t, o.r);
+  const cells = [["Trading" + (o.u === "p" ? " &middot; " + sgn(G.V[n - 1], 2) + "%" : ""), sgn(trading, 2), pcls(trading)], ["Biggest drop", dd >= 0.005 ? sgn(-dd, 2) : "0.00", dd >= 0.005 ? "dn" : ""],
+    ["Lowest &middot; " + esc(tm(lowT)), fmt(low, 2), ""], ["Highest &middot; " + esc(tm(highT)), fmt(high, 2), ""]];
+  if (R.mv.length) cells.push(["Money moved", sgn(cum, 2), "mv"]);
+  if (o.r !== "1d") {
+    const l0 = mLab(R.t0), l1 = mLab(R.t1), days = S.d.filter((r) => Array.isArray(r) && +r[0] >= l0 && +r[0] <= l1 && isFinite(+r[1]));
+    if (days.length >= 2) {
+      let b = days[0], w = days[0];
+      days.forEach((r) => { if (+r[1] > +b[1]) b = r; if (+r[1] < +w[1]) w = r; });
+      const dl = o.r === "7d" ? 0 : 2;
+      cells.push(["Best day &middot; " + esc(dLab(+b[0], dl)), sgn(+b[1], 2), pcls(+b[1])], ["Worst day &middot; " + esc(dLab(+w[0], dl)), sgn(+w[1], 2), pcls(+w[1])]);
+    }
+  }
+  const ttl = o.r === "1d" ? "Today &middot; since " + esc(hhmm(R.t0)) : o.r === "7d" ? "Last 7 days" : o.r === "30d" ? "Last 30 days" : "Since " + esc(dLab(mLab(R.t0), true));
+  h += '<div class="card eqc eqstats"><div class="lbl">' + ttl + (isUSC(a) ? " &middot; USC" : "") + '</div><div class="eqst">' +
+    cells.map((c, k) => "<div" + (k === cells.length - 1 && cells.length % 2 ? ' class="w"' : "") + "><span>" + c[0] + '</span><b class="num ' + c[2] + '">' + c[1] + "</b></div>").join("") + "</div></div>";
+  return h + "</div>";
+}
+//--- v6.66: the demo's equity lines - made up from the demo calendar on this phone's clock (weekends, days and today in the right place)
+function demoEq(d, now) {
+  const S0 = [];                                                        // market day starts, newest first
+  for (let t = mktStartOf(now), k = 0; k < 60; k++) { S0.push(t); t = mktStartOf(t - 3600); }
+  Object.keys(d.cal || {}).forEach((key) => {
+    const c = d.cal[key], a = d.acc && d.acc[key];
+    if (!a || !c || !Array.isArray(c.d) || !c.d.length || !(+a.bal > 0)) return;
+    const rows = c.d.slice(-S0.length).map((r) => r.slice()), n = rows.length, S = S0.slice(0, n).reverse();
+    rows.forEach((r, i) => { r[0] = mLab(S[i]); });
+    let seed = 7 + (+a.login % 9973);
+    const rnd = () => (seed = (seed * 16807) % 2147483647) / 2147483647, g = () => rnd() + rnd() + rnd() - 1.5, r2 = (v) => Math.round(v * 100) / 100;
+    const mv = a.id === "Acc_70010002" && n > 3 ? [[S[n - 3] + 5 * 3600 + 1234, -150]] : [];
+    const mvIn = (t0, t1) => mv.reduce((s, m) => s + (m[0] > t0 && m[0] <= t1 ? m[1] : 0), 0);
+    //--- the days before today add up to where the account started (prop: its start balance)
+    const start = +a.init > 0 ? +a.init : +a.bal * 0.88;
+    let sum = 0;
+    for (let i = 0; i < n - 1; i++) sum += +rows[i][1] || 0;
+    const fix = n > 1 ? ((+a.bal - (+rows[n - 1][1] || 0) - mvIn(S[0], now) - start) - sum) / (n - 1) : 0;
+    for (let i = 0; i < n - 1; i++) { rows[i][1] = r2((+rows[i][1] || 0) + fix); if (rows[i].length >= 5) { rows[i][3] = r2(+rows[i][3] + fix); rows[i][4] = r2(+rows[i][4] + fix); } }
+    c.d = rows;
+    const bs = new Array(n + 1);
+    bs[n] = +a.bal;
+    for (let i = n - 1; i >= 0; i--) bs[i] = bs[i + 1] - (+rows[i][1] || 0) - mvIn(S[i], i + 1 < n ? S[i + 1] : now);
+    const eq = [], L0 = now - 8 * 86400, sig = +a.bal * 0.0009, fl1 = (+a.eq || +a.bal) - +a.bal, shut = wkSpans(L0 - 86400, now + 86400);
+    for (let i = 0; i < n; i++) if (S[i] < L0) eq.push([S[i], r2(bs[i]), r2(bs[i])]);
+    let fl = 0, i = 0, ck = -1, cur = null;
+    for (let te = Math.ceil(L0 / 300) * 300; te <= now; te += 300) {
+      while (i + 1 < n && S[i + 1] <= te) i++;
+      const open = !shut.some((q) => te > q[0] && te <= q[1]);
+      const end = i + 1 < n ? S[i + 1] : now, fr = te <= S[i] ? 0 : i === n - 1 ? (te - S[i]) / Math.max(now - S[i], 1) : Math.min(1, (te - S[i]) / Math.min(end - S[i], 22 * 3600));
+      const b = bs[i] + (+rows[i][1] || 0) * Math.min(1, Math.floor(fr * 6 + 0.5) / 6) + mvIn(S[i], te);
+      fl = open ? fl * 0.96 + g() * sig : 0;
+      const left = Math.floor((now - te) / 300);
+      if (left < 24) fl += (fl1 - fl) * (24 - left) / 24;               // lands on the real floating now
+      const e = b + fl, lo = open ? e - Math.abs(g()) * sig * 1.5 : e;
+      const age = now - te, stp = age <= 86400 ? 300 : age <= 7 * 86400 ? 3600 : 21600, kk = Math.floor((te - 1) / stp) * 4 + (stp === 300 ? 0 : stp === 3600 ? 1 : 2);
+      if (kk !== ck) { if (cur) eq.push(cur); ck = kk; cur = [te, r2(b), r2(e), r2(Math.min(lo, e))]; }
+      else { cur[0] = te; cur[1] = r2(b); cur[2] = r2(e); cur[3] = Math.min(cur[3], r2(Math.min(lo, e))); }
+    }
+    if (cur) eq.push(cur);
+    eq.forEach((p) => { if (p.length > 3 && !(p[3] < p[2] - 0.005)) p.length = 3; });
+    c.eq = eq;
+    c.mv = mv;
+  });
+}
+
 function slaveView(a) {
   const tab = tabs[a.id] || "ov";
   const ms_ = a.masters || [], tr = a.trades || [];
@@ -1059,7 +1526,8 @@ function slaveView(a) {
   if (a.ch && +a.ch.mc === 1) chips.push(chip("MARKET CLOSED", "var(--sec)"));            // v6.49
   else if (a.ch && +a.ch.on === 1) chips.push(chip("COPY HOURS - NO NEW COPIES", "var(--amber)"));
   let h = statusCard(a, chips, ncBlock(a));
-  h += tabBar(a.id, [["ov", "Overview"], ["ms", "Masters", ms_.length], ["tr", "Trades", tr.length], ["ac", "Activity"], ["sk", "Skipped", skCount(a)]], tab);
+  h += tabBar(a.id, [["ov", "Overview"], ["ms", "Masters", ms_.length], ["tr", "Trades", tr.length], ["ac", "Activity"], ["sk", "Skipped", skCount(a)], ["eq", "Equity", null, eqNew()]], tab);
+  if (tab === "eq") return h + eqTab(a);                                 // v6.66
   if (tab === "ms") return h + mastersList(a);
   if (tab === "tr") return h + tradesList(a, tr);
   if (tab === "ac") return h + dayActivity(a);
@@ -1068,11 +1536,11 @@ function slaveView(a) {
   const eqUp = a.eq >= a.bal - 0.004;
   const tdp = a.init > 0 ? a.today / a.init * 100 : 0;
   const hnet = a.dt ? +a.dt.net || 0 : (a.today || 0) + (a.flt || 0);                            // v6.60c: today's NET since the market open + what happened - own cards
-  h += '<div class="stack">' + todayCard(a, hnet, matchAll(a), dayFrom(a)) + csCard(a) + '<div class="grid2">' +
-    '<div class="card"><div class="lbl">Balance ' + esc(a.ccy) + '</div><div class="big num">' + fmt(a.bal, 2) + '</div><div class="small">initial ' + short(a.init) + " (" + esc(a.initSrc) + ")</div></div>" +
-    '<div class="card"><div class="lbl">Equity</div><div class="big num ' + (eqUp ? "" : "dn") + '">' + fmt(a.eq, 2) + "</div>" + spark(a.eqh, eqUp) + "</div>" +
-    '<div class="card"><div class="lbl">Floating</div><div class="big num ' + pcls(a.flt) + '">' + sgn(a.flt, 2) + '</div><div class="small">' + (a.copies || 0) + " copies open</div></div>" +
-    '<div class="card"><div class="lbl">Closed today</div><div class="big num ' + pcls(a.today) + '">' + sgn(a.today, 2) + '</div><div class="small">' + sgn(tdp, 2) + "% of initial" + since(a) + "</div></div></div>";
+  h += '<div class="stack">' + todayCard(a, hnet, matchAll(a), dayFrom(a)) + csCard(a) + '<div class="grid2">' +          // v6.66: tap a box = its tab
+    box("ov", "Overview", '<div class="lbl">Balance ' + esc(a.ccy) + '</div><div class="big num">' + fmt(a.bal, 2) + '</div><div class="small">initial ' + short(a.init) + " (" + esc(a.initSrc) + ")</div>") +
+    box("eq", "Equity chart", '<div class="lbl">Equity</div><div class="big num ' + (eqUp ? "" : "dn") + '">' + fmt(a.eq, 2) + "</div>" + spark(a.eqh, eqUp), eqSeen ? "" : " new") +
+    box("tr", "Trades", '<div class="lbl">Floating</div><div class="big num ' + pcls(a.flt) + '">' + sgn(a.flt, 2) + '</div><div class="small">' + (a.copies || 0) + " copies open</div>") +
+    box("ac", "Activity", '<div class="lbl">Closed today</div><div class="big num ' + pcls(a.today) + '">' + sgn(a.today, 2) + '</div><div class="small">' + sgn(tdp, 2) + "% of initial" + since(a) + "</div>") + "</div>";
   h += dtCard(a) + chCard(a);
   //--- prop-firm gauges
   const g = (lbl, val, lim, target) => {
@@ -1347,7 +1815,8 @@ function masterView(a) {
     const csm = ctlStateM(a, a.eaStop ? "EARESUME" : "EASTOP");
     h += '<div class="ctlbar">' + eaBtn(a, a.id, "") + "</div>" + '<div class="eainfo">' + esc(eaText(a)) + "</div>" + (csm.ok ? "" : '<div class="small mut ctlwhy">' + esc(csm.why) + "</div>");
   }
-  h += tabBar(a.id, [["ov", "Overview"], ["ps", "Positions", ps.length], ["ac", "Activity"]], tab);
+  h += tabBar(a.id, [["ov", "Overview"], ["ps", "Positions", ps.length], ["ac", "Activity"], ["eq", "Equity", null, eqNew()]], tab);
+  if (tab === "eq") return h + eqTab(a);                                 // v6.66
   if (tab === "ps") {
     if (!ps.length) return h + '<div class="empty">No copyable positions open.</div>';
     return h + '<div class="list">' + ps.map((p) => {
@@ -1361,16 +1830,16 @@ function masterView(a) {
   const eqUp = a.eq >= a.bal - 0.004;
   const mnet = mDay(a) ? mDay(a).pl : dayPL(a);                       // v6.60c: the "today" card - own card
   h += '<div class="stack">' + eaDays(a).map(edCard).join("") + (mnet != null ? todayCard(a, mnet, null, mDay(a) ? mDay(a).from : dayFrom(a)) : "") + '<div class="grid2">' +
-    '<div class="card"><div class="lbl">Balance ' + esc(a.ccy) + '</div><div class="big num">' + fmt(a.bal, 2) + '</div><div class="small">magics ' + esc(a.mags || "-") + "</div></div>" +
-    '<div class="card"><div class="lbl">Equity</div><div class="big num ' + (eqUp ? "" : "dn") + '">' + fmt(a.eq, 2) + "</div>" + spark(a.eqh, eqUp) + "</div>" +
+    box("ov", "Overview", '<div class="lbl">Balance ' + esc(a.ccy) + '</div><div class="big num">' + fmt(a.bal, 2) + '</div><div class="small">magics ' + esc(a.mags || "-") + "</div>") +     // v6.66: tap a box = its tab
+    box("eq", "Equity chart", '<div class="lbl">Equity</div><div class="big num ' + (eqUp ? "" : "dn") + '">' + fmt(a.eq, 2) + "</div>" + spark(a.eqh, eqUp), eqSeen ? "" : " new") +
     (mDay(a)
-      ? '<div class="card"><div class="lbl">Today</div><div class="big num ' + pcls(mDay(a).pl) + '">' + sgn(mDay(a).pl, 2) + '</div><div class="small num">closed ' + sgn(mDay(a).cl, 2) +
-        " | open " + sgn(mDay(a).op, 2) + '<span style="display:block">day from ' + hhmm(mDay(a).from) + " (market open)</span></div></div>"
+      ? box("ps", "Positions", '<div class="lbl">Today</div><div class="big num ' + pcls(mDay(a).pl) + '">' + sgn(mDay(a).pl, 2) + '</div><div class="small num">closed ' + sgn(mDay(a).cl, 2) +
+        " | open " + sgn(mDay(a).op, 2) + '<span style="display:block">day from ' + hhmm(mDay(a).from) + " (market open)</span></div>")
       : a.today != null
-      ? '<div class="card"><div class="lbl">Today</div><div class="big num ' + pcls(dayPL(a)) + '">' + sgn(dayPL(a), 2) + '</div><div class="small num">closed ' + sgn(a.today, 2) +
-        " | open " + sgn(a.fltAll != null ? a.fltAll : (a.flt || 0), 2) + since(a) + "</div></div>"
-      : '<div class="card"><div class="lbl">Floating (copied)</div><div class="big num ' + pcls(a.flt) + '">' + sgn(a.flt, 2) + '</div><div class="small">' + ps.length + " positions</div></div>") +
-    '<div class="card"><div class="lbl">Signals today</div><div class="big num">' + (a.sigToday || 0) + '</div><div class="small">last ' + esc(a.lastSig || "-") + "</div></div></div>";
+      ? box("ps", "Positions", '<div class="lbl">Today</div><div class="big num ' + pcls(dayPL(a)) + '">' + sgn(dayPL(a), 2) + '</div><div class="small num">closed ' + sgn(a.today, 2) +
+        " | open " + sgn(a.fltAll != null ? a.fltAll : (a.flt || 0), 2) + since(a) + "</div>")
+      : box("ps", "Positions", '<div class="lbl">Floating (copied)</div><div class="big num ' + pcls(a.flt) + '">' + sgn(a.flt, 2) + '</div><div class="small">' + ps.length + " positions</div>")) +
+    box("ac", "Activity", '<div class="lbl">Signals today</div><div class="big num">' + (a.sigToday || 0) + '</div><div class="small">last ' + esc(a.lastSig || "-") + "</div>") + "</div>";
   h += calCard(a);
   h += '<div class="card"><div class="row2"><div><div class="lbl">Turbo broadcast engine</div><div class="big" style="color:' + (a.live ? "var(--green)" : "var(--amber)") + '">' + (a.live ? "LIVE" : "STARTING") +
     '</div><div class="small num">queue seq ' + (a.qseq || 0) + '</div></div><div class="small num" style="text-align:right"><div>write <b style="color:var(--txt)">' + (a.wr > 0 ? (a.wr < 1000 ? fmt(a.wr, 0) + " us" : ms(a.wr / 1000)) : "-") +
@@ -1478,8 +1947,15 @@ function render() {
       '<span class="id">' + esc(a.id) + '</span><span class="eq num">' + fmt(a.eq, 2) + '</span><span class="sub num ' + subc + '">' + sub + '</span><span class="sub2 num' + s2c + '">' + esc(sub2) + "</span></button>";
   }).join("");
   const a = list.find((x) => x.id === sel);
+  if (eqDrag) return;                                                   // v6.66: a finger on the equity chart - the page waits for it
   const h = a.role === "S" ? slaveView(a) : masterView(a);
-  if (h !== lastHtml) { $("view").innerHTML = h; lastHtml = h; }
+  if (h !== lastHtml) { const tb = document.querySelector("#view .tabs"), sx = tb ? tb.scrollLeft : 0; $("view").innerHTML = h; lastHtml = h; tabsKeep(sx); }
+}
+function tabsKeep(sx) {                                                // v6.66: 6 tabs can scroll sideways - keep where they were, the open one in view
+  const tb = document.querySelector("#view .tabs"), on = tb && tb.querySelector("button.on");
+  if (!tb || tb.scrollWidth <= tb.clientWidth + 1) return;
+  tb.scrollLeft = sx;
+  if (on) { const l = on.offsetLeft - 4, r = on.offsetLeft + on.offsetWidth + 4; if (r > tb.scrollLeft + tb.clientWidth) tb.scrollLeft = r - tb.clientWidth; else if (l < tb.scrollLeft) tb.scrollLeft = l; }
 }
 const LBL = { LOTUP: "LOT +", LOTDN: "LOT -", LOTSET: "LOT reset", COPYON: "Start copy", COPYOFF: "Stop copy", PAUSE: "PAUSE", RESUME: "RESUME", CLOSEALL: "CLOSE ALL", EASTOP: "Stop EA", EARESUME: "Resume EA",
   DAYTGT: "Daily target", DAYLOSS: "Daily loss limit", HOURS: "Copy hours", GHOSTON: "GHOST SL/TP ON", GHOSTOFF: "GHOST SL/TP OFF", TRAILSET: "TP TRAIL", BESET: "SL ON ENTRY", PCSET: "PARTIAL CLOSE", REENTRY: "RE-ENTRY" };
@@ -1520,6 +1996,7 @@ function openPick(a, kind, m) {
   else pick("PARTIAL CLOSE times - " + m, "How many partial closes per copy: at +" + fmt(d, 2) + ", +" + fmt(d * 2, 2) + " ... each time " + p + "% of what is still open.", [1, 2, 3, 4, 5].map((x) => ({ v: x, t: x + "×" })), n, (x) => send(pcCode(p, d, x)));
 }
 document.addEventListener("click", (e) => {
+  if (eqScrub && !e.target.closest(".eqsvg")) { eqScrub = null; lastHtml = ""; setTimeout(render, 0); }   // v6.66: a tap outside the chart hides its values
   const pk = e.target.closest("[data-pick]");                            // v6.61: SL ON ENTRY / PARTIAL CLOSE values (v6.62: + RE-ENTRY)
   if (pk) { const a = accList().find((x) => x.id === sel); if (a) openPick(a, pk.getAttribute("data-pick"), pk.getAttribute("data-m") || ""); return; }
   const cb = e.target.closest("[data-cmd]");
@@ -1615,14 +2092,28 @@ document.addEventListener("click", (e) => {
   }
   const w7b = e.target.closest("[data-w7]");                             // v6.60d: open / close a master in the 7-day table
   if (w7b && sel) { const id = w7b.getAttribute("data-w7"); w7Open[sel] = w7Open[sel] === id ? "" : id; lastHtml = ""; render(); return; }
+  const eu = e.target.closest("[data-equ],[data-eqr],[data-eqo]");      // v6.66: the Equity tab's $ / %, range, objective lines
+  if (eu && sel) {
+    if (eu.hasAttribute("data-equ")) eqSet(sel, "u", eu.getAttribute("data-equ"));
+    else if (eu.hasAttribute("data-eqr")) eqSet(sel, "r", eu.getAttribute("data-eqr"));
+    else eqSet(sel, "o", +eu.getAttribute("data-eqo"));
+    return;
+  }
   const acc = e.target.closest("[data-acc]");
   if (acc) { sel = acc.getAttribute("data-acc"); LS.set("tbfe.sel", sel); acShow = 250; lastHtml = ""; render(); return; }
   if (e.target.closest("[data-acmore]")) { acShow += 500; lastHtml = ""; render(); return; }
   const t = e.target.closest("[data-tab]");
   if (t && sel) {
-    tabs[sel] = t.getAttribute("data-tab"); LS.set("tbfe.tabs", tabs); lastHtml = ""; render();
-    if (!t.closest(".tabs")) { try { window.scrollTo(0, 0); } catch (e2) {} }      // v6.53: "Not copied today" opens the Skipped tab from its top
+    const nt = t.getAttribute("data-tab"), was = tabs[sel] || "ov";
+    tabs[sel] = nt; LS.set("tbfe.tabs", tabs);
+    if (nt === "eq" && !eqSeen) { eqSeen = 1; LS.set("tbfe.eqseen", 1); }          // v6.66: the blue "new" mark goes once the Equity tab was opened
+    eqScrub = null; lastHtml = ""; render();
+    if (!t.closest(".tabs") && nt !== was) { try { window.scrollTo(0, 0); } catch (e2) {} }      // v6.53: "Not copied today" opens the Skipped tab from its top (v6.66: the boxes too)
   }
+});
+document.addEventListener("keydown", (e) => {                           // v6.66: the boxes work with a keyboard too
+  const b = (e.key === "Enter" || e.key === " ") && e.target && e.target.closest ? e.target.closest(".box[data-tab]") : null;
+  if (b) { e.preventDefault(); b.click(); }
 });
 setInterval(() => { header(); banner(); if (checkPend()) { lastHtml = ""; render(); } }, 1000);
 setInterval(() => { if (conn.mode !== "demo") render(); }, 5000);          // stale accounts turn grey even when no data comes
