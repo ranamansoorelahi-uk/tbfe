@@ -1,0 +1,1219 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+<meta name="apple-mobile-web-app-title" content="Snake 10in1">
+<meta name="theme-color" content="#0E1320">
+<meta name="format-detection" content="telephone=no">
+<link rel="apple-touch-icon" href="data:image/png;base64,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">
+<link rel="icon" href="data:image/png;base64,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">
+<title>Snake 10in1 Mobile</title>
+<style>
+/* Layout: one column for the phone - sticky header, account strip, account view with tabs. Same look as the MT5 panel. */
+:root{
+  --bg:#0E1320; --bg2:#111827; --card:#151C2C; --card2:#192235; --line:#222C42; --txt:#E9EEF7; --sec:#A3AEC2; --mut:#6B7891;
+  --acc:#4F8CFF; --acc2:#8B5CF6; --green:#34D399; --red:#F87171; --amber:#FBBF24; --gold:#F2C14E; --track:#283349;
+  --zebra:#121A29; --onacc:#FFFFFF; --shadow:0 10px 30px rgba(0,0,0,.35);
+  --font:-apple-system, BlinkMacSystemFont, "SF Pro Text", "Segoe UI", Roboto, "Helvetica Neue", Arial, sans-serif;
+  --mono:ui-monospace, "SF Mono", Menlo, Consolas, monospace;
+  color-scheme: dark;
+}
+:root[data-skin="carbon"]{
+  --bg:#0B0B0C; --bg2:#101011; --card:#151514; --card2:#1B1A18; --line:#27251F; --txt:#F6F2E8; --sec:#B5AE9E; --mut:#7C7669;
+  --acc:#E9B949; --acc2:#C2410C; --green:#4ADE80; --red:#F87171; --amber:#FBBF24; --gold:#E9B949; --track:#2B2924;
+  --zebra:#111111; --onacc:#15130F; color-scheme: dark;
+}
+:root[data-skin="light"]{
+  --bg:#F3F5F9; --bg2:#EDF1F7; --card:#FFFFFF; --card2:#F8FAFD; --line:#DFE4ED; --txt:#162033; --sec:#4D596F; --mut:#8590A4;
+  --acc:#2563EB; --acc2:#7C3AED; --green:#059669; --red:#DC2626; --amber:#D97706; --gold:#B7791F; --track:#E3E8F0;
+  --zebra:#F7F9FC; --onacc:#FFFFFF; --shadow:0 8px 24px rgba(22,32,51,.10); color-scheme: light;
+}
+*{box-sizing:border-box;-webkit-tap-highlight-color:transparent}
+[hidden]{display:none!important}
+html,body{margin:0;background:var(--bg);color:var(--txt);font-family:var(--font);font-size:15px;line-height:1.35}
+body{padding-left:max(14px, env(safe-area-inset-left, 0px));padding-right:max(14px, env(safe-area-inset-right, 0px));
+     padding-bottom:calc(24px + env(safe-area-inset-bottom, 0px));min-height:100vh}
+button{font:inherit;color:inherit}
+.num{font-variant-numeric:tabular-nums}
+.up{color:var(--green)} .dn{color:var(--red)} .mut{color:var(--mut)} .sec{color:var(--sec)}
+.k0{color:var(--txt)} .k1{color:var(--green)} .k2{color:var(--red)} .k3{color:var(--amber)} .k4{color:var(--acc)} .k5{color:var(--gold)} .k6{color:var(--mut)}
+
+/* header */
+.top{position:sticky;top:0;z-index:20;margin:0 calc(-1 * max(14px, env(safe-area-inset-left, 0px))) 0;
+     padding:calc(10px + env(safe-area-inset-top, 0px)) max(14px, env(safe-area-inset-right, 0px)) 10px max(14px, env(safe-area-inset-left, 0px));
+     background:linear-gradient(180deg, color-mix(in srgb, var(--bg) 92%, transparent), color-mix(in srgb, var(--bg) 82%, transparent));
+     -webkit-backdrop-filter:blur(14px);backdrop-filter:blur(14px);border-bottom:1px solid var(--line);
+     display:flex;align-items:center;gap:12px}
+.logo{width:38px;height:38px;border-radius:11px;flex:none;display:grid;place-items:center;font-weight:700;font-size:15px;color:#fff;
+      background:linear-gradient(135deg,var(--acc),var(--acc2));box-shadow:0 6px 16px color-mix(in srgb, var(--acc) 35%, transparent)}
+.ttl{flex:1;min-width:0}
+.ttl b{display:block;font-size:17px;letter-spacing:.2px}
+.live{display:flex;align-items:center;gap:6px;font-size:12px;color:var(--sec);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.dot{width:8px;height:8px;border-radius:50%;background:var(--mut);flex:none}
+.dot.on{background:var(--green);box-shadow:0 0 0 0 color-mix(in srgb, var(--green) 60%, transparent);animation:pulse 2s infinite}
+.dot.warn{background:var(--amber)} .dot.off{background:var(--red)}
+@keyframes pulse{0%{box-shadow:0 0 0 0 color-mix(in srgb, var(--green) 55%, transparent)}70%{box-shadow:0 0 0 7px transparent}100%{box-shadow:0 0 0 0 transparent}}
+.icon-btn{width:38px;height:38px;border-radius:11px;border:1px solid var(--line);background:var(--card);display:grid;place-items:center;cursor:pointer}
+.icon-btn svg{width:19px;height:19px;stroke:var(--txt)}
+
+/* banner */
+.banner{margin:12px 0 0;padding:10px 12px;border-radius:12px;font-size:13px;display:flex;gap:10px;align-items:flex-start;
+        background:color-mix(in srgb, var(--amber) 14%, var(--card));border:1px solid color-mix(in srgb, var(--amber) 35%, transparent)}
+.banner.err{background:color-mix(in srgb, var(--red) 13%, var(--card));border-color:color-mix(in srgb, var(--red) 35%, transparent)}
+.banner.demo{background:color-mix(in srgb, var(--acc) 12%, var(--card));border-color:color-mix(in srgb, var(--acc) 35%, transparent)}
+.banner b{white-space:nowrap}
+.banner button{margin-left:auto;flex:none;border:0;border-radius:9px;padding:6px 10px;background:var(--acc);color:var(--onacc);font-weight:600;font-size:12px;cursor:pointer}
+
+/* summary + account strip */
+.sum{display:flex;gap:8px;margin:14px 0 10px;flex-wrap:wrap}
+.chip{display:inline-flex;align-items:center;gap:6px;border-radius:999px;padding:5px 10px;font-size:11.5px;font-weight:600;letter-spacing:.2px;
+      background:color-mix(in srgb, currentColor 14%, transparent);white-space:nowrap}
+.strip{display:flex;gap:10px;overflow-x:auto;scroll-snap-type:x mandatory;padding:2px 2px 6px;margin:0 -2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.strip::-webkit-scrollbar{display:none}
+.acc{flex:none;width:158px;scroll-snap-align:start;border-radius:16px;padding:11px 12px;background:var(--card);border:1px solid var(--line);
+     cursor:pointer;text-align:left;display:flex;flex-direction:column;gap:5px;position:relative}
+.acc.sel{border-color:var(--acc);background:linear-gradient(180deg, color-mix(in srgb, var(--acc) 16%, var(--card)), var(--card));box-shadow:var(--shadow)}
+.acc .row{display:flex;align-items:center;gap:6px}
+.role{font-size:10px;font-weight:700;letter-spacing:.6px;padding:2px 7px;border-radius:999px}
+.role.S{color:var(--acc);background:color-mix(in srgb, var(--acc) 16%, transparent)}
+.role.M{color:var(--gold);background:color-mix(in srgb, var(--gold) 16%, transparent)}
+.acc .id{font-size:12px;color:var(--sec);overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.acc .eq{font-size:18px;font-weight:700}
+.acc .sub{font-size:12.5px;font-weight:650}
+.acc .sub2{font-size:11.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.acc .dot{position:absolute;top:13px;right:12px}
+
+/* cards */
+.card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px 14px}
+.grid2{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+.grid3{display:grid;grid-template-columns:repeat(3,1fr);gap:8px}
+.stack{display:flex;flex-direction:column;gap:10px;margin-top:10px}
+.lbl{font-size:10.5px;font-weight:700;letter-spacing:.7px;color:var(--mut);text-transform:uppercase}
+.big{font-size:22px;font-weight:700;margin-top:3px}
+.small{font-size:12px;color:var(--sec);margin-top:2px}
+.status{display:flex;align-items:center;gap:10px}
+.status .txt{font-weight:650;font-size:14px;flex:1;min-width:0}
+.chips{display:flex;flex-wrap:wrap;gap:6px;margin-top:9px}
+
+/* tabs */
+.tabs{position:sticky;top:calc(59px + env(safe-area-inset-top, 0px));z-index:10;display:flex;gap:4px;padding:4px;margin:12px 0 0;border-radius:13px;
+      background:color-mix(in srgb, var(--bg2) 88%, transparent);-webkit-backdrop-filter:blur(12px);backdrop-filter:blur(12px);border:1px solid var(--line)}
+.tabs button{flex:1;border:0;background:transparent;border-radius:10px;padding:8px 4px;font-size:13px;font-weight:600;color:var(--sec);cursor:pointer;white-space:nowrap}
+.tabs button.on{background:var(--card);color:var(--txt);box-shadow:0 1px 0 var(--line), 0 4px 12px rgba(0,0,0,.18)}
+.tabs .n{color:var(--mut);font-weight:600;margin-left:3px}
+.tabs.t5{gap:2px;overflow-x:auto;scrollbar-width:none}
+.tabs.t5::-webkit-scrollbar{display:none}
+.tabs.t5 button{flex:1 0 auto;padding:8px 5px;font-size:12.5px}
+.tabs.t5 .n{margin-left:2px}
+@media (max-width:374px){.tabs.t5 button{font-size:12px;padding:8px 3px}}
+@media (max-width:340px){.tabs.t5{gap:1px}.tabs.t5 button{font-size:11px;padding:8px 2px}}
+
+/* gauges */
+.gauge{display:flex;flex-direction:column;align-items:center;text-align:center;padding:12px 6px 11px}
+.ringbox{position:relative;width:74px;height:74px}
+.ringbox svg{width:74px;height:74px;display:block}
+.ringbox .c{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center}
+.ringbox .c b{font-size:15px}
+.ringbox .c span{font-size:9.5px;color:var(--mut);margin-top:-1px}
+.gauge .lbl{margin-top:8px}
+.gauge .v{font-size:15px;font-weight:700;margin-top:2px}
+.gauge .s{font-size:11px;color:var(--sec)}
+
+/* bars */
+.bar{height:7px;border-radius:9px;background:var(--track);overflow:hidden}
+.bar i{display:block;height:100%;border-radius:9px;background:var(--green)}
+.kv{display:flex;align-items:center;justify-content:space-between;gap:10px;font-size:13px}
+.kv + .kv{margin-top:8px}
+
+/* lists */
+.list{display:flex;flex-direction:column;gap:8px;margin-top:10px}
+.item{background:var(--card);border:1px solid var(--line);border-radius:14px;padding:11px 12px}
+.item .h{display:flex;align-items:center;gap:8px}
+.item .name{font-weight:650;font-size:14.5px;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.item .r{margin-left:auto;text-align:right;white-space:nowrap}
+.stats{display:grid;grid-template-columns:repeat(4,1fr);gap:4px;margin-top:9px;text-align:center}
+.stats div{background:var(--zebra);border-radius:9px;padding:6px 2px}
+.stats b{display:block;font-size:15px}
+.stats span{font-size:9.5px;font-weight:700;letter-spacing:.6px;color:var(--mut)}
+.tri{display:grid;grid-template-columns:repeat(3,1fr);gap:4px;margin-top:8px}
+.tri div{background:var(--zebra);border-radius:9px;padding:5px 8px}
+.tri span{display:block;font-size:9.5px;font-weight:700;letter-spacing:.6px;color:var(--mut)}
+.tri b{font-size:13px;font-weight:600}
+.pl{margin-left:auto;font-size:17px;font-weight:700;white-space:nowrap}
+.tag{font-size:10px;font-weight:700;letter-spacing:.5px;padding:2px 7px;border-radius:999px;white-space:nowrap}
+.tag.buy{color:var(--green);background:color-mix(in srgb, var(--green) 16%, transparent)}
+.tag.sell{color:var(--red);background:color-mix(in srgb, var(--red) 16%, transparent)}
+.lot{font-size:11px;font-weight:700;padding:3px 8px;border-radius:999px;white-space:nowrap}
+.lot.up{color:var(--amber);background:color-mix(in srgb, var(--amber) 16%, transparent)}
+.lot.dn{color:var(--acc);background:color-mix(in srgb, var(--acc) 16%, transparent)}
+.lot.eq{color:var(--sec);background:color-mix(in srgb, var(--sec) 12%, transparent)}
+.ev{display:grid;grid-template-columns:auto auto 1fr;gap:8px;align-items:center;padding:8px 10px;border-radius:10px;font-size:12.5px}
+.ev:nth-child(odd){background:var(--zebra)}
+.ev time{font-family:var(--mono);font-size:11.5px;color:var(--mut)}
+.ev .m{font-family:var(--mono);font-size:12px;min-width:0;overflow:hidden;overflow-wrap:anywhere;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical}
+.evtag{font-size:9.5px;font-weight:800;letter-spacing:.5px;padding:2px 0;width:58px;text-align:center;border-radius:999px;background:color-mix(in srgb, currentColor 15%, transparent)}
+.empty{padding:22px 10px;text-align:center;color:var(--mut);font-size:13px}
+.spark{display:block;width:100%;height:30px;margin-top:6px}
+.lat{display:block;width:100%;height:46px}
+.row2{display:flex;justify-content:space-between;align-items:flex-end;gap:12px}
+
+/* settings sheet */
+.sheet{position:fixed;inset:0;z-index:50;background:rgba(5,8,15,.55);display:flex;align-items:flex-end}
+.sheet .pan{width:100%;max-width:560px;margin:0 auto;background:var(--card);border:1px solid var(--line);border-bottom:0;border-radius:22px 22px 0 0;
+            padding:16px max(16px, env(safe-area-inset-right, 0px)) calc(18px + env(safe-area-inset-bottom, 0px)) max(16px, env(safe-area-inset-left, 0px));
+            max-height:92vh;overflow:auto}
+.pan h2{margin:0 0 4px;font-size:18px}
+.pan p{margin:4px 0 12px;color:var(--sec);font-size:13px}
+.field{display:flex;flex-direction:column;gap:6px;margin-top:12px}
+.field label{font-size:12px;font-weight:700;color:var(--sec)}
+.field input{width:100%;font:inherit;font-size:14px;padding:11px 12px;border-radius:11px;border:1px solid var(--line);background:var(--bg);color:var(--txt)}
+.field input:focus{outline:2px solid var(--acc);outline-offset:1px}
+.seg{display:flex;gap:6px}
+.seg button{flex:1;border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:9px 6px;font-size:13px;font-weight:600;cursor:pointer}
+.seg button.on{border-color:var(--acc);background:color-mix(in srgb, var(--acc) 14%, var(--bg))}
+.btns{display:flex;gap:8px;margin-top:16px}
+.btn{flex:1;border:0;border-radius:12px;padding:12px;font-weight:700;cursor:pointer;background:var(--acc);color:var(--onacc)}
+.btn.ghost{background:transparent;border:1px solid var(--line);color:var(--txt)}
+.hint{font-size:12px;color:var(--mut);margin-top:12px}
+.btn.danger{background:var(--red);color:#fff}
+
+/* phone control */
+.ctlbar{display:flex;gap:8px;margin-top:10px}
+.cbtn{flex:1;display:flex;align-items:center;justify-content:center;gap:7px;border:1px solid var(--line);background:var(--card);border-radius:12px;
+      padding:11px 8px;font-size:13px;font-weight:750;letter-spacing:.3px;cursor:pointer;min-height:44px}
+.cbtn svg{width:15px;height:15px;flex:none}
+.cbtn.amber{color:var(--amber);border-color:color-mix(in srgb, var(--amber) 40%, var(--line))}
+.cbtn.green{color:var(--green);border-color:color-mix(in srgb, var(--green) 40%, var(--line))}
+.cbtn.red{color:var(--red);border-color:color-mix(in srgb, var(--red) 40%, var(--line))}
+.ctlwhy{margin:6px 2px 0}
+.off{opacity:.45}
+.busy{opacity:.55;pointer-events:none}
+.mctl{display:flex;align-items:center;gap:8px;margin-top:10px;padding-top:10px;border-top:1px solid var(--line)}
+.sw{display:inline-flex;align-items:center;gap:8px;border:0;background:transparent;font-size:12px;font-weight:750;letter-spacing:.4px;color:var(--sec);cursor:pointer;padding:6px 0;min-height:36px}
+.sw i{width:40px;height:24px;border-radius:999px;background:var(--track);position:relative;flex:none;transition:background .2s}
+.sw i::after{content:"";position:absolute;top:3px;left:3px;width:18px;height:18px;border-radius:50%;background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.3);transition:transform .2s}
+.sw.on{color:var(--green)} .sw.on i{background:var(--green)} .sw.on i::after{transform:translateX(16px)}
+.sw.gh.on{color:var(--acc)} .sw.gh.on i{background:var(--acc)}
+.sw.re.on{color:var(--amber)} .sw.re.on i{background:var(--amber)}
+.stepper{margin-left:auto;display:flex;align-items:center;border:1px solid var(--line);border-radius:12px;overflow:hidden;background:var(--bg)}
+.stepper button{width:44px;height:38px;border:0;background:var(--card2);font-size:20px;font-weight:700;cursor:pointer;line-height:1}
+.stepper button:active{background:color-mix(in srgb, var(--acc) 18%, var(--card2))}
+.stepper span{min-width:58px;text-align:center;font-weight:750;font-size:13.5px}
+.rst{border:0;background:transparent;color:var(--acc);font-size:12px;font-weight:700;cursor:pointer;padding:8px 4px}
+.pickv{display:inline-flex;align-items:center;gap:6px;border:1px solid var(--line);border-radius:12px;background:var(--card2);color:var(--txt);font:inherit;font-size:13.5px;font-weight:750;
+       min-height:38px;padding:0 12px;cursor:pointer}
+.pickv svg{color:var(--mut);flex:none}
+.pickv:active{background:color-mix(in srgb, var(--acc) 18%, var(--card2))}
+.mctl.pcset{gap:6px}
+.mctl.pcset .lbl{margin-right:0}
+.mctl.pcset .lbl:first-child{margin-right:auto}
+.pick{display:grid;grid-template-columns:repeat(4,minmax(0,1fr));gap:6px;margin-top:4px}
+.pick.c5{grid-template-columns:repeat(5,minmax(0,1fr))}
+.pick button{border:1px solid var(--line);background:var(--bg);border-radius:10px;padding:11px 4px;font:inherit;font-size:13.5px;font-weight:650;color:var(--txt);cursor:pointer;font-variant-numeric:tabular-nums}
+.pick button.on{border-color:var(--acc);background:color-mix(in srgb, var(--acc) 14%, var(--bg));color:var(--acc)}
+.mbtns{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:10px}
+.cbtn.sm{padding:9px 6px;font-size:12.5px;min-height:42px;border-radius:11px}
+.cbtn.sm svg{width:13px;height:13px}
+.mctl .lbl{margin-right:auto}
+.cmp{display:grid;grid-template-columns:1fr 1fr auto;gap:4px;margin-top:8px}
+.cmp div{background:var(--zebra);border-radius:9px;padding:5px 8px}
+.cmp span{display:block;font-size:9.5px;font-weight:700;letter-spacing:.6px;color:var(--mut)}
+.cmp b{font-size:13px;font-weight:650}
+@media (max-width:380px){.cmp span{font-size:9px;letter-spacing:.2px}}
+.cost{margin-top:6px;line-height:1.55}
+.acc .sub2.hit{color:var(--gold);font-weight:700}
+.acc .sub2.loss{color:var(--red);font-weight:700}
+.nc{margin-top:11px;padding-top:9px;border-top:1px solid var(--line)}
+.nc .ncr{display:flex;gap:8px;align-items:baseline;margin-top:5px;font-size:13px;min-width:0}
+.nc .ncr .n{flex:none;font-weight:750;min-width:34px;text-align:right}
+.nc .ncr .w{min-width:0;overflow-wrap:anywhere}
+.nc[data-tab]{cursor:pointer}
+.nc .go{float:right;color:var(--acc);font-size:12px;font-weight:700;letter-spacing:.02em}
+.skh{display:flex;flex-direction:column;gap:4px}
+.ski .small{margin-top:3px}
+.evfull .ev .m{display:block;-webkit-line-clamp:unset;overflow:visible}
+.more{display:block;width:100%;margin-top:8px;padding:11px;border-radius:12px;border:1px solid var(--line);background:var(--card);color:var(--acc);font-weight:650;font-size:13.5px;cursor:pointer}
+.ski .why{overflow-wrap:anywhere}
+.edc .bar{margin-top:9px}
+.edl{margin-top:6px}
+.edl b{font-weight:650}
+.cost b{font-weight:650}
+.msum .cmp{margin-top:6px}
+.eainfo{margin:7px 2px 0;font-size:12px;color:var(--sec)}
+/* v6.48: daily target / loss limit, copy hours, calendar, trade counts */
+.dtrow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:4px 10px;align-items:center;margin-top:11px}
+.dtrow .bar{height:9px;grid-column:1 / 2}
+.dtrow .lbl{display:flex;justify-content:space-between;gap:8px}
+.dtrow .lbl span{color:var(--sec);letter-spacing:.2px;text-transform:none;font-weight:650}
+.dtrow .stepper{grid-row:1 / span 2;grid-column:2;margin-left:0}
+.stepper.sm button{width:36px;height:34px;font-size:18px}
+.stepper.sm span{min-width:62px;font-size:12.5px}
+.chrow{display:flex;align-items:center;gap:10px;margin-top:10px}
+.chrow .stepper{margin-left:auto}
+.calh{display:flex;align-items:center;gap:8px;margin-top:2px}
+.calh b{flex:1;text-align:center;font-size:14px}
+.calnav{width:38px;height:34px;border-radius:10px;border:1px solid var(--line);background:var(--card2);font-size:17px;font-weight:700;cursor:pointer;color:var(--txt)}
+.calnav:disabled{opacity:.3;cursor:default}
+.calg{display:grid;grid-template-columns:repeat(5,minmax(0,1fr)) minmax(0,1.08fr);gap:4px;margin-top:9px}
+.calg .hd{font-size:9.5px;font-weight:700;letter-spacing:.6px;color:var(--mut);text-align:center;padding:1px 0}
+.calc{min-height:60px;border-radius:9px;background:var(--zebra);padding:4px 5px 5px;display:flex;flex-direction:column;gap:1px;overflow:hidden;min-width:0}
+.calc .d{font-size:10px;color:var(--mut);font-weight:700}
+.calc .v{font-size:12px;font-weight:750;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.calc .t{font-size:9.5px;color:var(--mut);white-space:nowrap}
+.calc .m{font-size:9.5px;font-weight:750;white-space:nowrap}
+.calc.today{box-shadow:inset 0 0 0 1.5px var(--acc)}
+.calc.out{background:transparent}
+.calc.wk{background:color-mix(in srgb, var(--acc) 9%, var(--zebra))}
+.calc.wk .d{color:var(--sec)}
+.calsum{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px;margin-top:9px;font-size:12px;color:var(--sec)}
+.calsum b{color:var(--txt);font-weight:650}
+@media (max-width:360px){.calc .v{font-size:11px}.calc{padding:3px 3px 4px}}
+.toast{position:fixed;left:50%;transform:translateX(-50%);bottom:calc(14px + env(safe-area-inset-bottom, 0px));z-index:45;width:max-content;max-width:min(92vw, 520px);
+       display:flex;align-items:center;gap:10px;padding:11px 14px;border-radius:14px;background:var(--card2);border:1px solid var(--line);box-shadow:var(--shadow);font-size:13.5px;cursor:pointer}
+.toast.ok{border-color:color-mix(in srgb, var(--green) 55%, var(--line))} .toast.bad{border-color:color-mix(in srgb, var(--red) 55%, var(--line))}
+.toast .tk{width:20px;height:20px;border-radius:50%;display:grid;place-items:center;font-weight:800;font-size:12px;flex:none;color:#fff}
+.toast.ok .tk{background:var(--green)} .toast.bad .tk{background:var(--red)}
+.spin{width:16px;height:16px;border-radius:50%;border:2px solid var(--track);border-top-color:var(--acc);flex:none;animation:spin .8s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+:focus-visible{outline:2px solid var(--acc);outline-offset:2px}
+@media (prefers-reduced-motion: reduce){.dot.on{animation:none}.spin{animation-duration:2.4s}}
+/* v6.66: the Equity tab + tap the overview boxes to open their tab */
+.box{display:flex;flex-direction:column;cursor:pointer;-webkit-user-select:none;user-select:none}
+.box .gol{margin-top:auto;padding-top:9px;display:inline-flex;align-items:center;gap:4px;font-size:12px;font-weight:650;color:color-mix(in srgb, var(--acc) 72%, var(--txt))}
+.box:active{background:var(--card2)}
+.box.new{border-color:var(--acc)}
+.tabs .nd{display:inline-block;width:6px;height:6px;border-radius:3px;background:var(--acc);margin-left:4px;vertical-align:middle}
+
+/* Snake 10in1: same look as TBFE Mobile, a few extra pieces */
+.sdot{width:10px;height:10px;border-radius:50%;flex:none;background:var(--mut)}
+.sdot.sg{background:var(--green);box-shadow:0 0 0 3px color-mix(in srgb, var(--green) 22%, transparent)}
+.sdot.sr{background:var(--red);box-shadow:0 0 0 3px color-mix(in srgb, var(--red) 22%, transparent)}
+.tag.flat{color:var(--sec);background:color-mix(in srgb, var(--sec) 12%, transparent)}
+.tag.pz{color:var(--amber);background:color-mix(in srgb, var(--amber) 16%, transparent)}
+.tag.add{color:var(--acc);background:color-mix(in srgb, var(--acc) 15%, transparent)}
+.erow{display:grid;grid-template-columns:auto minmax(0,1fr) auto auto;gap:9px;align-items:center;padding:9px 0;border-top:1px solid var(--line);font-size:13.5px}
+.erow:first-of-type{border-top:0}
+.erow b{font-weight:650;min-width:0;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.erow .pl2{font-weight:700;min-width:64px;text-align:right}
+.eng .h .name{display:flex;align-items:center;gap:8px}
+.eng .meta{font-size:12px;color:var(--mut);margin-top:3px}
+.eng .tri{grid-template-columns:repeat(3,minmax(0,1fr))}
+.eng .tri div{min-width:0}
+.eng .tri b{display:block;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eng .tri .nx{display:block;font-size:10.5px;color:var(--mut);font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.eng .mctl{justify-content:space-between}
+.eng.pzd{border-color:color-mix(in srgb, var(--amber) 45%, var(--line))}
+.trow{display:grid;grid-template-columns:minmax(0,1fr) auto;gap:2px 10px;align-items:center}
+.trow .l1{display:flex;align-items:center;gap:7px;min-width:0}
+.trow .l1 b{font-weight:650;white-space:nowrap}
+.trow .l2{font-size:12px;color:var(--sec);grid-column:1 / 2}
+.trow .pl{grid-row:1 / span 2;grid-column:2;font-size:16px}
+.grp{display:flex;align-items:center;gap:8px;margin:14px 2px 0;font-size:12px;font-weight:700;letter-spacing:.5px;color:var(--sec)}
+.grp .r{margin-left:auto}
+.gl{grid-template-columns:repeat(3,minmax(0,1fr))}
+.calg7{grid-template-columns:repeat(5,minmax(0,1fr)) minmax(0,1.08fr)}
+.prc{font-variant-numeric:tabular-nums}
+.warnc{margin-top:10px;padding:9px 11px;border-radius:11px;font-size:12.5px;line-height:1.45;background:color-mix(in srgb, var(--amber) 12%, var(--zebra))}
+.warnc b{color:var(--amber)}
+.badc{background:color-mix(in srgb, var(--red) 12%, var(--zebra))}
+.badc b{color:var(--red)}
+.card.col{display:flex;flex-direction:column;min-width:0}
+.foot{margin:16px 2px 0;font-size:11.5px;color:var(--mut);text-align:center}
+.field input{font-size:16px}  /* 16px: iPhone does not zoom in when a box is tapped */
+#strip:empty,#sys:empty{display:none}
+#strip + #sys{margin-top:8px}
+.acc .sub.flat{color:var(--sec)}
+.tdc .big{font-size:26px}
+.tdc .small{margin-top:4px}
+.sysh{display:flex;align-items:center;gap:9px}
+.sysh b{font-size:17px;font-weight:700}
+.ladder{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:9px}
+.ladder div{background:var(--zebra);border-radius:11px;padding:8px 9px;min-width:0}
+.ladder span{display:block;font-size:10.5px;font-weight:700;letter-spacing:.5px;color:var(--mut)}
+.ladder b{display:block;font-size:15px;font-weight:700;margin-top:2px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.ladder i{display:block;font-style:normal;font-size:11px;color:var(--sec);margin-top:1px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.testg{display:grid;grid-template-columns:repeat(2,minmax(0,1fr));gap:6px 12px;margin-top:8px;font-size:12.5px;color:var(--sec)}
+.testg b{color:var(--txt);font-weight:650}
+.erow{cursor:pointer}
+</style>
+</head>
+<body>
+<header class="top">
+  <div class="logo">S10</div>
+  <div class="ttl"><b>SNAKE 10IN1</b><div class="live"><span class="dot" id="hdot"></span><span id="hlive">connecting...</span></div></div>
+  <button class="icon-btn" id="openSet" aria-label="Settings">
+    <svg viewBox="0 0 24 24" fill="none" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.7 1.7 0 0 0 .3 1.8l.1.1a2 2 0 1 1-2.8 2.8l-.1-.1a1.7 1.7 0 0 0-1.8-.3 1.7 1.7 0 0 0-1 1.5V21a2 2 0 1 1-4 0v-.1a1.7 1.7 0 0 0-1.1-1.5 1.7 1.7 0 0 0-1.8.3l-.1.1a2 2 0 1 1-2.8-2.8l.1-.1a1.7 1.7 0 0 0 .3-1.8 1.7 1.7 0 0 0-1.5-1H3a2 2 0 1 1 0-4h.1a1.7 1.7 0 0 0 1.5-1.1 1.7 1.7 0 0 0-.3-1.8l-.1-.1a2 2 0 1 1 2.8-2.8l.1.1a1.7 1.7 0 0 0 1.8.3H9a1.7 1.7 0 0 0 1-1.5V3a2 2 0 1 1 4 0v.1a1.7 1.7 0 0 0 1 1.5 1.7 1.7 0 0 0 1.8-.3l.1-.1a2 2 0 1 1 2.8 2.8l-.1.1a1.7 1.7 0 0 0-.3 1.8V9a1.7 1.7 0 0 0 1.5 1H21a2 2 0 1 1 0 4h-.1a1.7 1.7 0 0 0-1.5 1z"/></svg>
+  </button>
+</header>
+<div id="banner"></div>
+<div class="sum" id="sum"></div>
+<nav class="strip" id="strip" aria-label="Accounts"></nav>
+<nav class="strip" id="sys" aria-label="Systems"></nav>
+<main id="view"></main>
+
+<div class="sheet" id="sheet" hidden>
+  <div class="pan" role="dialog" aria-labelledby="setT">
+    <h2 id="setT">Connect your PC</h2>
+    <p>Type the same database address and key as in the <b>Snake10in1</b> EA inputs (group <b>Mobile</b>) on your PC.</p>
+    <div class="field"><label for="fDb">Firebase database address</label>
+      <input id="fDb" type="url" inputmode="url" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="https://your-project-default-rtdb.europe-west1.firebasedatabase.app"></div>
+    <div class="field"><label for="fKey">Secret key</label>
+      <input id="fKey" type="text" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="the key in the Snake10in1 inputs"></div>
+    <div class="field"><label for="fCode">Control code <span class="mut">(4 digits, only for the buttons)</span></label>
+      <input id="fCode" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="4 digits"></div>
+    <div class="field"><label>Theme</label>
+      <div class="seg" id="fSkin"><button data-s="midnight">Midnight</button><button data-s="carbon">Carbon</button><button data-s="light">Light</button></div></div>
+    <div class="btns"><button class="btn ghost" id="setDemo">Show demo</button><button class="btn" id="setSave">Save &amp; connect</button></div>
+    <div class="hint" id="setHint">iPhone: open this page in Safari, tap Share, then <b>Add to Home Screen</b>. Android Chrome: menu, <b>Add to Home screen</b>. It opens full screen like an app.</div>
+    <div class="btns"><button class="btn ghost" id="setClose">Close</button></div>
+  </div>
+</div>
+
+<div class="sheet" id="codeSheet" hidden>
+  <div class="pan" role="dialog" aria-labelledby="codeT">
+    <h2 id="codeT">Control code</h2>
+    <p>Type your 4-digit <b>control code</b> (the one in the Snake10in1 inputs on your PC). It stays on this phone only and lets it pause, resume and close trades. Never share it.</p>
+    <div class="field"><input id="fCode2" type="password" inputmode="numeric" pattern="[0-9]*" maxlength="8" autocomplete="off" autocapitalize="off" spellcheck="false" placeholder="4 digits" style="font-size:22px;letter-spacing:6px;text-align:center"></div>
+    <div class="btns"><button class="btn ghost" id="codeCancel">Cancel</button><button class="btn" id="codeSave">Save</button></div>
+  </div>
+</div>
+<div class="sheet" id="askSheet" hidden>
+  <div class="pan" role="alertdialog" aria-labelledby="askT">
+    <h2 id="askT"></h2>
+    <p id="askP"></p>
+    <div class="btns"><button class="btn ghost" id="askNo">Cancel</button><button class="btn danger" id="askYes">OK</button></div>
+  </div>
+</div>
+<div class="toast" id="toast" role="status" aria-live="polite" hidden></div>
+
+<script>
+"use strict";
+const DEMO = {"acc":{"a51234567":{"v":111,"ver":"1.11","id":"Acc_51234567","login":51234567,"broker":"Exness Technologies Ltd","server":"Exness-MT5Real8","ccy":"USC","sym":"XAUUSD","t":1794568344,"every":5,"fast":1,"status":"RUNNING","why":"","bal":97193.28,"eq":98048.36,"flt":855.07,"today":-665.8,"tdn":56,"peak":101784.37,"need":78000,"mlv":137511,"bid":4074.4,"ask":4074.57,"lot":0.01,"adds":1,"ctl":1,"lock":0,"active":10,"paused":0,"cnt":35,"lots":0.35,"since":1790812820,"dkey":20261110,"dfrom":1794265200,"eng":[{"n":"Falcon4","mg":26111301,"min":4,"win":90,"flt":2,"on":1,"tr":-1,"pos":0,"cnt":0,"lots":0.0,"pl":0.0,"base":0.0,"fav":0,"fmax":5,"fs":5.0,"ag":0,"amax":0,"as":30.0,"flip":1794530640,"day":90.13,"dn":9,"pz":0,"res":-110.45,"pk":352.04,"tm":742,"tw":-927,"td":3551,"tb":10500},{"n":"Hawk5","mg":26111306,"min":5,"win":120,"flt":2,"on":1,"tr":-1,"pos":-1,"cnt":4,"lots":0.04,"pl":146.6,"base":4118.82,"fav":3,"fmax":3,"fs":5.0,"ag":0,"amax":3,"as":30.0,"flip":1794546900,"day":-7.99,"dn":15,"pz":0,"res":1077.32,"pk":1100.1,"tm":668,"tw":-1169,"td":3360,"tb":10000},{"n":"Cobra8","mg":26111302,"min":8,"win":90,"flt":8,"on":1,"tr":-1,"pos":-1,"cnt":4,"lots":0.04,"pl":111.55,"base":4110.09,"fav":3,"fmax":3,"fs":5.0,"ag":0,"amax":3,"as":30.0,"flip":1794535680,"day":-70.3,"dn":3,"pz":0,"res":-668.25,"pk":68.03,"tm":633,"tw":-969,"td":3158,"tb":9500},{"n":"Wolf10","mg":26111307,"min":10,"win":90,"flt":2,"on":1,"tr":-1,"pos":-1,"cnt":6,"lots":0.06,"pl":43.65,"base":4094.39,"fav":5,"fmax":5,"fs":5.0,"ag":0,"amax":5,"as":30.0,"flip":1794554400,"day":-133.14,"dn":8,"pz":0,"res":397.52,"pk":631.29,"tm":871,"tw":-1527,"td":3788,"tb":11500},{"n":"Panther15","mg":26111308,"min":15,"win":45,"flt":8,"on":1,"tr":-1,"pos":-1,"cnt":1,"lots":0.01,"pl":0.2,"base":4074.77,"fav":0,"fmax":5,"fs":8.0,"ag":0,"amax":5,"as":50.0,"flip":1794560400,"day":-147.75,"dn":3,"pz":0,"res":-1335.56,"pk":39.11,"tm":760,"tw":-1282,"td":3870,"tb":11500},{"n":"Tiger18","mg":26111303,"min":18,"win":30,"flt":8,"on":1,"tr":-1,"pos":-1,"cnt":6,"lots":0.06,"pl":163.47,"base":4114.4,"fav":5,"fmax":5,"fs":5.0,"ag":0,"amax":3,"as":40.0,"flip":1794548880,"day":-54.12,"dn":2,"pz":0,"res":-181.95,"pk":303.25,"tm":1090,"tw":-2000,"td":4224,"tb":12500},{"n":"Lion20","mg":26111309,"min":20,"win":45,"flt":3,"on":1,"tr":-1,"pos":-1,"cnt":6,"lots":0.06,"pl":204.6,"base":4121.19,"fav":5,"fmax":5,"fs":5.0,"ag":0,"amax":5,"as":40.0,"flip":1794546000,"day":-46.41,"dn":2,"pz":0,"res":120.42,"pk":632.78,"tm":961,"tw":-1143,"td":2988,"tb":9000},{"n":"Eagle22","mg":26111304,"min":22,"win":45,"flt":3,"on":1,"tr":-1,"pos":-1,"cnt":6,"lots":0.06,"pl":184.66,"base":4117.88,"fav":5,"fmax":5,"fs":5.0,"ag":0,"amax":5,"as":30.0,"flip":1794547800,"day":-52.4,"dn":3,"pz":0,"res":137.76,"pk":506.3,"tm":1137,"tw":-1046,"td":3985,"tb":12000},{"n":"Whale36","mg":26111305,"min":36,"win":20,"flt":8,"on":1,"tr":-1,"pos":-1,"cnt":1,"lots":0.01,"pl":0.61,"base":4075.18,"fav":0,"fmax":5,"fs":5.0,"ag":0,"amax":0,"as":30.0,"flip":1794566160,"day":-1.14,"dn":6,"pz":0,"res":722.08,"pk":1161.04,"tm":765,"tw":-949,"td":3917,"tb":12000},{"n":"Bear45","mg":26111310,"min":45,"win":45,"flt":3,"on":1,"tr":-1,"pos":-1,"cnt":1,"lots":0.01,"pl":-0.26,"base":4074.31,"fav":0,"fmax":3,"fs":5.0,"ag":0,"amax":3,"as":30.0,"flip":1794564000,"day":-242.67,"dn":5,"pz":0,"res":-2110.54,"pk":126.93,"tm":565,"tw":-1278,"td":3969,"tb":12000}],"pos":[[8,-1,0.01,4075.18,0.61,"",1794566160],[9,-1,0.01,4074.31,-0.26,"",1794564000],[3,-1,0.01,4069.34,-5.23,"+5",1794560792],[4,-1,0.01,4074.77,0.2,"",1794560400],[3,-1,0.01,4074.28,-0.3,"+4",1794558646],[3,-1,0.01,4079.35,4.78,"+3",1794558009],[3,-1,0.01,4084.32,9.75,"+2",1794555478],[3,-1,0.01,4089.39,14.82,"+1",1794555057],[3,-1,0.01,4094.39,19.82,"",1794554400],[5,-1,0.01,4089.26,14.69,"+5",1794553292],[7,-1,0.01,4092.87,18.3,"+5",1794553270],[5,-1,0.01,4094.24,19.67,"+4",1794553264],[2,-1,0.01,4094.64,20.07,"+3",1794553264],[6,-1,0.01,4096.13,21.56,"+5",1794553264],[7,-1,0.01,4097.84,23.27,"+4",1794553222],[5,-1,0.01,4099.35,24.78,"+3",1794553218],[2,-1,0.01,4100.03,25.46,"+2",1794553216],[6,-1,0.01,4101.16,26.59,"+4",1794553215],[7,-1,0.01,4102.87,28.3,"+3",1794553212],[1,-1,0.01,4103.81,29.24,"+3",1794553211],[5,-1,0.01,4104.36,29.79,"+2",1794553211],[2,-1,0.01,4105.07,30.5,"+1",1794553206],[6,-1,0.01,4106.19,31.62,"+3",1794553206],[7,-1,0.01,4107.77,33.2,"+2",1794553204],[1,-1,0.01,4108.55,33.97,"+2",1794553204],[5,-1,0.01,4109.28,34.71,"+1",1794553204],[6,-1,0.01,4111.16,36.59,"+2",1794553203],[7,-1,0.01,4112.85,38.28,"+1",1794549036],[5,-1,0.01,4114.4,39.83,"",1794548880],[1,-1,0.01,4113.7,39.13,"+1",1794548121],[7,-1,0.01,4117.88,43.31,"",1794547800],[6,-1,0.01,4116.19,41.62,"+1",1794547068],[1,-1,0.01,4118.82,44.25,"",1794546900],[6,-1,0.01,4121.19,46.62,"",1794546000],[2,-1,0.01,4110.09,35.52,"",1794535680]],"eqh":[98919.35,98734.9,98817.73,98975.42,98997.59,98675.3,98693.42,98651.91,98715.42,98647.39,98798.42,98884.95,98615.36,98430.16,98425.25,98240.47,98241.51,98236.94,98233.57,98228.4,98252.15,98248.13,98248.13,98248.13,98249.08,98287.18,98322.52,98365.01,98365.08,98344.36,98328.53,98318.24,98383.56,98277.49,98357.0,98357.0,98357.0,98357.0,98281.01,98390.1,98303.49,98279.94,98206.74,98087.22,97934.65,97940.1,97985.38,98041.9,98110.98,97973.52,97825.97,97786.81,97761.56,97573.19,97533.11,97556.37,97597.63,97490.21,97510.65,97487.63,97568.85,97533.07,97563.35,97599.26,97618.67,97689.97,97677.21,97678.36,97681.25,97610.86,97710.06,97606.16,97609.58,97594.5,97589.99,97595.17,97591.93,97589.56,97631.59,97627.03,97760.04,97868.04,97763.86,97925.1,98041.0,97999.14,98093.83,98027.9,98148.89,98101.46,98036.66,97921.54,98034.08,97960.87,98009.49,98048.36],"acks":[]}},"cal":{"a51234567":{"v":111,"id":"Acc_51234567","ccy":"USC","t":1794568291,"dkey":20261110,"d":[[20261001,-502.74,43],[20261002,-2940.72,100],[20261005,-773.38,71],[20261006,-1739.6,70],[20261007,-421.51,40],[20261008,-189.38,61],[20261009,-791.95,49],[20261012,109.52,60],[20261013,-1390.23,85],[20261014,294.52,13],[20261015,563.82,76],[20261016,-187.97,59],[20261019,-564.49,51],[20261020,287.18,51],[20261021,-267.98,52],[20261022,-796.87,43],[20261023,576.99,16],[20261026,2634.2,75],[20261027,-1549.71,70],[20261028,-1059.46,93],[20261029,-1234.58,48],[20261030,-157.46,5],[20261102,4422.98,69],[20261103,239.45,77],[20261104,-1659.12,55],[20261105,2621.33,36],[20261106,3020.6,85],[20261109,-684.36,85],[20261110,-665.8,56]],"e":[[[20261001,-138.43,9],[20261002,-481.68,12],[20261005,40.51,17],[20261006,-220.99,20],[20261007,222.58,8],[20261008,-198.1,11],[20261009,73.44,10],[20261012,-74.35,12],[20261013,-11.55,11],[20261014,294.52,13],[20261015,35.67,20],[20261016,-168.5,13],[20261019,-89.16,8],[20261020,64.58,14],[20261021,-187.84,12],[20261022,-9.87,9],[20261023,372.97,7],[20261026,-158.76,16],[20261027,-112.41,14],[20261028,10.11,28],[20261029,-134.04,8],[20261102,743.73,22],[20261103,-127.62,12],[20261104,294.15,13],[20261105,64.57,15],[20261106,-190.06,20],[20261109,-114.05,18],[20261110,90.13,9]],[[20261001,-140.79,12],[20261002,-81.72,14],[20261005,11.39,8],[20261006,-193.84,10],[20261007,-36.22,3],[20261008,79.14,13],[20261009,-82.73,6],[20261012,-158.59,5],[20261013,-98.42,12],[20261015,351.2,8],[20261016,12.83,8],[20261019,-96.58,12],[20261020,51.58,19],[20261021,-105.05,12],[20261022,-3.29,3],[20261026,419.47,7],[20261027,-156.61,10],[20261028,-56.26,14],[20261029,-160.0,5],[20261102,366.41,12],[20261103,50.77,8],[20261104,-139.6,5],[20261105,800.83,5],[20261106,166.36,6],[20261109,138.44,8],[20261110,-7.99,15]],[[20261001,-38.96,4],[20261002,-378.85,9],[20261006,-98.74,5],[20261007,-30.74,4],[20261008,72.43,6],[20261009,-238.17,5],[20261012,-53.41,4],[20261013,-195.32,8],[20261015,40.48,4],[20261016,25.93,4],[20261020,86.64,5],[20261022,-21.87,2],[20261026,402.15,4],[20261027,-198.78,9],[20261028,-201.74,9],[20261029,-50.83,2],[20261102,439.5,4],[20261103,24.71,4],[20261104,-488.02,7],[20261105,318.06,4],[20261106,118.79,8],[20261109,-242.77,10],[20261110,-70.3,3]],[[20261001,-62.41,11],[20261002,-474.11,19],[20261005,-211.44,12],[20261006,-132.12,7],[20261007,-74.04,6],[20261008,10.97,8],[20261009,-25.34,8],[20261013,-171.48,11],[20261015,-71.52,14],[20261016,-184.33,11],[20261019,-33.17,3],[20261020,64.02,6],[20261021,-57.01,3],[20261022,-59.05,3],[20261026,482.15,10],[20261027,-32.02,2],[20261028,-96.48,9],[20261029,-248.21,10],[20261102,704.53,6],[20261103,10.01,13],[20261106,964.79,12],[20261109,183.25,6],[20261110,-133.14,8]],[[20261001,-37.68,2],[20261002,-556.06,11],[20261005,-99.69,4],[20261006,-270.9,5],[20261007,-27.45,1],[20261009,-52.38,6],[20261012,157.25,6],[20261013,-162.11,7],[20261015,-25.4,6],[20261016,-16.7,6],[20261019,-36.43,4],[20261022,13.25,8],[20261026,286.67,6],[20261027,-113.7,6],[20261028,-69.1,8],[20261029,-219.0,6],[20261102,604.96,6],[20261103,14.01,6],[20261104,-569.15,6],[20261105,355.64,6],[20261109,-364.07,9],[20261110,-147.75,3]],[[20261001,-41.09,2],[20261002,-631.75,13],[20261005,-143.24,8],[20261006,-322.47,7],[20261007,-111.09,3],[20261008,-79.55,8],[20261009,-70.08,2],[20261012,10.07,6],[20261013,-162.4,9],[20261015,101.7,6],[20261016,79.85,6],[20261021,122.54,6],[20261022,-179.36,4],[20261023,204.02,9],[20261026,-129.32,5],[20261027,-320.85,9],[20261028,-37.8,2],[20261029,-193.76,8],[20261102,653.59,6],[20261103,-32.85,13],[20261105,1082.23,6],[20261109,-89.71,13],[20261110,-54.12,2]],[[20261001,-43.39,3],[20261002,-36.49,4],[20261005,-325.78,10],[20261006,-311.69,7],[20261007,-63.62,2],[20261008,-48.78,9],[20261009,-16.82,1],[20261012,171.34,6],[20261013,-197.89,11],[20261015,121.52,6],[20261016,95.48,6],[20261020,20.35,7],[20261021,-45.74,3],[20261022,-166.55,4],[20261026,365.42,11],[20261027,-228.32,5],[20261028,-142.07,5],[20261102,477.28,7],[20261103,-132.18,4],[20261104,-82.76,6],[20261106,503.18,12],[20261109,49.73,8],[20261110,-46.41,2]],[[20261002,87.73,6],[20261005,55.84,7],[20261007,-72.77,6],[20261009,-239.06,6],[20261012,-134.2,11],[20261013,-204.07,9],[20261015,4.57,6],[20261019,-86.21,13],[20261021,-12.36,6],[20261022,-71.14,3],[20261026,340.66,6],[20261027,-51.92,4],[20261028,-387.54,15],[20261029,-55.39,2],[20261102,432.99,6],[20261103,-258.04,7],[20261104,-61.93,6],[20261106,545.42,11],[20261109,172.93,6],[20261110,-52.4,3]],[[20261002,-134.96,6],[20261005,-100.97,5],[20261006,-100.39,4],[20261007,-115.36,3],[20261008,-25.49,6],[20261012,187.3,6],[20261013,-187.0,7],[20261015,5.59,6],[20261019,-69.62,6],[20261021,11.32,6],[20261022,-161.6,3],[20261026,389.98,6],[20261027,-335.1,11],[20261028,-78.58,3],[20261029,-173.35,7],[20261103,575.08,6],[20261106,1035.75,12],[20261110,-1.14,6]],[[20261002,-252.83,6],[20261006,-88.46,5],[20261007,-112.81,4],[20261009,-140.83,5],[20261012,4.12,4],[20261016,-32.55,5],[20261019,-153.33,5],[20261021,6.15,4],[20261022,-137.39,4],[20261026,235.78,4],[20261030,-157.46,5],[20261103,115.56,4],[20261104,-611.81,12],[20261106,-123.63,4],[20261109,-418.11,7],[20261110,-242.67,5]]]}},"ev":{"a51234567":{"v":111,"t":1794568327,"g":[[1794568324,5,"PHONE extra lots ON - new extra lots from now"],[1794568321,5,"PHONE extra lots OFF - no new extra lots, open ones close with their trades"],[1794568260,6,"START 10 engines on, extra lots ON"]],"e":[[[1794568327,5,"PHONE Falcon4: 6 trades closed, P/L about +162.93"],[1794568327,1,"CLOSE Falcon4  P/L +39.78  (closed from the phone)"],[1794568327,1,"CLOSE Falcon4+1  P/L +34.76  (closed from the phone)"],[1794568327,1,"CLOSE Falcon4+2  P/L +29.25  (closed from the phone)"],[1794568327,1,"CLOSE Falcon4+3  P/L +24.68  (closed from the phone)"],[1794568327,1,"CLOSE Falcon4+4  P/L +19.72  (closed from the phone)"],[1794568327,1,"CLOSE Falcon4+5  P/L +14.74  (closed from the phone)"]],[],[[1794568318,5,"PHONE Cobra8 trading again from the next colour change"],[1794568309,5,"PHONE Cobra8 paused - no new trades, open trades still close at the next colour change"]],[],[],[],[],[],[],[]]}}};
+const LS = {
+  get(k, d) { try { const v = localStorage.getItem(k); return v === null ? d : JSON.parse(v); } catch (e) { return d; } },
+  set(k, v) { try { localStorage.setItem(k, JSON.stringify(v)); } catch (e) {} }
+};
+const cleanKey = (s) => String(s || "").trim().replace(/[^A-Za-z0-9_-]/g, "");
+let cfg = LS.get("s10.cfg", { db: "", key: "", skin: "midnight", demo: false });
+//--- a link with ?db=...&key=... fills the settings once (the control code never goes in the address)
+(function () {
+  try {
+    const q = new URLSearchParams(location.search);
+    if (q.get("db") && q.get("key")) { cfg.db = q.get("db").trim().replace(/\/+$/, ""); cfg.key = q.get("key").trim(); cfg.demo = false; LS.set("s10.cfg", cfg); }
+  } catch (e) {}
+})();
+//--- first time here: start from TBFE Mobile's settings saved on this phone (same database; Snake10in1's key = the TBFE key + "-snake")
+(function () {
+  if (cfg.db && cfg.key) return;
+  try {
+    const t = LS.get("tbfe.cfg", null);
+    if (t && t.db && t.key) { cfg.db = String(t.db).trim().replace(/\/+$/, ""); cfg.key = String(t.key).trim() + "-snake"; cfg.skin = t.skin || cfg.skin; cfg.demo = false; LS.set("s10.cfg", cfg); }
+  } catch (e) {}
+})();
+let state = { acc: {}, cal: {}, ev: {}, in: {} };
+let sel = LS.get("s10.sel", "");
+let sysSel = LS.get("s10.sys", {});          // account id -> "all" or the engine number
+let tabs = LS.get("s10.tabs", {});
+const calMon = {};
+let conn = { mode: "none", es: null, poll: 0, err: "", lastMsg: 0, demoTick: 0, opened: Date.now() };
+const seen = {};
+const $ = (id) => document.getElementById(id);
+const esc = (s) => String(s == null ? "" : s).replace(/[&<>"']/g, (c) => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+const nf = {};
+function fmt(v, d) {
+  if (v == null || !isFinite(v)) return "-";
+  const k = d + "";
+  if (!nf[k]) nf[k] = new Intl.NumberFormat("en-US", { minimumFractionDigits: d, maximumFractionDigits: d });
+  return nf[k].format(v);
+}
+const sgn = (v, d) => { const r = Math.round(v * Math.pow(10, d)) / Math.pow(10, d); return (r > 0 ? "+" : "") + fmt(r === 0 ? 0 : r, d); };
+const pcls = (v) => (v > 0.004 ? "up" : v < -0.004 ? "dn" : "");
+function dur(s) {
+  s = Math.max(0, Math.round(s));
+  if (s < 60) return s + " s";
+  if (s < 3600) return Math.floor(s / 60) + " min";
+  if (s < 86400) return Math.floor(s / 3600) + " h " + Math.floor((s % 3600) / 60) + " min";
+  return Math.floor(s / 86400) + " d";
+}
+const nowS = () => Date.now() / 1000;
+function hm(t) { try { return new Date(t * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit" }); } catch (e) { return "-"; } }
+function hms(t) { try { return new Date(t * 1000).toLocaleTimeString([], { hour: "2-digit", minute: "2-digit", second: "2-digit" }); } catch (e) { return "-"; } }
+function dayLbl(t) { try { return new Date(t * 1000).toLocaleDateString([], { day: "numeric", month: "short" }); } catch (e) { return ""; } }
+function setSkin(s) { document.documentElement.setAttribute("data-skin", s || "midnight"); const m = document.querySelector('meta[name="theme-color"]'); if (m) m.content = getComputedStyle(document.documentElement).getPropertyValue("--bg").trim() || "#0E1320"; }
+setSkin(cfg.skin);
+
+//--- data -----------------------------------------------------------------
+function setAt(path, val) {
+  const seg = path.split("/").filter(Boolean);
+  if (seg.length === 0) { state = (val && typeof val === "object") ? { acc: val.acc || {}, cal: val.cal || {}, ev: val.ev || {}, in: val.in || {} } : { acc: {}, cal: {}, ev: {}, in: {} }; return; }
+  let o = state;
+  for (let i = 0; i < seg.length - 1; i++) { if (o[seg[i]] == null || typeof o[seg[i]] !== "object") o[seg[i]] = {}; o = o[seg[i]]; }
+  const last = seg[seg.length - 1];
+  if (val === null) delete o[last]; else o[last] = val;
+}
+const accList = () => Object.keys(state.acc || {}).map((k) => state.acc[k]).filter((a) => a && a.id && Array.isArray(a.eng))
+  .sort((a, b) => String(a.id).localeCompare(String(b.id)));
+const akey = (a) => "a" + a.login;
+//--- fresh = the account's time stamp keeps moving (measured with the phone's clock, so a PC clock a bit off does not matter)
+function ageOf(a) {
+  let s = seen[a.id];
+  if (!s) s = seen[a.id] = { t: a.t, at: Date.now() };
+  if (s.t !== a.t) { s.t = a.t; s.at = Date.now(); }
+  return (Date.now() - s.at) / 1000;
+}
+function limOf(a) { return Math.max(20, (+a.every || 5) * 3 + 10); }
+function online(a) {
+  if (conn.mode === "demo") return true;
+  if (/STOPPED/.test(a.status || "")) return false;
+  const lim = limOf(a);
+  return ageOf(a) <= lim && nowS() - (a.t || 0) <= Math.max(lim + 60, 300);
+}
+function lastAge(a) { return Math.max(ageOf(a), Math.min(nowS() - (a.t || 0), 1e9)); }
+function testDrop(a) { return +a.need > 0 ? +a.need / 3 : 0; }
+function dropNow(a) { return Math.max(0, (+a.peak || 0) - (+a.eq || 0)); }
+const activeEng = (a) => (a.eng || []).map((e, i) => Object.assign({ i: i }, e)).filter((e) => +e.on === 1);
+const calOf = (a) => (state.cal && state.cal[akey(a)]) || null;
+const evOf = (a) => (state.ev && state.ev[akey(a)]) || null;
+function sysOf(a) { const v = sysSel[a.id]; if (v == null || v === "all") return "all"; const i = +v; return (a.eng || [])[i] && +a.eng[i].on === 1 ? i : "all"; }
+//--- today's market day (YYYYMMDD): the day starts at 18:00 New York, like TBFE (the EA sends it; the phone works it out if not)
+let nyF = null;
+function nyKey(t) {
+  try {
+    if (!nyF) nyF = new Intl.DateTimeFormat("en-US", { timeZone: "America/New_York", year: "numeric", month: "2-digit", day: "2-digit" });
+    const p = {}; nyF.formatToParts(new Date((t + 6 * 3600) * 1000)).forEach((x) => { p[x.type] = x.value; });
+    return +p.year * 10000 + +p.month * 100 + +p.day;
+  } catch (e) { const d = new Date(t * 1000); return d.getUTCFullYear() * 10000 + (d.getUTCMonth() + 1) * 100 + d.getUTCDate(); }
+}
+function dkeyOf(a) { return +a.dkey || (calOf(a) && +calOf(a).dkey) || nyKey(nowS()); }
+
+//--- live connection: Firebase streaming (EventSource), polling as backup ---
+function root() { return (cfg.db || "").replace(/\/+$/, "") + "/tbfe/" + encodeURIComponent(cleanKey(cfg.key)) + "/s10"; }
+function stopConn() {
+  if (conn.es) { try { conn.es.close(); } catch (e) {} conn.es = null; }
+  if (conn.poll) { clearInterval(conn.poll); conn.poll = 0; }
+  if (conn.demoTick) { clearInterval(conn.demoTick); conn.demoTick = 0; }
+}
+//--- "I am looking": while this page is open the EA sends every few seconds (once a minute otherwise)
+function beat() {
+  if (conn.mode === "demo" || conn.mode === "none" || document.hidden || !cfg.db || !cleanKey(cfg.key)) return;
+  fetch(root() + "/in/w.json?print=silent", { method: "PUT", body: String(Date.now()) }).catch(() => {});
+}
+setInterval(beat, 30000);
+function startDemo() {
+  stopConn();
+  conn.mode = "demo"; conn.err = "";
+  const d = JSON.parse(JSON.stringify(DEMO));
+  Object.values(d.acc || {}).forEach((a) => {
+    const shift = nowS() - a.t;
+    a.t += shift;
+    (a.eng || []).forEach((e) => { if (e.flip > 0) e.flip += shift; });
+    (a.ev || []).forEach((x) => { x[0] += shift; });
+    (a.pos || []).forEach((x) => { if (x[6] > 0) x[6] += shift; });
+    if (a.dfrom > 0) a.dfrom += Math.round(shift / 86400 / 7) * 7 * 86400;
+    if (a.since > 0) a.since += shift;
+    const ev = d.ev && d.ev[akey(a)];
+    if (ev) [ev.g || []].concat(ev.e || []).forEach((l) => (l || []).forEach((x) => { x[0] += shift; }));
+    const c = d.cal && d.cal[akey(a)];
+    if (c) {                                         //--- move the calendar days so the last one is today
+      const dd = Math.round(shift / 86400 / 7) * 7, mv = (k) => { const y = Math.floor(k / 10000), m = Math.floor(k / 100) % 100, x = new Date(Date.UTC(y, m - 1, k % 100) + dd * 86400000); return x.getUTCFullYear() * 10000 + (x.getUTCMonth() + 1) * 100 + x.getUTCDate(); };
+      [c.d || []].concat(c.e || []).forEach((l) => (l || []).forEach((r) => { r[0] = mv(r[0]); }));
+      a.dkey = mv(+a.dkey || +c.dkey); c.dkey = a.dkey;
+    }
+    a.fast = 1; a.every = 5;
+  });
+  state = { acc: d.acc || {}, cal: d.cal || {}, ev: d.ev || {}, in: {} };
+  conn.lastMsg = Date.now();
+  conn.demoTick = setInterval(() => {
+    Object.values(state.acc).forEach((a) => {
+      a.t = nowS();
+      let tot = 0;
+      (a.pos || []).forEach((p) => { const j = (Math.random() - 0.5) * 0.6 * p[2] * 100; p[4] = +(p[4] + j).toFixed(2); });
+      (a.eng || []).forEach((e, i) => { const s = (a.pos || []).filter((p) => p[0] === i).reduce((x, p) => x + p[4], 0); e.pl = +s.toFixed(2); tot += s; });
+      a.eq = +((+a.bal) + tot).toFixed(2); a.flt = +tot.toFixed(2);
+      if (a.eqh && a.eqh.length) a.eqh[a.eqh.length - 1] = a.eq;
+    });
+    conn.lastMsg = Date.now();
+    render();
+  }, 2000);
+  render();
+}
+function startPoll() {
+  if (conn.poll) return;
+  conn.mode = "poll";
+  const tick = () => fetch(root() + ".json", { cache: "no-store" }).then((r) => {
+    if (!r.ok) throw new Error(r.status === 401 || r.status === 403 ? "The database refused - check the Rules and the key." : "Database answered " + r.status + ".");
+    return r.json();
+  }).then((j) => { setAt("/", j); conn.err = ""; conn.lastMsg = Date.now(); render(); })
+    .catch((e) => { conn.err = e && e.message ? e.message : "No connection."; render(); });
+  tick();
+  conn.poll = setInterval(tick, 5000);
+}
+function connect() {
+  stopConn();
+  if (cfg.demo || !cfg.db || !cleanKey(cfg.key)) { startDemo(); return; }
+  conn.mode = "stream"; conn.err = ""; conn.opened = Date.now();
+  //--- keep the settings in the address, so "Add to Home Screen" on iPhone saves a ready-to-use app (it has its own storage)
+  try {
+    const q = new URLSearchParams(location.search);
+    if (q.get("db") !== cfg.db || q.get("key") !== cfg.key) history.replaceState(null, "", location.pathname + "?db=" + encodeURIComponent(cfg.db) + "&key=" + encodeURIComponent(cfg.key));
+  } catch (e) {}
+  beat();
+  render();
+  if (!window.EventSource) { startPoll(); return; }
+  let fails = 0;
+  try {
+    const es = new EventSource(root() + ".json");
+    conn.es = es;
+    const onData = (ev, merge) => {
+      try {
+        const m = JSON.parse(ev.data);
+        if (!m) return;
+        if (merge && m.data && typeof m.data === "object") Object.keys(m.data).forEach((k) => setAt((m.path || "/") + "/" + k, m.data[k]));
+        else setAt(m.path || "/", m.data);
+        conn.err = ""; conn.lastMsg = Date.now(); fails = 0;
+        render();
+      } catch (e) {}
+    };
+    es.addEventListener("put", (ev) => onData(ev, false));
+    es.addEventListener("patch", (ev) => onData(ev, true));
+    es.addEventListener("keep-alive", () => { conn.lastMsg = Math.max(conn.lastMsg, Date.now() - 1000); });
+    es.addEventListener("cancel", () => { conn.err = "The database refused - check the Rules and the key."; render(); });
+    es.addEventListener("auth_revoked", () => { conn.err = "Access was revoked."; render(); });
+    es.onerror = () => {
+      fails++;
+      if (fails >= 3 || es.readyState === 2) { try { es.close(); } catch (e) {} conn.es = null; startPoll(); }
+    };
+  } catch (e) { startPoll(); }
+}
+document.addEventListener("visibilitychange", () => { if (!document.hidden && conn.mode !== "demo") connect(); });
+
+//--- phone control: commands signed with the control code (HMAC-SHA256, same as TBFE) ------
+const ABC = "abcdefghijkmnpqrstuvwxyz23456789";
+function rid(n) {
+  const b = new Uint8Array(n);
+  try { crypto.getRandomValues(b); } catch (e) { for (let i = 0; i < n; i++) b[i] = Math.floor(Math.random() * 256); }
+  return Array.from(b, (x) => ABC[x % 32]).join("");
+}
+const SHA_K = new Uint32Array([0x428a2f98,0x71374491,0xb5c0fbcf,0xe9b5dba5,0x3956c25b,0x59f111f1,0x923f82a4,0xab1c5ed5,0xd807aa98,0x12835b01,0x243185be,0x550c7dc3,
+  0x72be5d74,0x80deb1fe,0x9bdc06a7,0xc19bf174,0xe49b69c1,0xefbe4786,0x0fc19dc6,0x240ca1cc,0x2de92c6f,0x4a7484aa,0x5cb0a9dc,0x76f988da,0x983e5152,0xa831c66d,
+  0xb00327c8,0xbf597fc7,0xc6e00bf3,0xd5a79147,0x06ca6351,0x14292967,0x27b70a85,0x2e1b2138,0x4d2c6dfc,0x53380d13,0x650a7354,0x766a0abb,0x81c2c92e,0x92722c85,
+  0xa2bfe8a1,0xa81a664b,0xc24b8b70,0xc76c51a3,0xd192e819,0xd6990624,0xf40e3585,0x106aa070,0x19a4c116,0x1e376c08,0x2748774c,0x34b0bcb5,0x391c0cb3,0x4ed8aa4a,
+  0x5b9cca4f,0x682e6ff3,0x748f82ee,0x78a5636f,0x84c87814,0x8cc70208,0x90befffa,0xa4506ceb,0xbef9a3f7,0xc67178f2]);
+function sha256(bytes) {
+  const l = bytes.length, bl = ((l + 9 + 63) >> 6) << 6, m = new Uint8Array(bl);
+  m.set(bytes); m[l] = 0x80;
+  const dv = new DataView(m.buffer);
+  dv.setUint32(bl - 4, (l * 8) >>> 0); dv.setUint32(bl - 8, Math.floor(l / 0x20000000));
+  const H = new Uint32Array([0x6a09e667, 0xbb67ae85, 0x3c6ef372, 0xa54ff53a, 0x510e527f, 0x9b05688c, 0x1f83d9ab, 0x5be0cd19]), W = new Uint32Array(64);
+  const ror = (x, n) => (x >>> n) | (x << (32 - n));
+  for (let o = 0; o < bl; o += 64) {
+    for (let i = 0; i < 16; i++) W[i] = dv.getUint32(o + i * 4);
+    for (let i = 16; i < 64; i++) W[i] = W[i - 16] + (ror(W[i - 15], 7) ^ ror(W[i - 15], 18) ^ (W[i - 15] >>> 3)) + W[i - 7] + (ror(W[i - 2], 17) ^ ror(W[i - 2], 19) ^ (W[i - 2] >>> 10));
+    let a = H[0], b = H[1], c = H[2], d = H[3], e = H[4], f = H[5], g = H[6], h = H[7];
+    for (let i = 0; i < 64; i++) {
+      const t1 = (h + (ror(e, 6) ^ ror(e, 11) ^ ror(e, 25)) + ((e & f) ^ (~e & g)) + SHA_K[i] + W[i]) | 0;
+      const t2 = ((ror(a, 2) ^ ror(a, 13) ^ ror(a, 22)) + ((a & b) ^ (a & c) ^ (b & c))) | 0;
+      h = g; g = f; f = e; e = (d + t1) | 0; d = c; c = b; b = a; a = (t1 + t2) | 0;
+    }
+    H[0] += a; H[1] += b; H[2] += c; H[3] += d; H[4] += e; H[5] += f; H[6] += g; H[7] += h;
+  }
+  const out = new Uint8Array(32), ov = new DataView(out.buffer);
+  for (let i = 0; i < 8; i++) ov.setUint32(i * 4, H[i]);
+  return out;
+}
+function utf8(s) { return new TextEncoder().encode(s); }
+function hmacHex(key, msg) {
+  let k = utf8(key); if (k.length > 64) k = sha256(k);
+  const kb = new Uint8Array(64); kb.set(k);
+  const m = utf8(msg), ip = new Uint8Array(64 + m.length), op = new Uint8Array(96);
+  for (let i = 0; i < 64; i++) { ip[i] = kb[i] ^ 0x36; op[i] = kb[i] ^ 0x5c; }
+  ip.set(m, 64); op.set(sha256(ip), 64);
+  return Array.from(sha256(op), (x) => x.toString(16).padStart(2, "0")).join("");
+}
+const codeNorm = (s) => String(s || "").toLowerCase().replace(/[^a-z0-9]/g, "").slice(0, 64);
+let ccode = LS.get("s10.cc", "");
+const pend = {};
+let lastPend = "", askFn = null, codeFn = null, toastT = 0;
+function ctlState(a) {
+  if (conn.mode === "demo") return { ok: false, why: "Demo data - connect your PC first (gear button)." };
+  if (!online(a)) return { ok: false, why: "Your PC is offline - the buttons work when it is back." };
+  if (+a.ctl !== 1) return { ok: false, why: "Phone buttons are OFF - type a control code in the Snake10in1 inputs (group Mobile) on the PC." };
+  if (+a.lock > 0) return { ok: false, why: "Phone buttons are locked for " + a.lock + " min after 5 wrong codes. To unlock now: restart Snake10in1 on the PC." };
+  return { ok: true, why: "" };
+}
+function isBusy(accId, key) { return Object.keys(pend).some((id) => { const p = pend[id]; return !p.final && p.acc === accId && p.key === key; }); }
+function toast(msg, kind, onTap) {
+  const el = $("toast");
+  el.className = "toast " + (kind || "");
+  el.innerHTML = (kind === "busy" ? '<span class="spin"></span>' : kind === "ok" ? '<span class="tk">&#10003;</span>' : kind === "bad" ? '<span class="tk">!</span>' : "") + "<span>" + esc(msg) + "</span>";
+  el.hidden = false;
+  el.onclick = onTap || (() => { el.hidden = true; });
+  clearTimeout(toastT);
+  if (kind !== "busy") toastT = setTimeout(() => { el.hidden = true; }, kind === "bad" ? 9000 : 5000);
+}
+function showPend(id) {
+  const p = pend[id];
+  if (!p || id !== lastPend) return;
+  if (!p.final) toast(p.label + " - sending to your PC...", "busy");
+  else if (p.ok) toast("Done: " + (p.msg || p.label), "ok");
+  else toast("Not done: " + p.msg + (p.fix ? " - tap here to type the code again" : ""), "bad",
+    p.fix ? () => { $("toast").hidden = true; ccode = ""; LS.set("s10.cc", ""); openCode(null); } : null);
+}
+function sendCmd(a, op, m, v, label, key) {
+  const cs = ctlState(a);
+  if (!cs.ok) { toast(cs.why, "bad"); return; }
+  if (!ccode) { openCode(() => sendCmd(a, op, m, v, label, key)); return; }
+  const id = rid(10), t = String(Date.now()), acc = String(a.login);
+  const cmd = { id: id, t: t, acc: acc, op: op, m: String(m == null ? "" : m), v: String(v || 0) };
+  cmd.sig = hmacHex(ccode, ["s10v1", id, t, acc, op, cmd.m, cmd.v].join("|"));
+  pend[id] = { label: label, acc: a.id, key: key, t0: Date.now(), final: false, ok: false, msg: "" };
+  lastPend = id;
+  showPend(id);
+  beat();
+  lastHtml = ""; render();
+  fetch(root() + "/in/cmd.json", { method: "POST", body: JSON.stringify(cmd) })
+    .then((r) => { if (!r.ok) throw new Error(r.status === 401 || r.status === 403 ? "the database refused it (Rules)" : "the database answered " + r.status); })
+    .catch((e) => { const p = pend[id]; if (p) p.netErr = (e && e.message) || "no connection"; });
+}
+function findAck(id) {
+  for (const a of accList()) for (const x of (a.acks || [])) if (x && x.id === id) return x;
+  return null;
+}
+function checkPend() {
+  const now = Date.now();
+  let any = false;
+  Object.keys(pend).forEach((id) => {
+    const p = pend[id];
+    if (p.final) { if (now - p.tf > 120000) delete pend[id]; return; }
+    const ak = findAck(id);
+    if (ak) {
+      p.final = true; p.ok = +ak.ok === 1; p.msg = ak.msg || "";
+      p.fix = /wrong control code/.test(p.msg);
+      if (p.fix && ccode) { ccode = ""; LS.set("s10.cc", ""); }
+    }
+    else if (p.netErr && now - p.t0 > 8000) { p.final = true; p.msg = "could not send - " + p.netErr; }
+    else if (now - p.t0 > 35000) { p.final = true; p.msg = "no answer from your PC - is MT5 with Snake10in1 running?"; }
+    if (p.final) { p.tf = now; any = true; showPend(id); }
+  });
+  return any;
+}
+function ask(title, text, yes, fn) {
+  $("askT").textContent = title; $("askP").textContent = text; $("askYes").textContent = yes;
+  askFn = fn; $("toast").hidden = true; $("askSheet").hidden = false;
+}
+function openCode(fn) {
+  codeFn = fn; $("fCode2").value = ""; $("fCode2").style.borderColor = ""; $("toast").hidden = true;
+  $("codeSheet").hidden = false;
+  setTimeout(() => { try { $("fCode2").focus(); } catch (e) {} }, 60);
+}
+const ICO = {
+  pause: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><rect x="3" y="2.5" width="3.6" height="11" rx="1"/><rect x="9.4" y="2.5" width="3.6" height="11" rx="1"/></svg>',
+  play: '<svg viewBox="0 0 16 16" fill="currentColor" aria-hidden="true"><path d="M4 2.6v10.8c0 .7.8 1.1 1.4.7l8.2-5.4a.85.85 0 0 0 0-1.4L5.4 1.9C4.8 1.5 4 1.9 4 2.6z"/></svg>',
+  close: '<svg viewBox="0 0 16 16" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" aria-hidden="true"><path d="M3.5 3.5l9 9M12.5 3.5l-9 9"/></svg>'
+};
+
+//--- small drawings -----------------------------------------------------
+function ring(frac, color, label, sub) {
+  const C = 2 * Math.PI * 30, f = Math.max(0, Math.min(1, frac || 0));
+  const dash = f > 0 ? Math.max(4, f * C) : 0;
+  return '<div class="ringbox"><svg viewBox="0 0 72 72" aria-hidden="true">' +
+    '<circle cx="36" cy="36" r="30" fill="none" stroke="var(--track)" stroke-width="7"/>' +
+    (f > 0 ? '<circle cx="36" cy="36" r="30" fill="none" stroke="' + color + '" stroke-width="7" stroke-linecap="round" stroke-dasharray="' + dash.toFixed(1) + ' ' + C.toFixed(1) + '" transform="rotate(-90 36 36)"/>' : "") +
+    '</svg><div class="c"><b class="num">' + esc(label) + '</b><span>' + esc(sub) + '</span></div></div>';
+}
+let gid = 0;
+function spark(vals, up) {
+  if (!vals || vals.length < 2) return '<div class="small mut">the equity line builds up (one point every 15 min)...</div>';
+  const W = 160, H = 30, mn = Math.min(...vals), mx = Math.max(...vals), rg = (mx - mn) || 1;
+  const pts = vals.map((v, i) => [i * (W - 2) / (vals.length - 1) + 1, H - 3 - (v - mn) / rg * (H - 6)]);
+  const d = pts.map((p, i) => (i ? "L" : "M") + p[0].toFixed(1) + " " + p[1].toFixed(1)).join(" ");
+  const id = "g" + (++gid), col = up ? "var(--green)" : "var(--red)", e = pts[pts.length - 1];
+  return '<svg class="spark" viewBox="0 0 ' + W + ' ' + H + '" preserveAspectRatio="none" aria-hidden="true"><defs><linearGradient id="' + id + '" x1="0" y1="0" x2="0" y2="1">' +
+    '<stop offset="0" stop-color="' + col + '" stop-opacity=".35"/><stop offset="1" stop-color="' + col + '" stop-opacity="0"/></linearGradient></defs>' +
+    '<path d="' + d + ' L' + (W - 1) + ' ' + H + ' L1 ' + H + ' Z" fill="url(#' + id + ')"/><path d="' + d + '" fill="none" stroke="' + col + '" stroke-width="1.6" vector-effect="non-scaling-stroke"/>' +
+    '<circle cx="' + e[0].toFixed(1) + '" cy="' + e[1].toFixed(1) + '" r="2.2" fill="' + col + '"/></svg>';
+}
+const kcol = (k) => ["var(--txt)", "var(--green)", "var(--red)", "var(--amber)", "var(--acc)", "var(--gold)", "var(--mut)"][k] || "var(--txt)";
+function bar(frac, color) { return '<div class="bar"><i style="width:' + (Math.max(0, Math.min(1, frac)) * 100).toFixed(1) + '%;background:' + color + '"></i></div>'; }
+function lossCol(frac) { return frac < 0.5 ? "var(--green)" : frac < 0.8 ? "var(--amber)" : "var(--red)"; }
+const chip = (t, c) => '<span class="chip" style="color:' + c + '">' + esc(t) + "</span>";
+function splitTag(m) {
+  const sp = m.indexOf(" ");
+  let tag = sp > 0 ? m.slice(0, sp) : m, rest = sp > 0 ? m.slice(sp + 1) : "";
+  if (!/^[A-Z0-9/]{2,8}$/.test(tag)) return ["INFO", m];
+  return [tag, rest];
+}
+function stCol(s) { return /RUNNING/.test(s) ? "var(--green)" : /STOPPED|TRADING OFF/.test(s) ? "var(--red)" : "var(--amber)"; }
+function dirTag(d, n) { return d > 0 ? '<span class="tag buy">BUY' + (n > 1 ? " &times;" + n : "") + "</span>" : d < 0 ? '<span class="tag sell">SELL' + (n > 1 ? " &times;" + n : "") + "</span>" : '<span class="tag flat">FLAT</span>'; }
+function sdot(tr) { return '<span class="sdot ' + (tr > 0 ? "sg" : tr < 0 ? "sr" : "") + '" title="' + (tr > 0 ? "snake green" : tr < 0 ? "snake red" : "snake not ready") + '"></span>'; }
+const trTxt = (tr) => (tr > 0 ? "GREEN" : tr < 0 ? "RED" : "not ready");
+const px = (a, v) => fmt(v, +v >= 1000 ? 2 : 3);
+const mlTxt = (v) => (v >= 10000 ? fmt(v / 1000, 0) + "k%" : fmt(v, 0) + "%");
+function kTxt(v) { const a = Math.abs(v); return a >= 1000 ? (v > 0 ? "+" : "-") + fmt(a / 1000, a >= 100000 ? 0 : 1) + "k" : a >= 10 ? sgn(v, 0) : sgn(v, 2); }
+
+//--- views --------------------------------------------------------------
+function tabBar(list, cur) {
+  return '<div class="tabs' + (list.length >= 5 ? " t5" : "") + '" role="tablist">' + list.map((t) => '<button role="tab" data-tab="' + t[0] + '" class="' + (cur === t[0] ? "on" : "") + '">' + esc(t[1]) +
+    (t[2] != null ? '<span class="n">' + t[2] + "</span>" : "") + "</button>").join("") + "</div>";
+}
+const calN = (v) => { const x = Math.abs(v), r = x >= 100000 ? fmt(x / 1000, 0) + "k" : x >= 1000 ? fmt(x / 1000, 1) + "k" : x >= 10 ? fmt(x, 0) : fmt(x, 2); return (v > 0.004 ? "+" : v < -0.004 ? "−" : "") + r; };
+const ccyOf = (a) => (/^USC$/i.test(a.ccy || "") ? " USC" : "");
+function sinceTxt(t) { if (!(t > 0)) return ""; try { return new Date(t * 1000).toLocaleDateString([], { day: "numeric", month: "short", year: "numeric" }); } catch (e) { return ""; } }
+//--- calendar rows of the whole EA or of one engine; today's cell uses the live figure (the calendar itself comes every 5 minutes)
+function calRows(a, e) {
+  const c = calOf(a);
+  const rows = c ? (e === "all" ? c.d : c.e && c.e[e]) : null;
+  const m = {};
+  (Array.isArray(rows) ? rows : []).forEach((r) => { if (Array.isArray(r)) m[r[0]] = [r[0], +r[1] || 0, +r[2] || 0]; });
+  const tk = dkeyOf(a);
+  const live = e === "all" ? [+a.today || 0, +a.tdn || 0] : [+(a.eng[e] || {}).day || 0, +(a.eng[e] || {}).dn || 0];
+  if (live[1] > 0 || m[tk]) m[tk] = [tk, live[0], live[1]];
+  return Object.keys(m).map(Number).sort((x, y) => x - y).map((k) => m[k]).filter((r) => r[2] > 0);
+}
+//--- the calendar: the same as TBFE's (Monday to Friday, week total, month total; the day starts at 18:00 New York)
+function calCard(a, e) {
+  const rows = calRows(a, e), cid = a.id + ":" + e, tl = dkeyOf(a), ccy = ccyOf(a);
+  if (!calOf(a) && !rows.length) return '<div class="card"><div class="lbl">Calendar</div><div class="small mut" style="margin-top:6px">The calendar comes with the next data from your PC (every 5 minutes)...</div></div>';
+  const days = {};
+  rows.forEach((r) => { days[r[0]] = r; });
+  const minM = rows.length ? Math.floor(rows[0][0] / 100) : Math.floor(tl / 100), maxM = Math.max(rows.length ? Math.floor(rows[rows.length - 1][0] / 100) : 0, Math.floor(tl / 100));
+  const ym = Math.max(minM, Math.min(maxM, calMon[cid] || maxM));
+  const y = Math.floor(ym / 100), mo = ym % 100, nd = new Date(Date.UTC(y, mo, 0)).getUTCDate();
+  const dow0 = (new Date(Date.UTC(y, mo - 1, 1)).getUTCDay() + 6) % 7;
+  let mName = y + "-" + String(mo).padStart(2, "0");
+  try { mName = new Date(Date.UTC(y, mo - 1, 15)).toLocaleDateString([], { month: "long", year: "numeric", timeZone: "UTC" }); } catch (x) {}
+  let g = ["MON", "TUE", "WED", "THU", "FRI", "WEEK"].map((x) => '<div class="hd">' + x + "</div>").join("");
+  const M = { pl: 0, n: 0, days: 0, up: 0, dn: 0, best: null, worst: null };
+  for (let start = 1 - dow0; start <= nd; start += 7) {
+    const W = { pl: 0, n: 0, any: false };
+    for (let i = 0; i < 7; i++) {
+      const dd = start + i, inM = dd >= 1 && dd <= nd, lab = y * 10000 + mo * 100 + dd, r = inM ? days[lab] : null;
+      if (r) {
+        W.pl += r[1]; W.n += r[2]; W.any = true; M.pl += r[1]; M.n += r[2]; M.days++;
+        if (r[1] > 0.004) M.up++; else if (r[1] < -0.004) M.dn++;
+        if (!M.best || r[1] > M.best[1]) M.best = [dd, r[1]]; if (!M.worst || r[1] < M.worst[1]) M.worst = [dd, r[1]];
+      }
+      if (i >= 5) continue;
+      if (!inM) { g += '<div class="calc out"></div>'; continue; }
+      let h = '<div class="d">' + dd + "</div>";
+      if (r) h += '<div class="v ' + pcls(r[1]) + '">' + calN(r[1]) + '</div><div class="t">' + r[2] + " tr</div>";
+      g += '<div class="calc' + (lab === tl ? " today" : "") + '">' + h + "</div>";
+    }
+    g += '<div class="calc wk">' + (W.any ? '<div class="d">week</div><div class="v ' + pcls(W.pl) + '">' + calN(W.pl) + '</div><div class="t">' + W.n + " tr</div>" : "") + "</div>";
+  }
+  return '<div class="card"><div class="lbl">Calendar &middot; closed trades &middot; days from the market open</div>' +
+    '<div class="calh"><button class="calnav" data-calnav="-1" data-ym="' + ym + '" data-cid="' + esc(cid) + '"' + (ym <= minM ? " disabled" : "") + ' aria-label="Previous month">&#8249;</button><b>' + esc(mName) +
+    '</b><button class="calnav" data-calnav="1" data-ym="' + ym + '" data-cid="' + esc(cid) + '"' + (ym >= maxM ? " disabled" : "") + ' aria-label="Next month">&#8250;</button></div>' +
+    '<div class="calg num">' + g + "</div>" +
+    '<div class="calsum num"><span>Month <b class="' + pcls(M.pl) + '">' + sgn(M.pl, 2) + ccy + "</b></span><span>" + M.days + " trading days &middot; " + M.n + " trades</span></div>" +
+    (M.days ? '<div class="calsum num"><span><b class="up">' + M.up + '</b> green / <b class="dn">' + M.dn + "</b> red days</span>" +
+      (M.best ? "<span>best " + M.best[0] + ' <b class="' + pcls(M.best[1]) + '">' + calN(M.best[1]) + "</b> &middot; worst " + M.worst[0] + ' <b class="' + pcls(M.worst[1]) + '">' + calN(M.worst[1]) + "</b></span>" : "") + "</div>" : "") +
+    "</div>";
+}
+//--- this month (closed) from the calendar rows
+function monthOf(a, e) {
+  const ym = Math.floor(dkeyOf(a) / 100);
+  return calRows(a, e).filter((r) => Math.floor(r[0] / 100) === ym).reduce((s, r) => ({ pl: s.pl + r[1], n: s.n + r[2], d: s.d + 1 }), { pl: 0, n: 0, d: 0 });
+}
+//--- closed result day by day (last 100 days) as a line
+function cumSpark(rows) {
+  if (!rows || rows.length < 2) return "";
+  let s = 0;
+  const v = [0].concat(rows.map((r) => (s += r[1])));
+  return spark(v, s >= 0);
+}
+function todayCard(a, closed, n, open) {
+  const net = closed + open;
+  return '<div class="card tdc"><div class="lbl">Today &middot; NET since the ' + esc(+a.dfrom > 0 ? hm(+a.dfrom) : "market") + " open</div>" +
+    '<div class="big num ' + pcls(net) + '">' + sgn(net, 2) + ccyOf(a) + "</div>" +
+    '<div class="small num">closed ' + sgn(closed, 2) + " (" + n + " trade" + (n === 1 ? "" : "s") + ") &middot; open " + sgn(open, 2) + "</div></div>";
+}
+function statusCard(a) {
+  const on = online(a), st = on ? (a.status || "RUNNING") : (/STOPPED/.test(a.status || "") ? "STOPPED" : "PC OFFLINE");
+  const act = activeEng(a), pz = act.filter((e) => +e.pz === 1).length;
+  let line = st + " - " + act.length + " engine" + (act.length === 1 ? "" : "s") + (pz ? ", " + pz + " paused" : "") + ", extra lots " + (+a.adds === 1 ? "ON" : "OFF");
+  const why = whyTxt(a, on);
+  const spr = (+a.ask > 0 && +a.bid > 0) ? +a.ask - +a.bid : 0;
+  const chips = [chip(a.sym + " " + px(a, a.bid) + (spr > 0 ? "  spread " + fmt(spr, 2) : ""), "var(--sec)"), chip("LOT " + fmt(a.lot, 2), "var(--sec)"),
+    +a.mlv > 0 ? chip("MARGIN LEVEL " + mlTxt(+a.mlv), +a.mlv < 300 ? "var(--red)" : +a.mlv < 1000 ? "var(--amber)" : "var(--sec)") : ""].join("");
+  return '<div class="card"><div class="status"><span class="dot ' + (on ? (/RUNNING/.test(st) ? "on" : /TRADING OFF/.test(st) ? "off" : "warn") : "off") + '"></span><span class="txt">' + esc(line) + "</span></div>" +
+    '<div class="small">' + esc([a.broker, a.server, a.id, a.ccy, "v" + (a.ver || "")].filter(Boolean).join(" · ")) + "</div>" +
+    (why ? '<div class="warnc' + (on ? "" : " badc") + '"><b>' + esc(on ? "Note" : "Offline") + ":</b> " + esc(why) + "</div>" : "") +
+    '<div class="chips">' + chips + "</div>" + ctlBar(a) + "</div>";
+}
+function whyTxt(a, on) {
+  const st = a.status || "";
+  if (!on && /STOPPED/.test(st)) return "Snake10in1 stopped: " + (a.why || "removed from the chart") + ". Last update " + dur(lastAge(a)) + " ago.";
+  if (!on) return "No data for " + dur(lastAge(a)) + " - the PC, MT5 or the internet is off. The figures are the last ones received.";
+  if (st === "TRADING OFF") return (a.why || "MT5 does not let the EA trade") + " - the engines cannot open or close trades until this is fixed on the PC.";
+  if (st === "STARTING") return "Loading M1 history - the engines start in a moment.";
+  return "";
+}
+function ctlBar(a) {
+  const cs = ctlState(a), dis = cs.ok ? "" : " off";
+  const act = activeEng(a), allPz = act.length > 0 && act.every((e) => +e.pz === 1);
+  const pz = allPz
+    ? '<button class="cbtn green' + dis + (isBusy(a.id, "PZ:all") ? " busy" : "") + '" data-cmd="RESUME" data-m="all">' + ICO.play + "RESUME ALL</button>"
+    : '<button class="cbtn amber' + dis + (isBusy(a.id, "PZ:all") ? " busy" : "") + '" data-cmd="PAUSE" data-m="all">' + ICO.pause + "PAUSE ALL</button>";
+  const cl = '<button class="cbtn red' + dis + (isBusy(a.id, "CL:all") ? " busy" : "") + '" data-cmd="CLOSE" data-m="all">' + ICO.close + "CLOSE ALL</button>";
+  const ad = +a.adds === 1;
+  const sw = '<div class="mctl"><span class="lbl">Extra lots<span class="sec" style="text-transform:none;letter-spacing:0;font-weight:600"> &middot; new trades</span></span>' +
+    '<button class="sw' + (ad ? " on" : "") + dis + (isBusy(a.id, "ADDS") ? " busy" : "") + '" data-cmd="ADDS" data-v="' + (ad ? 0 : 1) + '"><i></i>' + (ad ? "ON" : "OFF") + "</button></div>";
+  return '<div class="ctlbar">' + pz + cl + "</div>" + sw + (cs.ok ? "" : '<div class="small mut ctlwhy">' + esc(cs.why) + "</div>");
+}
+//--- the whole EA (like Master in TBFE)
+function overview(a) {
+  const td = testDrop(a), dd = dropNow(a), fr = td > 0 ? dd / td : 0;
+  const eqh = a.eqh || [], up = eqh.length < 2 || eqh[eqh.length - 1] >= eqh[0];
+  const need = +a.need || 0, bal = +a.bal || 0, act = activeEng(a), mm = monthOf(a, "all");
+  let h = todayCard(a, +a.today || 0, +a.tdn || 0, +a.flt || 0);
+  h += '<div class="grid2">' +
+    '<div class="card col"><span class="lbl">Equity</span><span class="big num">' + fmt(a.eq, 2) + '</span><span class="small num">balance ' + fmt(bal, 2) + ccyOf(a) + "</span>" + spark(eqh, up) + "</div>" +
+    '<div class="card box" data-tab="tr"><span class="lbl">Open trades</span><span class="big num ' + pcls(a.flt) + '">' + sgn(+a.flt || 0, 2) + '</span><span class="small num">' + (a.cnt || 0) + " trades · " + fmt(a.lots || 0, 2) + ' lot</span><span class="gol">Trades &rsaquo;</span></div>' +
+    '<div class="card col"><span class="lbl">This month</span><span class="big num ' + pcls(mm.pl) + '">' + sgn(mm.pl, 2) + '</span><span class="small num">' + mm.n + " trades closed · " + mm.d + " days</span></div>" +
+    '<div class="card col"><span class="lbl">Drop from top</span><span class="big num ' + (dd > 0.004 ? "dn" : "") + '">' + (dd > 0.004 ? "-" + fmt(dd, 2) : "0.00") + '</span><span class="small num">top ' + fmt(a.peak, 2) + "</span>" +
+    (td > 0 ? '<div style="margin-top:7px">' + bar(fr, lossCol(fr)) + '</div><span class="small num">test\'s biggest drop ' + fmt(td, 0) + "</span>" : "") + "</div></div>";
+  const g1 = td > 0 ? ring(fr, lossCol(fr), fmt(fr * 100, 0) + "%", "of test") : ring(0, "var(--acc)", "-", "");
+  const bf = need > 0 ? bal / need : 0, g2 = need > 0 ? ring(Math.min(1, bf), bf >= 1 ? "var(--green)" : bf >= 0.67 ? "var(--amber)" : "var(--red)", fmt(bf * 100, 0) + "%", "of need") : ring(0, "var(--acc)", "-", "");
+  const ml = +a.mlv || 0, g3 = ml > 0 ? ring(Math.min(1, ml / 2000), ml < 300 ? "var(--red)" : ml < 1000 ? "var(--amber)" : "var(--green)", mlTxt(ml), "level") : ring(0, "var(--acc)", "-", "no trades");
+  h += '<div class="grid3">' +
+    '<div class="card gauge">' + g1 + '<span class="lbl">Drop</span><span class="v num">' + (td > 0 ? fmt(dd, 0) + " / " + fmt(td, 0) : "-") + '</span><span class="s">now / test max</span></div>' +
+    '<div class="card gauge">' + g2 + '<span class="lbl">Balance</span><span class="v num">' + (need > 0 ? fmt(need, 0) : "-") + '</span><span class="s">' + (need > 0 ? "needed (test)" : "all 10 engines on only") + "</span></div>" +
+    '<div class="card gauge">' + g3 + '<span class="lbl">Margin</span><span class="v num">' + fmt(a.lots || 0, 2) + '</span><span class="s">lot open</span></div></div>';
+  h += calCard(a, "all");
+  h += '<div class="card"><div class="lbl">The 10 systems &middot; tap one for its own page</div>' +
+    act.map((e) => '<div class="erow" data-sys="' + e.i + '">' + sdot(+e.tr) + "<b>" + esc(e.n) + ' <span class="mut" style="font-weight:600">' + e.min + "m</span>" + (+e.pz === 1 ? ' <span class="tag pz">PAUSED</span>' : "") + "</b>" +
+      dirTag(+e.pos, +e.cnt) + '<span class="pl2 num ' + pcls(+e.day + +e.pl) + '">' + sgn((+e.day || 0) + (+e.pl || 0), 2) + "</span></div>").join("") +
+    '<div class="small mut" style="margin-top:6px">right: today NET (closed today + open now)</div></div>';
+  h += '<div class="foot">Figures in ' + esc(a.ccy || "account money") + ". Test figures: 22 months XAUUSD, 0.01 lot.</div>";
+  return h;
+}
+function engCard(a, e) {
+  const cs = ctlState(a), dis = cs.ok ? "" : " off", ad = +a.adds === 1, pz = +e.pz === 1;
+  const lv = levels(a, e);
+  const fl = +e.flip > 0 ? hm(+e.flip) : "-", fla = +e.flip > 0 ? dur(nowS() - +e.flip) + " ago" : "";
+  return '<div class="item eng' + (pz ? " pzd" : "") + '"><div class="h"><span class="name" data-sys="' + e.i + '" style="cursor:pointer">' + sdot(+e.tr) + "<b>" + esc(e.n) + " &rsaquo;</b></span>" + dirTag(+e.pos, +e.cnt) + (pz ? '<span class="tag pz">PAUSED</span>' : "") +
+    '<span class="pl num ' + pcls(+e.pl) + '">' + (+e.cnt > 0 ? sgn(+e.pl, 2) : "-") + "</span></div>" +
+    '<div class="meta">' + e.min + "-min candles · window " + e.win + " · filter " + e.flt + " · magic " + e.mg + "</div>" +
+    '<div class="stats"><div><b style="color:' + (+e.tr > 0 ? "var(--green)" : +e.tr < 0 ? "var(--red)" : "var(--mut)") + '">' + trTxt(+e.tr) + '</b><span>SNAKE</span></div><div><b class="num">' + (+e.cnt || 0) + '</b><span>TRADES</span></div>' +
+    '<div><b class="num">' + fmt(+e.lots || 0, 2) + '</b><span>LOTS</span></div><div><b class="num ' + pcls(+e.day) + '">' + sgn(+e.day || 0, 2) + "</b><span>TODAY" + (+e.dn ? " (" + e.dn + ")" : "") + "</span></div></div>" +
+    '<div class="tri"><div><span>IN PROFIT</span><b class="num">' + (ad ? (+e.fav || 0) + "/" + e.fmax : "off") + '</b><span class="nx">' + esc(lv.fNote) + "</span></div>" +
+    '<div><span>AGAINST</span><b class="num">' + (ad ? (+e.ag || 0) + "/" + e.amax : "off") + '</b><span class="nx">' + esc(lv.aNote) + "</span></div>" +
+    '<div><span>COLOUR SINCE</span><b class="num">' + esc(fl) + '</b><span class="nx">' + esc(fla) + "</span></div></div>" +
+    '<div class="mctl"><button class="sw' + (pz ? "" : " on") + dis + (isBusy(a.id, "PZ:" + e.i) ? " busy" : "") + '" data-cmd="' + (pz ? "RESUME" : "PAUSE") + '" data-m="' + e.i + '"><i></i>' + (pz ? "PAUSED" : "TRADING") + "</button>" +
+    '<button class="cbtn red sm' + dis + (isBusy(a.id, "CL:" + e.i) ? " busy" : "") + '" style="flex:none;padding:9px 14px" data-cmd="CLOSE" data-m="' + e.i + '">' + ICO.close + "Close trades</button></div></div>";
+}
+//--- next extra-lot prices of an engine
+function levels(a, e) {
+  const ad = +a.adds === 1, has = +e.pos !== 0 && +e.base > 0;
+  const nf = ad && has && +e.fav < +e.fmax ? +e.base + +e.pos * (+e.fav + 1) * +e.fs : null;
+  const na = ad && has && +e.ag < +e.amax ? +e.base - +e.pos * (+e.ag + 1) * +e.as : null;
+  return { nf: nf, na: na,
+    fNote: nf != null ? "next " + px(a, nf) : ad && +e.fmax > 0 ? "every +" + fmt(+e.fs, 2) : ad ? "none set" : "",
+    aNote: na != null ? "next " + px(a, na) : ad && +e.amax > 0 ? "every -" + fmt(+e.as, 2) : ad ? "none set" : "" };
+}
+function enginesView(a) {
+  const act = activeEng(a);
+  const g = act.filter((e) => +e.tr > 0).length, r = act.filter((e) => +e.tr < 0).length;
+  return '<div class="sum" style="margin:0">' + chip("GREEN " + g, "var(--green)") + chip("RED " + r, "var(--red)") + chip("EXTRA LOTS " + (+a.adds === 1 ? "ON" : "OFF"), +a.adds === 1 ? "var(--acc)" : "var(--sec)") + "</div>" +
+    '<div class="list" style="margin-top:0">' + act.map((e) => engCard(a, e)).join("") + "</div>" +
+    '<div class="foot">A paused engine opens nothing new, its open trades still close at its next colour change. RESUME: it trades again from its next colour change. Tap a name for its own page.</div>';
+}
+function posRows(a, l) {
+  return '<div class="list" style="margin-top:6px">' + l.map((p) => {
+    const tg = String(p[5] || ""), kind = tg === "" ? "first" : tg[0] === "+" ? "extra " + tg + " (profit)" : "extra " + tg + " (against)";
+    return '<div class="item trow"><div class="l1">' + (+p[1] > 0 ? '<span class="tag buy">BUY</span>' : '<span class="tag sell">SELL</span>') + "<b>" + fmt(+p[2], 2) + " @ " + px(a, +p[3]) + "</b>" +
+      (tg ? '<span class="tag add">' + esc(tg) + "</span>" : "") + '</div><span class="pl num ' + pcls(+p[4]) + '">' + sgn(+p[4], 2) + "</span>" +
+      '<div class="l2">' + esc(kind) + (p[6] > 0 ? " · opened " + hm(+p[6]) + " (" + dur(nowS() - p[6]) + " ago)" : "") + "</div></div>";
+  }).join("") + "</div>";
+}
+function tradesView(a) {
+  const pos = (a.pos || []).slice(), eng = a.eng || [];
+  if (!pos.length) return '<div class="card empty">No open trades.</div>';
+  const by = {};
+  pos.forEach((p) => { (by[p[0]] = by[p[0]] || []).push(p); });
+  let h = "";
+  Object.keys(by).map(Number).sort((x, y) => x - y).forEach((i) => {
+    const l = by[i].sort((x, y) => (x[6] || 0) - (y[6] || 0)), e = eng[i] || { n: "engine " + (i + 1) };
+    const s = l.reduce((t, p) => t + (+p[4] || 0), 0), lots = l.reduce((t, p) => t + (+p[2] || 0), 0);
+    h += '<div class="grp" data-sys="' + i + '" style="cursor:pointer">' + sdot(+e.tr) + esc(e.n) + " · " + fmt(lots, 2) + ' lot &rsaquo;<span class="r num ' + pcls(s) + '">' + sgn(s, 2) + "</span></div>" + posRows(a, l);
+  });
+  return '<div class="sum" style="margin:0">' + chip(pos.length + " TRADES", "var(--sec)") + chip(fmt(a.lots || 0, 2) + " LOT", "var(--sec)") + chip("OPEN " + sgn(+a.flt || 0, 2), +a.flt >= 0 ? "var(--green)" : "var(--red)") + "</div>" + h;
+}
+//--- events: the whole EA = its own list + every engine's list
+function evList(a, e) {
+  const ev = evOf(a);
+  if (!ev) return Array.isArray(a.ev) ? a.ev : [];
+  if (e !== "all") return (ev.e && ev.e[e]) || [];
+  let l = (ev.g || []).slice();
+  (ev.e || []).forEach((x) => { l = l.concat(x || []); });
+  return l.sort((x, y) => y[0] - x[0]).slice(0, 80);
+}
+function eventsCard(list, note) {
+  if (!list.length) return '<div class="empty">Nothing happened yet.</div>';
+  const today = new Date().toDateString();
+  return '<div class="card evfull" style="padding:6px">' + list.map((x) => {
+    const t = splitTag(String(x[2] || "")), d = new Date(x[0] * 1000), tt = d.toDateString() === today ? hms(x[0]) : dayLbl(x[0]) + " " + hm(x[0]);
+    return '<div class="ev"><time>' + esc(tt) + '</time><span class="evtag" style="color:' + kcol(+x[1]) + '">' + esc(t[0]) + '</span><span class="m" style="color:' + (+x[1] === 6 ? "var(--sec)" : "var(--txt)") + '">' + esc(t[1]) + "</span></div>";
+  }).join("") + "</div>" + '<div class="foot">' + esc(note) + "</div>";
+}
+//--- one system, like its own account (like Master in TBFE)
+function sysView(a, i) {
+  const e = Object.assign({ i: i }, a.eng[i]), on = online(a), pz = +e.pz === 1, cs = ctlState(a), dis = cs.ok ? "" : " off", ad = +a.adds === 1;
+  const t = tabs[a.id + ":" + i] || "ov";
+  const mine = (a.pos || []).filter((p) => p[0] === i);
+  const res = +e.res || 0, pk = Math.max(+e.pk || 0, res), dd = Math.max(0, pk - res), td = +e.td || 0, fr = td > 0 ? dd / td : 0;
+  const st = !on ? (/STOPPED/.test(a.status || "") ? "STOPPED" : "PC OFFLINE") : a.status === "TRADING OFF" ? "TRADING OFF" : !a.status || a.status === "STARTING" ? "STARTING" : pz ? "PAUSED" : "TRADING";
+  const fl = +e.flip > 0 ? " since " + hm(+e.flip) + " (" + dur(nowS() - +e.flip) + ")" : "";
+  let why = whyTxt(a, on);
+  if (!why && pz) why = "Paused from the phone - it opens nothing new; its open trades still close at its next colour change.";
+  let h = '<div class="card"><div class="status"><span class="dot ' + (st === "TRADING" ? "on" : /OFFLINE|STOPPED|TRADING OFF/.test(st) ? "off" : "warn") + '"></span><span class="txt">' + esc(e.n + " - " + st) + "</span></div>" +
+    '<div class="small">' + esc(e.min + "-min candles · window " + e.win + " · filter " + e.flt + " · magic " + e.mg + " · " + a.id) + "</div>" +
+    (why ? '<div class="warnc' + (on ? "" : " badc") + '"><b>' + esc(on ? "Note" : "Offline") + ":</b> " + esc(why) + "</div>" : "") +
+    '<div class="chips">' + chip("SNAKE " + trTxt(+e.tr) + fl, +e.tr > 0 ? "var(--green)" : +e.tr < 0 ? "var(--red)" : "var(--mut)") +
+    chip(+e.pos > 0 ? "BUY ×" + e.cnt + " · " + fmt(+e.lots, 2) + " lot" : +e.pos < 0 ? "SELL ×" + e.cnt + " · " + fmt(+e.lots, 2) + " lot" : "NO TRADE OPEN", +e.pos > 0 ? "var(--green)" : +e.pos < 0 ? "var(--red)" : "var(--sec)") +
+    chip("EXTRA LOTS " + (ad ? "ON" : "OFF"), ad ? "var(--acc)" : "var(--sec)") + "</div>" +
+    '<div class="ctlbar">' + (pz
+      ? '<button class="cbtn green' + dis + (isBusy(a.id, "PZ:" + i) ? " busy" : "") + '" data-cmd="RESUME" data-m="' + i + '">' + ICO.play + "RESUME</button>"
+      : '<button class="cbtn amber' + dis + (isBusy(a.id, "PZ:" + i) ? " busy" : "") + '" data-cmd="PAUSE" data-m="' + i + '">' + ICO.pause + "PAUSE</button>") +
+    '<button class="cbtn red' + dis + (isBusy(a.id, "CL:" + i) ? " busy" : "") + '" data-cmd="CLOSE" data-m="' + i + '">' + ICO.close + "CLOSE TRADES</button></div>" +
+    (cs.ok ? "" : '<div class="small mut ctlwhy">' + esc(cs.why) + "</div>") + "</div>";
+  h += tabBar([["ov", "Overview"], ["tr", "Trades", mine.length], ["ev", "Activity"]], t);
+  if (t === "tr") return h + (mine.length ? posRows(a, mine.sort((x, y) => (x[6] || 0) - (y[6] || 0))) : '<div class="card empty">No open trades.</div>');
+  if (t === "ev") return h + eventsCard(evList(a, i), "The last 25 events of " + e.n + ". Times are this phone's time.");
+  const mm = monthOf(a, i), rows = calRows(a, i), lv = levels(a, e);
+  h += todayCard(a, +e.day || 0, +e.dn || 0, +e.pl || 0);
+  h += '<div class="grid2">' +
+    '<div class="card box" data-tab="tr"><span class="lbl">Open trades</span><span class="big num ' + pcls(+e.pl) + '">' + (+e.cnt > 0 ? sgn(+e.pl, 2) : "0.00") + '</span><span class="small num">' + (+e.cnt || 0) + " trades · " + fmt(+e.lots || 0, 2) + ' lot</span><span class="gol">Trades &rsaquo;</span></div>' +
+    '<div class="card col"><span class="lbl">Since start</span><span class="big num ' + pcls(res) + '">' + sgn(res, 2) + '</span><span class="small num">' + (+a.since > 0 ? "since " + esc(sinceTxt(+a.since)) : "counting...") + " · closed + open</span>" + cumSpark(rows) + "</div>" +
+    '<div class="card col"><span class="lbl">This month</span><span class="big num ' + pcls(mm.pl) + '">' + sgn(mm.pl, 2) + '</span><span class="small num">' + mm.n + " trades closed · " + mm.d + " days</span>" +
+    (+e.tm > 0 ? '<span class="small num">test average ' + sgn(+e.tm, 0) + " a month</span>" : "") + "</div>" +
+    '<div class="card col"><span class="lbl">Drop from top</span><span class="big num ' + (dd > 0.004 ? "dn" : "") + '">' + (dd > 0.004 ? "-" + fmt(dd, 2) : "0.00") + '</span><span class="small num">top ' + sgn(pk, 2) + "</span>" +
+    (td > 0 ? '<div style="margin-top:7px">' + bar(fr, lossCol(fr)) + '</div><span class="small num">test\'s biggest drop ' + fmt(td, 0) + "</span>" : "") + "</div></div>";
+  h += '<div class="card"><div class="lbl">Extra lots' + (ad ? "" : " &middot; OFF") + "</div>" +
+    '<div class="ladder"><div><span>IN PROFIT</span><b class="num">' + (ad ? (+e.fav || 0) + " / " + e.fmax : "off") + "</b><i>" + esc(lv.fNote || "-") + "</i></div>" +
+    '<div><span>AGAINST</span><b class="num">' + (ad ? (+e.ag || 0) + " / " + e.amax : "off") + "</b><i>" + esc(lv.aNote || "-") + "</i></div>" +
+    '<div><span>FIRST ENTRY</span><b class="num">' + (+e.pos !== 0 && +e.base > 0 ? px(a, +e.base) : "-") + "</b><i>" + (+e.pos > 0 ? "buy" : +e.pos < 0 ? "sell" : "no trade") + "</i></div></div>" +
+    '<div class="small mut" style="margin-top:7px">steps: in profit every ' + fmt(+e.fs, 2) + " · against every " + fmt(+e.as, 2) + " (price) · all of them close together at the next colour change</div></div>";
+  h += calCard(a, i);
+  h += '<div class="card"><div class="lbl">' + esc(e.n) + " alone in the 22-month test (" + fmt(a.lot, 2) + " lot)</div>" +
+    (+e.tm > 0 ? '<div class="testg num"><span>month average <b class="up">' + sgn(+e.tm, 0) + "</b></span><span>worst month <b class=\"dn\">" + sgn(+e.tw, 0) + "</b></span>" +
+      "<span>biggest drop <b>" + fmt(+e.td, 0) + "</b></span><span>balance to keep <b>" + fmt(+e.tb, 0) + "</b></span></div>" +
+      '<div class="small mut" style="margin-top:6px">past test, not a promise. All ten together share one balance (see ALL).</div>'
+      : '<div class="small mut" style="margin-top:6px">Test figures are for the tested settings with extra lots ON.</div>') + "</div>";
+  return h;
+}
+function allView(a) {
+  const t = tabs[a.id + ":all"] || "ov";
+  const n = (a.pos || []).length, en = activeEng(a).length;
+  const list = [["ov", "Overview"], ["en", "Engines", en], ["tr", "Trades", n], ["ev", "Activity"]];
+  const body = t === "en" ? enginesView(a) : t === "tr" ? tradesView(a) : t === "ev" ? eventsCard(evList(a, "all"), "All ten systems together, newest first. Times are this phone's time.") : overview(a);
+  return statusCard(a) + tabBar(list, t) + body;
+}
+function accView(a) {
+  const s = sysOf(a);
+  return '<div class="stack">' + (s === "all" ? allView(a) : sysView(a, s)) + "</div>";
+}
+//--- the cards at the top: ALL + the ten systems
+function sysStrip(a) {
+  const s = sysOf(a), on = online(a);
+  const all = '<button class="acc' + (s === "all" ? " sel" : "") + '" data-sys="all"><span class="row"><span class="role M">ALL</span></span>' +
+    '<span class="dot ' + (on ? (/RUNNING/.test(a.status || "") ? "on" : "warn") : "off") + '"></span>' +
+    '<span class="id">' + esc(a.id) + '</span><span class="eq num">' + fmt(a.eq, 2) + '</span><span class="sub num ' + (pcls((+a.today || 0) + (+a.flt || 0)) || "sec") + '">Today: ' + sgn((+a.today || 0) + (+a.flt || 0), 2) +
+    '</span><span class="sub2 num">' + (a.cnt || 0) + " trades open</span></button>";
+  return all + activeEng(a).map((e) => {
+    const net = (+e.day || 0) + (+e.pl || 0);
+    return '<button class="acc' + (s === e.i ? " sel" : "") + '" data-sys="' + e.i + '"><span class="row"><span class="role S">' + e.min + "m</span>" + (+e.pz === 1 ? '<span class="role" style="color:var(--amber)">PAUSED</span>' : "") + "</span>" +
+      '<span class="dot ' + (+e.tr > 0 ? "on" : +e.tr < 0 ? "off" : "warn") + '"></span>' +
+      '<span class="id">' + esc(e.n) + '</span><span class="eq num ' + (+e.cnt > 0 ? pcls(+e.pl) : "") + '">' + (+e.cnt > 0 ? sgn(+e.pl, 2) : "flat") + "</span>" +
+      '<span class="sub num ' + (pcls(net) || "sec") + '">Today: ' + sgn(net, 2) + '</span><span class="sub2 num">' + (+e.pos > 0 ? "BUY ×" + e.cnt + " · " + fmt(+e.lots, 2) + " lot" : +e.pos < 0 ? "SELL ×" + e.cnt + " · " + fmt(+e.lots, 2) + " lot" : "no trade open") + "</span></button>";
+  }).join("");
+}
+
+//--- page ---------------------------------------------------------------
+function header() {
+  const hd = $("hdot"), hl = $("hlive");
+  if (conn.mode === "demo") { hd.className = "dot warn"; hl.textContent = "demo data - tap the gear to connect"; return; }
+  const list = accList(), a = list.find((x) => x.id === sel) || list[0];
+  if (!a) { hd.className = "dot warn"; hl.textContent = conn.err ? "not connected" : "connecting..."; return; }
+  if (!online(a)) { hd.className = "dot off"; hl.textContent = (/STOPPED/.test(a.status || "") ? "EA stopped" : "PC offline") + " - last update " + dur(lastAge(a)) + " ago"; return; }
+  hd.className = "dot on";
+  if (+a.fast === 1) hl.textContent = "live - every " + (a.every || 5) + " s";
+  else hl.textContent = "every " + (a.every || 60) + " s" + (Date.now() - conn.opened < 40000 ? " - speeding up..." : "");
+}
+function banner() {
+  const b = $("banner");
+  let h = "";
+  if (conn.mode === "demo") h = '<div class="banner demo"><span><b>Demo data.</b> Connect Snake10in1 on your PC to see your real account.</span><button id="bConnect">Connect</button></div>';
+  else if (conn.err) h = '<div class="banner err"><span><b>Problem:</b> ' + esc(conn.err) + '</span><button id="bConnect">Settings</button></div>';
+  if (b.innerHTML !== h) b.innerHTML = h;
+  const c = $("bConnect"); if (c) c.onclick = openSettings;
+}
+let lastHtml = "", lastSys = "";
+document.addEventListener("visibilitychange", () => { if (!document.hidden) { lastHtml = ""; render(); } });
+function render() {
+  if (document.hidden) return;
+  checkPend();
+  header();
+  banner();
+  const list = accList();
+  if (!list.length) {
+    $("sum").innerHTML = ""; $("strip").innerHTML = ""; $("sys").innerHTML = "";
+    const k = cleanKey(cfg.key), slow = Date.now() - conn.opened > 90000;
+    const h = '<div class="card empty" style="margin-top:14px">' + (conn.mode === "stream" || conn.mode === "poll"
+      ? "Connected. Waiting for the first data from Snake10in1 on your PC (it sends once a minute, then every few seconds while this page is open)..." +
+        '<div class="small" style="margin-top:8px">key: <b>' + esc(k.length > 10 ? "..." + k.slice(-10) : k) + "</b>" +
+        (slow ? " - still nothing: the Firebase address and the key in the Snake10in1 inputs (group Mobile) must be exactly the same as here (gear). Is Snake10in1 running with Algo Trading on?" : "") + "</div>"
+      : "No data.") + "</div>";
+    if (h !== lastHtml) { $("view").innerHTML = h; lastHtml = h; }
+    return;
+  }
+  if (!sel || !list.some((a) => a.id === sel)) sel = list[0].id;
+  const a = list.find((x) => x.id === sel);
+  //--- summary chips
+  const on = online(a), st = on ? (a.status || "RUNNING") : (/STOPPED/.test(a.status || "") ? "STOPPED" : "PC OFFLINE");
+  const act = activeEng(a), g = act.filter((e) => +e.tr > 0).length, pzn = act.filter((e) => +e.pz === 1).length;
+  const sh = chip(st, on ? stCol(st) : "var(--red)") + chip("ENGINES " + act.length + (pzn ? " · " + pzn + " PAUSED" : ""), pzn ? "var(--amber)" : "var(--sec)") +
+    chip("GREEN " + g + " / RED " + (act.length - g), "var(--sec)") + chip("EXTRA LOTS " + (+a.adds === 1 ? "ON" : "OFF"), +a.adds === 1 ? "var(--acc)" : "var(--sec)");
+  if ($("sum").innerHTML !== sh) $("sum").innerHTML = sh;
+  //--- accounts (more than one on the same key), then ALL + the ten systems of the chosen account
+  const ah = list.length < 2 ? "" : list.map((x) => {
+    const o = online(x);
+    return '<button class="acc' + (x.id === sel ? " sel" : "") + '" data-acc="' + esc(x.id) + '"><span class="row"><span class="role S">' + esc(x.ccy || "") + '</span></span>' +
+      '<span class="dot ' + (o ? (/RUNNING/.test(x.status || "") ? "on" : "warn") : "off") + '"></span>' +
+      '<span class="id">' + esc(x.id) + '</span><span class="eq num">' + fmt(x.eq, 2) + '</span><span class="sub num ' + (pcls(x.today) || "sec") + '">Today: ' + sgn(+x.today || 0, 2) + '</span><span class="sub2 num">' + (x.cnt || 0) + " trades open</span></button>";
+  }).join("");
+  if ($("strip").innerHTML !== ah) $("strip").innerHTML = ah;
+  const sy = sysStrip(a);
+  if ($("sys").innerHTML !== sy) {
+    const sl = $("sys").scrollLeft;
+    $("sys").innerHTML = sy;
+    $("sys").scrollLeft = sl;
+  }
+  const cur = a.id + ":" + sysOf(a);
+  if (cur !== lastSys) {                              //--- a new card was chosen: bring it into view
+    lastSys = cur;
+    const b = $("sys").querySelector(".acc.sel");
+    if (b) { try { b.scrollIntoView({ block: "nearest", inline: "nearest" }); } catch (e) {} }
+  }
+  const h = accView(a);
+  if (h !== lastHtml) { $("view").innerHTML = h; lastHtml = h; }
+}
+const LBL = { PAUSE: "PAUSE", RESUME: "RESUME", CLOSE: "CLOSE", ADDS: "Extra lots" };
+document.addEventListener("click", (e) => {
+  const cb = e.target.closest("[data-cmd]");
+  if (cb) {
+    const a = accList().find((x) => x.id === sel);
+    if (!a) return;
+    const op = cb.getAttribute("data-cmd"), m = cb.getAttribute("data-m") || "", v = cb.getAttribute("data-v") || "0";
+    const cs = ctlState(a);
+    if (!cs.ok) { toast(cs.why, "bad"); return; }
+    const eng = m !== "" && m !== "all" ? (a.eng || [])[+m] : null, who = m === "all" ? "all engines" : eng ? eng.n : "";
+    if (op === "PAUSE" || op === "RESUME") { sendCmd(a, op, m, "0", LBL[op] + " " + who, "PZ:" + m); return; }
+    if (op === "ADDS") {
+      const nv = +v, lbl = "Extra lots " + (nv ? "ON" : "OFF");
+      if (nv) ask("Extra lots ON?", "New baskets add extra lots again (in profit and against, as set for each engine). The 22-month test needed about 78,000 USC for all ten engines with extra lots, 13,500 without. Trades already open keep what they have.", "Extra lots ON", () => sendCmd(a, op, "", v, lbl, "ADDS"));
+      else sendCmd(a, op, "", v, lbl, "ADDS");
+      return;
+    }
+    if (op === "CLOSE") {
+      if (m === "all") {
+        ask("Close ALL trades?", (a.cnt || 0) + " trades of Snake10in1 on " + a.id + ", open P/L " + sgn(+a.flt || 0, 2) + " " + (a.ccy || "") + ". Only this EA's trades close. Every engine trades again at its next colour change - tap PAUSE ALL first if you want no new trades. This cannot be undone.",
+          "Close all", () => sendCmd(a, op, "all", "0", "CLOSE all trades", "CL:all"));
+      } else if (eng) {
+        if (!(+eng.cnt > 0)) { toast(eng.n + " has no open trades.", "bad"); return; }
+        ask("Close " + eng.n + "'s trades?", eng.cnt + " trade" + (+eng.cnt === 1 ? "" : "s") + ", open P/L " + sgn(+eng.pl || 0, 2) + " " + (a.ccy || "") + ". " + eng.n + " trades again at its next colour change" + (+eng.pz === 1 ? " (it is paused: only after RESUME)." : "."),
+          "Close", () => sendCmd(a, op, m, "0", "CLOSE " + eng.n, "CL:" + m));
+      }
+      return;
+    }
+    return;
+  }
+  const cn = e.target.closest("[data-calnav]");
+  if (cn) {
+    if (cn.disabled) return;
+    const ym = +cn.getAttribute("data-ym"), t = Math.floor(ym / 100) * 12 + (ym % 100 - 1) + (+cn.getAttribute("data-calnav"));
+    calMon[cn.getAttribute("data-cid")] = Math.floor(t / 12) * 100 + (t % 12) + 1;
+    lastHtml = ""; render();
+    return;
+  }
+  const sy = e.target.closest("[data-sys]");
+  if (sy && sel) {
+    const v = sy.getAttribute("data-sys");
+    sysSel[sel] = v === "all" ? "all" : +v; LS.set("s10.sys", sysSel);
+    lastHtml = ""; render();
+    if (!sy.closest("#sys")) { try { window.scrollTo(0, 0); } catch (e2) {} }
+    return;
+  }
+  const acc = e.target.closest("[data-acc]");
+  if (acc) { sel = acc.getAttribute("data-acc"); LS.set("s10.sel", sel); lastHtml = ""; render(); return; }
+  const t = e.target.closest("[data-tab]");
+  if (t && sel) {
+    const a = accList().find((x) => x.id === sel);
+    if (!a) return;
+    const k = a.id + ":" + sysOf(a), nt = t.getAttribute("data-tab"), was = tabs[k] || "ov";
+    tabs[k] = nt; LS.set("s10.tabs", tabs);
+    lastHtml = ""; render();
+    if (!t.closest(".tabs") && nt !== was) { try { window.scrollTo(0, 0); } catch (e2) {} }
+  }
+});
+document.addEventListener("keydown", (e) => {
+  const b = (e.key === "Enter" || e.key === " ") && e.target && e.target.closest ? e.target.closest(".box[data-tab]") : null;
+  if (b) { e.preventDefault(); b.click(); }
+});
+setInterval(() => { header(); banner(); if (checkPend()) { lastHtml = ""; render(); } }, 1000);
+setInterval(() => { if (conn.mode !== "demo") render(); }, 5000);
+
+//--- settings -----------------------------------------------------------
+function paintSkin() { document.querySelectorAll("#fSkin button").forEach((b) => b.classList.toggle("on", b.getAttribute("data-s") === (cfg.skin || "midnight"))); }
+function openSettings() {
+  $("fDb").value = cfg.db || ""; $("fKey").value = cfg.key || "";
+  $("fDb").style.borderColor = ""; $("fKey").style.borderColor = "";
+  $("fCode").value = ""; $("fCode").style.borderColor = "";
+  $("fCode").placeholder = ccode ? "saved on this phone - type a new one to change" : "4 digits";
+  paintSkin();
+  $("setHint").hidden = !!window.navigator.standalone;
+  $("toast").hidden = true;
+  $("sheet").hidden = false;
+}
+$("openSet").onclick = openSettings;
+$("setClose").onclick = () => { $("sheet").hidden = true; };
+$("sheet").addEventListener("click", (e) => { if (e.target === $("sheet")) $("sheet").hidden = true; });
+document.querySelectorAll("#fSkin button").forEach((b) => b.onclick = () => { cfg.skin = b.getAttribute("data-s"); LS.set("s10.cfg", cfg); setSkin(cfg.skin); paintSkin(); lastHtml = ""; render(); });
+$("setDemo").onclick = () => { cfg.demo = true; LS.set("s10.cfg", cfg); $("sheet").hidden = true; connect(); };
+$("setSave").onclick = () => {
+  const db = $("fDb").value.trim().replace(/\/+$/, ""), key = $("fKey").value.trim();
+  if (!/^https:\/\/[^/]+$/.test(db) && !/^http:\/\/(127\.0\.0\.1|localhost)(:\d+)?$/.test(db)) { $("fDb").focus(); $("fDb").style.borderColor = "var(--red)"; toast("The database address starts with https:// - copy it from the Snake10in1 inputs.", "bad"); return; }
+  if (!cleanKey(key)) { $("fKey").focus(); $("fKey").style.borderColor = "var(--red)"; return; }
+  const cc = codeNorm($("fCode").value);
+  if ($("fCode").value.trim() && cc.length < 4) { $("fCode").focus(); $("fCode").style.borderColor = "var(--red)"; return; }
+  if (cc) { ccode = cc; LS.set("s10.cc", cc); }
+  cfg.db = db; cfg.key = key; cfg.demo = false;
+  LS.set("s10.cfg", cfg);
+  //--- keep the settings in the address, so "Add to Home Screen" saves a ready-to-use app
+  try { history.replaceState(null, "", location.pathname + "?db=" + encodeURIComponent(db) + "&key=" + encodeURIComponent(key)); } catch (e) {}
+  $("sheet").hidden = true;
+  state = { acc: {}, cal: {}, ev: {}, in: {} }; lastHtml = "";
+  connect();
+};
+$("askNo").onclick = () => { $("askSheet").hidden = true; askFn = null; };
+$("askYes").onclick = () => { $("askSheet").hidden = true; const f = askFn; askFn = null; if (f) f(); };
+$("askSheet").addEventListener("click", (e) => { if (e.target === $("askSheet")) { $("askSheet").hidden = true; askFn = null; } });
+$("codeCancel").onclick = () => { $("codeSheet").hidden = true; codeFn = null; };
+$("codeSave").onclick = () => {
+  const c = codeNorm($("fCode2").value);
+  if (c.length < 4) { $("fCode2").style.borderColor = "var(--red)"; $("fCode2").focus(); return; }
+  ccode = c; LS.set("s10.cc", c);
+  $("codeSheet").hidden = true;
+  const f = codeFn; codeFn = null;
+  if (f) f(); else toast("Control code saved on this phone.", "ok");
+};
+$("fCode2").addEventListener("keydown", (e) => { if (e.key === "Enter") $("codeSave").click(); });
+connect();
+</script>
+</body>
+</html>
