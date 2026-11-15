@@ -86,6 +86,7 @@ button{font:inherit;color:inherit}
 .acc .sub{font-size:12.5px;font-weight:650}
 .acc .sub2{font-size:11.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .acc .dot{position:absolute;top:13px;right:12px}
+.acc .rm{position:absolute;bottom:10px;right:10px;font-size:10.5px;font-weight:700;letter-spacing:.4px;color:var(--red);background:color-mix(in srgb, var(--red) 14%, transparent);border-radius:999px;padding:3px 8px}
 
 /* cards */
 .card{background:var(--card);border:1px solid var(--line);border-radius:16px;padding:13px 14px}
@@ -418,6 +419,7 @@ let state = { acc: {}, cal: {}, ev: {}, in: {} };
 let sel = LS.get("s10.sel", "");
 let sysSel = LS.get("s10.sys", {});          // account id -> "all" or the engine number
 let tabs = LS.get("s10.tabs", {});
+let hidden = LS.get("s10.hide", {});        // account id -> its last update when hidden (this phone only; it comes back when that EA sends again)
 const calMon = {};
 let conn = { mode: "none", es: null, poll: 0, err: "", lastMsg: 0, demoTick: 0, opened: Date.now() };
 const seen = {};
@@ -455,7 +457,7 @@ function setAt(path, val) {
   const last = seg[seg.length - 1];
   if (val === null) delete o[last]; else o[last] = val;
 }
-const accList = () => Object.keys(state.acc || {}).map((k) => state.acc[k]).filter((a) => a && a.id && Array.isArray(a.eng))
+const accList = () => Object.keys(state.acc || {}).map((k) => state.acc[k]).filter((a) => a && a.id && Array.isArray(a.eng) && !(hidden[a.id] && (+a.t || 0) <= hidden[a.id]))
   .sort((a, b) => String(a.id).localeCompare(String(b.id)));
 const akey = (a) => "a" + a.login;
 //--- fresh = the account's time stamp keeps moving (measured with the phone's clock, so a PC clock a bit off does not matter)
@@ -1085,7 +1087,8 @@ function render() {
     const o = online(x);
     return '<button class="acc' + (x.id === sel ? " sel" : "") + '" data-acc="' + esc(x.id) + '"><span class="row"><span class="role S">' + esc(x.ccy || "") + '</span></span>' +
       '<span class="dot ' + (o ? (/RUNNING/.test(x.status || "") ? "on" : "warn") : "off") + '"></span>' +
-      '<span class="id">' + esc(x.id) + '</span><span class="eq num">' + fmt(x.eq, 2) + '</span><span class="sub num ' + (pcls(x.today) || "sec") + '">Today: ' + sgn(+x.today || 0, 2) + '</span><span class="sub2 num">' + (x.cnt || 0) + " trades open</span></button>";
+      '<span class="id">' + esc(x.id) + '</span><span class="eq num">' + fmt(x.eq, 2) + '</span><span class="sub num ' + (pcls(x.today) || "sec") + '">Today: ' + sgn(+x.today || 0, 2) + '</span><span class="sub2 num">' + (x.cnt || 0) + " trades open</span>" +
+      (o ? "" : '<span class="rm" data-rm="' + esc(x.id) + '">&#10005; HIDE</span>') + "</button>";
   }).join("");
   if ($("strip").innerHTML !== ah) $("strip").innerHTML = ah;
   const sy = sysStrip(a);
@@ -1105,6 +1108,18 @@ function render() {
 }
 const LBL = { PAUSE: "PAUSE", RESUME: "RESUME", CLOSE: "CLOSE", ADDS: "Extra lots" };
 document.addEventListener("click", (e) => {
+  const rm = e.target.closest("[data-rm]");
+  if (rm) {
+    const x = accList().find((y) => y.id === rm.getAttribute("data-rm"));
+    if (!x) return;
+    if (online(x)) { toast(x.id + " is online - only an offline account can be hidden.", "bad"); return; }
+    ask("Hide " + x.id + "?", "This account is not sending data (" + (/STOPPED/.test(x.status || "") ? "EA stopped" : "PC offline") + ", last update " + dur(lastAge(x)) + " ago). Its card is hidden on this phone only - nothing is deleted. If its EA sends data again, the card comes back by itself.", "Hide", () => {
+      hidden[x.id] = +x.t || Math.floor(nowS()); LS.set("s10.hide", hidden);
+      if (sel === x.id) { sel = ""; LS.set("s10.sel", ""); }
+      toast(x.id + " hidden.", "ok"); lastHtml = ""; render();
+    });
+    return;
+  }
   const cb = e.target.closest("[data-cmd]");
   if (cb) {
     const a = accList().find((x) => x.id === sel);
