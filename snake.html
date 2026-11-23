@@ -268,6 +268,9 @@ button{font:inherit;color:inherit}
 .calc .m{font-size:9.5px;font-weight:750;white-space:nowrap}
 .calc.today{box-shadow:inset 0 0 0 1.5px var(--acc)}
 .calc.out{background:transparent}
+.calc.tst .v{font-style:italic;opacity:.8}
+.calc .tv{font-style:italic}
+.calc .tg{font-size:7.5px;font-weight:800;letter-spacing:.3px;color:var(--amber);margin-left:2px}
 .calc.wk{background:color-mix(in srgb, var(--acc) 9%, var(--zebra))}
 .calc.wk .d{color:var(--sec)}
 .calsum{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px;margin-top:9px;font-size:12px;color:var(--sec)}
@@ -390,6 +393,28 @@ button{font:inherit;color:inherit}
 .scard .spl{margin-left:auto;font-weight:700;font-size:13px;white-space:nowrap}
 .scard .s3{display:flex;justify-content:space-between;font-size:11.5px;color:var(--mut)}
 .scard .s3 b{font-size:12.5px}
+.scard .s4{display:grid;grid-template-columns:minmax(0,1fr) auto auto;gap:6px;align-items:center;font-size:11.5px}
+.pbar{display:block;height:7px;border-radius:4px;background:radial-gradient(circle, color-mix(in srgb, var(--mut) 70%, transparent) 1.2px, transparent 1.6px) 0 50%/6px 7px repeat-x;position:relative;overflow:hidden;min-width:30px}
+.pbar i{position:absolute;left:0;top:0;bottom:0;border-radius:4px;background:var(--mut)}
+.pbar i.up{background:var(--green)}
+.pbar i.midc{background:var(--amber)}
+.pbar i.dn{background:var(--red)}
+.psrc{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 2px}
+.pfh,.pfr{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(46px,1fr) 38px 50px;gap:8px;align-items:center}
+.pfh{font-size:10.5px;font-weight:700;letter-spacing:.5px;color:var(--mut);text-transform:uppercase;padding:6px 0 4px;border-bottom:1px solid var(--line)}
+.pfh span:nth-child(n+3),.pfr .pw,.pfr .pf{text-align:right}
+.pfr{padding:6px 0;border-bottom:1px solid color-mix(in srgb, var(--line) 60%, transparent);cursor:pointer}
+.pfr .pn{min-width:0;display:flex;flex-direction:column}
+.pfr .pn b{font-size:12.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pfr .pn small{font-size:10.5px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.pfr .pw{font-size:12.5px;font-weight:700}
+.pfr .pf{font-size:12.5px;font-weight:800}
+.ptri{display:grid;grid-template-columns:repeat(3,minmax(0,1fr));gap:8px;margin-top:8px}
+.ptri>div{display:flex;flex-direction:column;gap:3px;background:var(--card2);border-radius:11px;padding:8px 9px;min-width:0}
+.ptri span{font-size:10.5px;font-weight:700;color:var(--mut);text-transform:uppercase;letter-spacing:.4px}
+.ptri b{font-size:17px}
+.ptri i{font-style:normal;font-weight:800;font-size:12.5px}
+.ptri small{font-size:10.5px;color:var(--mut)}
 </style>
 </head>
 <body>
@@ -535,7 +560,7 @@ const activeEng = (a) => (a.eng || []).map((e, i) => Object.assign({ i: i }, e))
 const calOf = (a) => (state.cal && state.cal[akey(a)]) || null;
 const evOf = (a) => (state.ev && state.ev[akey(a)]) || null;
 //--- which EA an account runs: the EA says it (Gold 10in1); the Snake EAs are known by their engines
-const EA_RANK = { "Snake A": 1, "Snake B": 2, "Eagle22": 3, "Gold 10in1": 4, "Gold 10in1 B": 5, "Gold 10in1 C": 6, "XAU Omni10": 7, "Gold 10in1 D": 8, "Gold 10in1 E": 9, "Gold 10in1 F": 10 };
+const EA_RANK = { "Snake A": 1, "Snake B": 2, "Eagle22": 3, "Gold 10in1": 4, "Gold 10in1 B": 5, "Gold 10in1 C": 6, "XAU Omni10": 7, "Gold 10in1 D": 8, "Gold 10in1 E": 9, "Gold 10in1 F": 10, "Gold 9in1": 11 };
 function eaName(a) {
   if (a.ea) return String(a.ea);
   if (/eagle/i.test(String(a.ver || ""))) return "Eagle22";
@@ -896,6 +921,62 @@ function calCard(a, e) {
       (M.best ? "<span>best " + M.best[0] + ' <b class="' + pcls(M.best[1]) + '">' + calN(M.best[1]) + "</b> &middot; worst " + M.worst[0] + ' <b class="' + pcls(M.worst[1]) + '">' + calN(M.worst[1]) + "</b></span>" : "") + "</div>" : "") +
     "</div>";
 }
+//--- the main page: ONE calendar of all the EAs together (each EA's days added up). A day with real trades shows the real
+//    result of all the EAs (and under it T = the TEST of the same day of the EAs that traded); a day before the EAs
+//    started shows the TEST ON THIS BROKER of all of them (italic, TEST) - not real trades.
+function allCalCard(L) {
+  if (!L.length || !sameCcy(L)) return "";
+  const ccy = ccyOf(L[0]), R = {}, T = {}, O = {};
+  L.forEach((a) => {
+    const m = {};
+    calRows(a, "all").forEach((r) => { m[r[0]] = 1; const x = R[r[0]] || (R[r[0]] = [0, 0]); x[0] += r[1]; x[1] += r[2]; });
+    const t = testRows(a);
+    Object.keys(t).forEach((k) => { const r = t[k], box = m[k] ? T : O, x = box[k] || (box[k] = [0, 0]); x[0] += r[1]; x[1] += r[2]; });
+  });
+  const tk = Math.max.apply(null, L.map(dkeyOf));
+  const keys = Object.keys(R).concat(Object.keys(O)).map(Number).sort((x, y) => x - y);
+  if (!keys.length) return '<div class="card"><div class="lbl">Calendar &middot; all ' + L.length + ' EAs together</div><div class="small mut" style="margin-top:6px">The calendar fills in as the EAs close trades (each EA sends its days every 5 minutes, its TEST every hour).</div></div>';
+  const cid = "*all", minM = Math.floor(keys[0] / 100), maxM = Math.max(Math.floor(keys[keys.length - 1] / 100), Math.floor(tk / 100));
+  const ym = Math.max(minM, Math.min(maxM, calMon[cid] || maxM));
+  const y = Math.floor(ym / 100), mo = ym % 100, nd = new Date(Date.UTC(y, mo, 0)).getUTCDate();
+  const dow0 = (new Date(Date.UTC(y, mo - 1, 1)).getUTCDay() + 6) % 7;
+  let mName = y + "-" + String(mo).padStart(2, "0");
+  try { mName = new Date(Date.UTC(y, mo - 1, 15)).toLocaleDateString([], { month: "long", year: "numeric", timeZone: "UTC" }); } catch (x) {}
+  let g = ["MON", "TUE", "WED", "THU", "FRI", "WEEK"].map((x) => '<div class="hd">' + x + "</div>").join("");
+  const M = { pl: 0, n: 0, days: 0, up: 0, dn: 0, best: null, worst: null, tp: 0, tn: 0, td: 0 };
+  for (let start = 1 - dow0; start <= nd; start += 7) {
+    const W = { pl: 0, n: 0, live: false, tp: 0, tn: 0, test: false };
+    for (let i = 0; i < 7; i++) {
+      const dd = start + i, inM = dd >= 1 && dd <= nd, lab = y * 10000 + mo * 100 + dd;
+      const r = inM ? R[lab] : null, t = inM ? (r ? T[lab] : O[lab]) : null;
+      if (r) {
+        W.pl += r[0]; W.n += r[1]; W.live = true; M.pl += r[0]; M.n += r[1]; M.days++;
+        if (r[0] > 0.004) M.up++; else if (r[0] < -0.004) M.dn++;
+        if (!M.best || r[0] > M.best[1]) M.best = [dd, r[0]]; if (!M.worst || r[0] < M.worst[1]) M.worst = [dd, r[0]];
+      }
+      if (t) { W.tp += t[0]; W.tn += t[1]; W.test = true; if (!r) { M.tp += t[0]; M.tn += t[1]; M.td++; } }
+      if (i >= 5) continue;
+      if (!inM) { g += '<div class="calc out"></div>'; continue; }
+      let h = '<div class="d">' + dd + (!r && t ? '<span class="tg">TEST</span>' : "") + "</div>";
+      if (r) h += '<div class="v ' + pcls(r[0]) + '">' + calN(r[0]) + "</div>" + (t ? '<div class="t tv">T' + calN(t[0]) + "</div>" : '<div class="t">' + r[1] + " tr</div>");
+      else if (t) h += '<div class="v ' + pcls(t[0]) + '">' + calN(t[0]) + '</div><div class="t">' + t[1] + " tr</div>";
+      g += '<div class="calc' + (lab === tk ? " today" : "") + (!r && t ? " tst" : "") + '">' + h + "</div>";
+    }
+    let w = "";
+    if (W.live) w = '<div class="d">week</div><div class="v ' + pcls(W.pl) + '">' + calN(W.pl) + "</div>" + (W.test ? '<div class="t tv">T' + calN(W.tp) + "</div>" : '<div class="t">' + W.n + " tr</div>");
+    else if (W.test) w = '<div class="d">week<span class="tg">TEST</span></div><div class="v ' + pcls(W.tp) + '">' + calN(W.tp) + '</div><div class="t">' + W.tn + " tr</div>";
+    g += '<div class="calc wk' + (!W.live && W.test ? " tst" : "") + '">' + w + "</div>";
+  }
+  return '<div class="card"><div class="lbl">Calendar &middot; all ' + L.length + " EAs together &middot; days from the market open (18:00 New York)</div>" +
+    '<div class="calh"><button class="calnav" data-calnav="-1" data-ym="' + ym + '" data-cid="' + cid + '"' + (ym <= minM ? " disabled" : "") + ' aria-label="Previous month">&#8249;</button><b>' + esc(mName) +
+    '</b><button class="calnav" data-calnav="1" data-ym="' + ym + '" data-cid="' + cid + '"' + (ym >= maxM ? " disabled" : "") + ' aria-label="Next month">&#8250;</button></div>' +
+    '<div class="calg num">' + g + "</div>" +
+    (M.days ? '<div class="calsum num"><span>Month <b class="' + pcls(M.pl) + '">' + sgn(M.pl, 2) + ccy + "</b></span><span>" + M.days + " trading days &middot; " + M.n + " trades</span></div>" +
+      '<div class="calsum num"><span><b class="up">' + M.up + '</b> green / <b class="dn">' + M.dn + "</b> red days</span>" +
+      (M.best ? "<span>best " + M.best[0] + ' <b class="' + pcls(M.best[1]) + '">' + calN(M.best[1]) + "</b> &middot; worst " + M.worst[0] + ' <b class="' + pcls(M.worst[1]) + '">' + calN(M.worst[1]) + "</b></span>" : "") + "</div>" : "") +
+    (M.td ? '<div class="calsum num"><span>TEST days <b class="' + pcls(M.tp) + '">' + sgn(M.tp, 2) + ccy + "</b></span><span>" + M.td + " days &middot; " + M.tn + " trades</span></div>" : "") +
+    '<div class="small mut" style="margin-top:7px">All ' + L.length + " EAs added up. T under a day = the TEST of the same day; TEST days (italic) are before the EAs started - each EA's own rules on this broker's history, not real trades.</div></div>";
+}
 //--- this month (closed) from the calendar rows
 function monthOf(a, e) {
   const ym = Math.floor(dkeyOf(a) / 100);
@@ -1103,6 +1184,8 @@ function sysView(a, i) {
     '<div><span>FIRST ENTRY</span><b class="num">' + (+e.pos !== 0 && +e.base > 0 ? px(a, +e.base) : "-") + "</b><i>" + (+e.pos > 0 ? "buy" : +e.pos < 0 ? "sell" : "no trade") + "</i></div></div>" +
     '<div class="small mut" style="margin-top:7px">steps: in profit every ' + fmt(+e.fs, 2) + " · against every " + fmt(+e.as, 2) + " (price) · all of them close together at the next colour change</div></div>";
   h += calCard(a, i);
+  h += '<div class="card"><div class="lbl">Performance &middot; ' + esc(e.n) + '</div><div class="ptri">' + PSRC.map((x) => { const p = perfOf(a, e, x[0]); return "<div><span>" + x[1] + '</span><b class="num">' + (p && p.w != null ? fmt(p.w * 100, 0) + "%" : "-") +
+    '</b><i class="num ' + pfCls(p && p.pf) + '">PF ' + pfTxt(p && p.pf) + "</i><small>" + (p && p.n ? fmt(p.n, 0) + " trades" : "no trades yet") + "</small>" + perfBar(p) + "</div>"; }).join("") + "</div></div>";
   h += '<div class="card"><div class="lbl">' + esc(e.n) + " alone in the " + (G ? "7-year" : "22-month") + " test (" + fmt(a.lot, 2) + " lot)</div>" +
     (+e.tm > 0 ? '<div class="testg num"><span>month average <b class="up">' + sgn(+e.tm, 0) + "</b></span><span>worst month <b class=\"dn\">" + sgn(+e.tw, 0) + "</b></span>" +
       "<span>biggest drop <b>" + fmt(+e.td, 0) + "</b></span><span>balance to keep <b>" + fmt(+e.tb, 0) + "</b></span></div>" +
@@ -1148,6 +1231,41 @@ function sysStrip(a) {
 
 //--- all EAs (every account on this key) ------------------------------------
 let allTab = LS.get("s10.allt", "ov"), sysF = LS.get("s10.sysf", "all");
+//--- each system's win % and profit factor: the 7-year test (fixed, by magic number), TEST ON THIS BROKER (last 90 days), or live
+const P7 = {"26111301":[36.1,1.18,15882],"26111302":[39.4,1.42,5210],"26111303":[41.5,1.42,6259],"26111304":[42.6,1.58,5934],"26111305":[42.4,1.5,4263],"26111306":[35.4,1.26,9697],"26111307":[38.3,1.33,7920],"26111308":[41.1,1.42,4730],"26111309":[40.5,1.48,6169],"26111310":[38.0,1.24,2664],"26111601":[37.6,1.1,9808],"26111602":[37.1,1.08,10772],"26111603":[38.1,1.2,7912],"26111604":[39.3,1.23,6972],"26111605":[38.8,1.24,4815],"26111606":[40.2,1.24,2752],"26111607":[38.9,1.24,4944],"26111608":[41.6,1.32,3814],"26111609":[35.4,1.11,10180],"26111610":[40.7,1.37,2644],"26112001":[42.6,1.58,5934],"26112201":[40.6,1.4,1272],"26112202":[33.5,1.31,1614],"26112203":[30.7,1.54,482],"26112204":[41.1,1.55,258],"26112205":[32.5,1.29,1712],"26112206":[38.3,1.23,1012],"26112207":[35.7,1.53,286],"26112208":[35.0,1.25,768],"26112209":[41.7,1.36,240],"26112210":[38.3,1.19,666],"26112211":[39.5,1.28,1682],"26112212":[37.4,1.26,1162],"26112213":[34.3,1.2,755],"26112214":[37.4,1.34,807],"26112215":[44.9,1.25,1222],"26112216":[34.5,1.37,1297],"26112217":[38.8,1.19,951],"26112218":[42.8,1.29,159],"26112219":[53.8,1.31,439],"26112220":[40.6,1.39,498],"26112221":[50.2,1.14,1386],"26112222":[28.3,1.2,332],"26112223":[33.3,1.22,699],"26112224":[26.7,1.21,435],"26112225":[43.4,1.53,542],"26112226":[40.5,1.33,2344],"26112227":[36.6,1.4,303],"26112228":[39.5,1.25,774],"26112229":[33.8,1.32,708],"26112230":[33.2,1.28,855],"26112231":[39.4,1.32,545],"26112232":[46.6,1.81,133],"26112233":[31.2,1.15,721],"26112234":[36.3,1.11,1381],"26112235":[38.6,1.19,363],"26112236":[39.2,1.2,1060],"26112237":[47.7,1.24,958],"26112238":[25.0,1.18,1394],"26112239":[21.5,1.19,3244],"26112240":[35.3,1.18,515],"26112241":[37.6,1.41,723],"26112242":[35.6,1.58,360],"26112243":[39.7,1.15,458],"26112244":[39.8,1.52,555],"26112245":[31.8,1.21,1872],"26112246":[49.1,2.26,106],"26112247":[42.1,1.55,1083],"26112248":[47.5,1.67,406],"26112249":[39.6,1.41,747],"26112250":[38.4,1.33,430],"26112251":[50.0,1.74,178],"26112252":[39.7,1.34,587],"26112253":[36.0,1.71,211],"26112254":[50.5,1.66,287],"26112255":[49.4,2.1,83],"26112256":[36.1,1.23,825],"26112257":[39.2,1.27,288],"26112258":[31.7,1.14,1330],"26112259":[30.5,1.15,151],"26112260":[36.5,1.24,384],"26112261":[48.4,1.47,708],"26112262":[51.0,1.54,484],"26112263":[42.4,2.57,191],"26112264":[38.8,1.2,399],"26112265":[35.0,1.17,1683],"26112266":[33.0,1.16,518],"26112267":[39.9,1.26,386],"26112268":[36.7,1.44,294],"26112269":[37.5,1.46,261],"26112270":[32.0,1.26,1262],"26112271":[35.6,1.77,250],"26112272":[36.4,1.17,1488],"26112273":[27.1,1.81,70],"26112274":[29.9,1.12,338],"26112275":[36.3,1.12,1387],"26112276":[40.5,1.36,454],"26112277":[37.9,1.5,330],"26112278":[37.5,1.2,570],"26112279":[34.7,1.1,1011]};
+let perfSrc = LS.get("s10.psrc", "7y");
+const PSRC = [["7y", "7 years"], ["test", "TEST 90 days"], ["live", "Live"]];
+function perfOf(a, e, src) {
+  if (src === "7y") { const p = P7[String(e.mg)]; return p ? { w: p[0] / 100, pf: p[1], n: p[2] } : null; }
+  let w = 0, n = 0, gp = 0, gl = 0;
+  if (src === "test") { const sm = simOf(a), x = sm && sm.w && sm.w[e.i]; if (!x) return null; w = +x[0]; n = +x[1]; gp = +x[2]; gl = +x[3]; }
+  else { if (e.ln == null) return null; w = +e.lw; n = +e.ln; gp = +e.lp; gl = +e.lm; }
+  if (!n) return { w: null, pf: null, n: 0 };
+  return { w: w / n, pf: gl > 0 ? gp / gl : (gp > 0 ? 99 : 0), n: n };
+}
+const pfCls = (pf) => (pf == null ? "mut" : pf >= 1.3 ? "up" : pf >= 1 ? "midc" : "dn");
+const pfTxt = (pf) => (pf == null ? "-" : pf >= 99 ? "all won" : fmt(pf, 2));
+function perfBar(p) {
+  const w = p && p.w != null ? Math.max(0, Math.min(1, p.w)) : 0;
+  return '<span class="pbar"><i class="' + (p ? pfCls(p.pf) : "mut") + '" style="width:' + (w * 100).toFixed(1) + '%"></i></span>';
+}
+function perfSrcBar() {
+  return '<div class="psrc">' + PSRC.map((x) => '<button class="sfb' + (perfSrc === x[0] ? " on" : "") + '" data-psrc="' + x[0] + '" style="--fc:var(--acc)">' + x[1] + "</button>").join("") + "</div>";
+}
+function perfTable(L) {
+  const rows = [];
+  byEa(L).forEach((a) => activeEng(a).forEach((e) => rows.push({ a: a, e: e, p: perfOf(a, e, perfSrc) })));
+  rows.sort((x, y) => ((y.p && y.p.pf != null ? y.p.pf : -1) - (x.p && x.p.pf != null ? x.p.pf : -1)) || ((y.p && y.p.w != null ? y.p.w : -1) - (x.p && x.p.w != null ? x.p.w : -1)));
+  const tw = rows.reduce((t, r) => t + (r.p && r.p.n ? r.p.w * r.p.n : 0), 0), tn = rows.reduce((t, r) => t + (r.p && r.p.n ? r.p.n : 0), 0);
+  const up = rows.filter((r) => r.p && r.p.pf != null && r.p.pf >= 1).length, has = rows.filter((r) => r.p && r.p.pf != null).length;
+  let h = '<div class="card"><div class="lbl">System performance &middot; ' + rows.length + ' systems &middot; win % and profit factor</div>' + perfSrcBar() +
+    '<div class="small mut" style="margin:6px 0 4px">' + (has ? up + " of " + has + " with profit factor 1 or more" + (tn ? " &middot; " + fmt(tw / tn * 100, 0) + "% of " + fmt(tn, 0) + " trades won" : "") : "no closed trades yet") +
+    (perfSrc === "7y" ? " &middot; 7 years XAUUSDm test, 0.01 lot" : perfSrc === "test" ? " &middot; this broker, last 90 days" : " &middot; real trades since the start") + "</div>" +
+    '<div class="pfh"><span>System</span><span></span><span>Win</span><span>PF</span></div>';
+  h += rows.map((r, i) => '<div class="pfr" data-go="' + esc(r.a.id) + "|" + r.e.i + '"><span class="pn"><b>' + (i + 1) + ". " + esc(r.e.n) + "</b><small>" + esc(eaName(r.a)) + (r.p && r.p.n ? " &middot; " + fmt(r.p.n, 0) + " tr" : "") + "</small></span>" +
+    perfBar(r.p) + '<span class="pw num">' + (r.p && r.p.w != null ? fmt(r.p.w * 100, 0) + "%" : "-") + '</span><span class="pf num ' + pfCls(r.p && r.p.pf) + '">' + pfTxt(r.p && r.p.pf) + "</span></div>").join("");
+  return h + '<div class="small mut" style="margin-top:7px">Win = trades closed in profit. PF (profit factor) = money of the winning trades / money of the losing trades: above 1 makes money. Tap a line for that system. A past test, not a promise.</div></div>';
+}
 function allTabs(L) {
   const n = L.reduce((t, a) => t + activeEng(a).length, 0);
   return '<div class="tabs" role="tablist">' + [["ov", "Overview"], ["sys", "Systems", n]].map((t) => '<button role="tab" data-allt="' + t[0] + '" class="' + (allTab === t[0] ? "on" : "") + '">' + t[1] +
@@ -1176,7 +1294,8 @@ function sysGrid(L) {
       return '<button class="scard ' + k + (pz ? " pzd" : "") + '" data-go="' + esc(a.id) + "|" + e.i + '"><span class="s1">' + sdot(+e.tr) + "<b>" + esc(e.n) + '</b><span class="tf">' + esc(isG(a) && String(e.n).indexOf(tfOf(a, e)) >= 0 ? "" : tfOf(a, e)) + "</span></span>" +
         '<span class="s2">' + (pz ? '<span class="tag pz">PAUSED</span>' : "") + (k === "wait" ? '<span class="tag flat">WAITING</span>' : dirTag(+e.pos, +e.cnt)) +
         '<span class="spl num ' + (+e.cnt > 0 ? pcls(+e.pl) : "mut") + '">' + (+e.cnt > 0 ? sgn(+e.pl, 2) : "") + "</span></span>" +
-        '<span class="s3 num"><span>today</span><b class="' + pcls(net2) + '">' + sgn(net2, 2) + "</b></span></button>";
+        '<span class="s3 num"><span>today</span><b class="' + pcls(net2) + '">' + sgn(net2, 2) + "</b></span>" +
+        (function () { const p = perfOf(a, e, perfSrc); return '<span class="s4 num">' + perfBar(p) + "<b>" + (p && p.w != null ? fmt(p.w * 100, 0) + "%" : "-") + '</b><b class="' + pfCls(p && p.pf) + '">PF ' + pfTxt(p && p.pf) + "</b></span>"; })() + "</button>";
     }).join("") + "</div>";
   });
   if (!any) h += '<div class="card empty">No system here.</div>';
@@ -1288,8 +1407,8 @@ function allEAsView(list) {
   const cols = L.map((a) => { const m = {}; calRows(a, "all").forEach((r) => { m[r[0]] = r; }); return { a: a, m: m }; });
   cols.forEach((c) => { c.t = testRows(c.a); });
   const tk = Math.max.apply(null, L.map(dkeyOf)), ym = Math.floor(tk / 100);
-  if (allTab === "sys") return allTabs(L) + sysGrid(L);
-  let h = allTabs(L) + overviewAll(L);
+  if (allTab === "sys") return allTabs(L) + perfSrcBar() + sysGrid(L);
+  let h = allTabs(L) + overviewAll(L) + allCalCard(L) + perfTable(L);
   //--- each EA: status and today
   h += '<div class="card"><div class="lbl">The ' + L.length + " EAs &middot; tap one for its own page</div>" + L.map((a) => {
     const o = online(a), net = (+a.today || 0) + (+a.flt || 0), act = activeEng(a).length;
@@ -1476,6 +1595,8 @@ document.addEventListener("click", (e) => {
     lastHtml = ""; render(); try { window.scrollTo(0, 0); } catch (e2) {}
     return;
   }
+  const ps = e.target.closest("[data-psrc]");
+  if (ps) { perfSrc = ps.getAttribute("data-psrc"); LS.set("s10.psrc", perfSrc); lastHtml = ""; render(); return; }
   const at = e.target.closest("[data-allt]");
   if (at) { allTab = at.getAttribute("data-allt"); LS.set("s10.allt", allTab); lastHtml = ""; render(); return; }
   const sf = e.target.closest("[data-sysf]");
