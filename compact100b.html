@@ -268,6 +268,9 @@ button{font:inherit;color:inherit}
 .calc .m{font-size:9.5px;font-weight:750;white-space:nowrap}
 .calc.today{box-shadow:inset 0 0 0 1.5px var(--acc)}
 .calc.out{background:transparent}
+.calc.tst .v{font-style:italic;opacity:.8}
+.calc .tv{font-style:italic}
+.calc .tg{font-size:7.5px;font-weight:800;letter-spacing:.3px;color:var(--amber);margin-left:2px}
 .calc.wk{background:color-mix(in srgb, var(--acc) 9%, var(--zebra))}
 .calc.wk .d{color:var(--sec)}
 .calsum{display:flex;flex-wrap:wrap;justify-content:space-between;gap:4px 10px;margin-top:9px;font-size:12px;color:var(--sec)}
@@ -918,6 +921,62 @@ function calCard(a, e) {
       (M.best ? "<span>best " + M.best[0] + ' <b class="' + pcls(M.best[1]) + '">' + calN(M.best[1]) + "</b> &middot; worst " + M.worst[0] + ' <b class="' + pcls(M.worst[1]) + '">' + calN(M.worst[1]) + "</b></span>" : "") + "</div>" : "") +
     "</div>";
 }
+//--- the main page: ONE calendar of all the EAs together (each EA's days added up). A day with real trades shows the real
+//    result of all the EAs (and under it T = the TEST of the same day of the EAs that traded); a day before the EAs
+//    started shows the TEST ON THIS BROKER of all of them (italic, TEST) - not real trades.
+function allCalCard(L) {
+  if (!L.length || !sameCcy(L)) return "";
+  const ccy = ccyOf(L[0]), R = {}, T = {}, O = {};
+  L.forEach((a) => {
+    const m = {};
+    calRows(a, "all").forEach((r) => { m[r[0]] = 1; const x = R[r[0]] || (R[r[0]] = [0, 0]); x[0] += r[1]; x[1] += r[2]; });
+    const t = testRows(a);
+    Object.keys(t).forEach((k) => { const r = t[k], box = m[k] ? T : O, x = box[k] || (box[k] = [0, 0]); x[0] += r[1]; x[1] += r[2]; });
+  });
+  const tk = Math.max.apply(null, L.map(dkeyOf));
+  const keys = Object.keys(R).concat(Object.keys(O)).map(Number).sort((x, y) => x - y);
+  if (!keys.length) return '<div class="card"><div class="lbl">Calendar &middot; all ' + L.length + ' EAs together</div><div class="small mut" style="margin-top:6px">The calendar fills in as the EAs close trades (each EA sends its days every 5 minutes, its TEST every hour).</div></div>';
+  const cid = "*all", minM = Math.floor(keys[0] / 100), maxM = Math.max(Math.floor(keys[keys.length - 1] / 100), Math.floor(tk / 100));
+  const ym = Math.max(minM, Math.min(maxM, calMon[cid] || maxM));
+  const y = Math.floor(ym / 100), mo = ym % 100, nd = new Date(Date.UTC(y, mo, 0)).getUTCDate();
+  const dow0 = (new Date(Date.UTC(y, mo - 1, 1)).getUTCDay() + 6) % 7;
+  let mName = y + "-" + String(mo).padStart(2, "0");
+  try { mName = new Date(Date.UTC(y, mo - 1, 15)).toLocaleDateString([], { month: "long", year: "numeric", timeZone: "UTC" }); } catch (x) {}
+  let g = ["MON", "TUE", "WED", "THU", "FRI", "WEEK"].map((x) => '<div class="hd">' + x + "</div>").join("");
+  const M = { pl: 0, n: 0, days: 0, up: 0, dn: 0, best: null, worst: null, tp: 0, tn: 0, td: 0 };
+  for (let start = 1 - dow0; start <= nd; start += 7) {
+    const W = { pl: 0, n: 0, live: false, tp: 0, tn: 0, test: false };
+    for (let i = 0; i < 7; i++) {
+      const dd = start + i, inM = dd >= 1 && dd <= nd, lab = y * 10000 + mo * 100 + dd;
+      const r = inM ? R[lab] : null, t = inM ? (r ? T[lab] : O[lab]) : null;
+      if (r) {
+        W.pl += r[0]; W.n += r[1]; W.live = true; M.pl += r[0]; M.n += r[1]; M.days++;
+        if (r[0] > 0.004) M.up++; else if (r[0] < -0.004) M.dn++;
+        if (!M.best || r[0] > M.best[1]) M.best = [dd, r[0]]; if (!M.worst || r[0] < M.worst[1]) M.worst = [dd, r[0]];
+      }
+      if (t) { W.tp += t[0]; W.tn += t[1]; W.test = true; if (!r) { M.tp += t[0]; M.tn += t[1]; M.td++; } }
+      if (i >= 5) continue;
+      if (!inM) { g += '<div class="calc out"></div>'; continue; }
+      let h = '<div class="d">' + dd + (!r && t ? '<span class="tg">TEST</span>' : "") + "</div>";
+      if (r) h += '<div class="v ' + pcls(r[0]) + '">' + calN(r[0]) + "</div>" + (t ? '<div class="t tv">T' + calN(t[0]) + "</div>" : '<div class="t">' + r[1] + " tr</div>");
+      else if (t) h += '<div class="v ' + pcls(t[0]) + '">' + calN(t[0]) + '</div><div class="t">' + t[1] + " tr</div>";
+      g += '<div class="calc' + (lab === tk ? " today" : "") + (!r && t ? " tst" : "") + '">' + h + "</div>";
+    }
+    let w = "";
+    if (W.live) w = '<div class="d">week</div><div class="v ' + pcls(W.pl) + '">' + calN(W.pl) + "</div>" + (W.test ? '<div class="t tv">T' + calN(W.tp) + "</div>" : '<div class="t">' + W.n + " tr</div>");
+    else if (W.test) w = '<div class="d">week<span class="tg">TEST</span></div><div class="v ' + pcls(W.tp) + '">' + calN(W.tp) + '</div><div class="t">' + W.tn + " tr</div>";
+    g += '<div class="calc wk' + (!W.live && W.test ? " tst" : "") + '">' + w + "</div>";
+  }
+  return '<div class="card"><div class="lbl">Calendar &middot; all ' + L.length + " EAs together &middot; days from the market open (18:00 New York)</div>" +
+    '<div class="calh"><button class="calnav" data-calnav="-1" data-ym="' + ym + '" data-cid="' + cid + '"' + (ym <= minM ? " disabled" : "") + ' aria-label="Previous month">&#8249;</button><b>' + esc(mName) +
+    '</b><button class="calnav" data-calnav="1" data-ym="' + ym + '" data-cid="' + cid + '"' + (ym >= maxM ? " disabled" : "") + ' aria-label="Next month">&#8250;</button></div>' +
+    '<div class="calg num">' + g + "</div>" +
+    (M.days ? '<div class="calsum num"><span>Month <b class="' + pcls(M.pl) + '">' + sgn(M.pl, 2) + ccy + "</b></span><span>" + M.days + " trading days &middot; " + M.n + " trades</span></div>" +
+      '<div class="calsum num"><span><b class="up">' + M.up + '</b> green / <b class="dn">' + M.dn + "</b> red days</span>" +
+      (M.best ? "<span>best " + M.best[0] + ' <b class="' + pcls(M.best[1]) + '">' + calN(M.best[1]) + "</b> &middot; worst " + M.worst[0] + ' <b class="' + pcls(M.worst[1]) + '">' + calN(M.worst[1]) + "</b></span>" : "") + "</div>" : "") +
+    (M.td ? '<div class="calsum num"><span>TEST days <b class="' + pcls(M.tp) + '">' + sgn(M.tp, 2) + ccy + "</b></span><span>" + M.td + " days &middot; " + M.tn + " trades</span></div>" : "") +
+    '<div class="small mut" style="margin-top:7px">All ' + L.length + " EAs added up. T under a day = the TEST of the same day; TEST days (italic) are before the EAs started - each EA's own rules on this broker's history, not real trades.</div></div>";
+}
 //--- this month (closed) from the calendar rows
 function monthOf(a, e) {
   const ym = Math.floor(dkeyOf(a) / 100);
@@ -1349,7 +1408,7 @@ function allEAsView(list) {
   cols.forEach((c) => { c.t = testRows(c.a); });
   const tk = Math.max.apply(null, L.map(dkeyOf)), ym = Math.floor(tk / 100);
   if (allTab === "sys") return allTabs(L) + perfSrcBar() + sysGrid(L);
-  let h = allTabs(L) + overviewAll(L) + perfTable(L);
+  let h = allTabs(L) + overviewAll(L) + allCalCard(L) + perfTable(L);
   //--- each EA: status and today
   h += '<div class="card"><div class="lbl">The ' + L.length + " EAs &middot; tap one for its own page</div>" + L.map((a) => {
     const o = online(a), net = (+a.today || 0) + (+a.flt || 0), act = activeEng(a).length;
