@@ -400,6 +400,25 @@ button{font:inherit;color:inherit}
 .pbar i.midc{background:var(--amber)}
 .pbar i.dn{background:var(--red)}
 .psrc{display:flex;gap:6px;flex-wrap:wrap;margin:10px 0 2px}
+.psrc.pwin{flex-wrap:nowrap;overflow-x:auto;margin-top:7px;padding-bottom:2px;-webkit-overflow-scrolling:touch;scrollbar-width:none}
+.psrc.pwin::-webkit-scrollbar{display:none}
+.psrc.pwin .sfb{flex:0 0 auto;padding:5px 10px;font-size:12px}
+.stars{display:inline-block;font-size:11px;font-weight:800;color:#f5b301;margin-right:2px;letter-spacing:0}
+.stars.z{color:var(--mut);font-weight:600}
+.cpm{display:inline-block;font-size:9px;font-weight:800;letter-spacing:.4px;color:var(--acc);border:1px solid var(--acc);border-radius:5px;padding:0 4px;margin:0 2px 0 3px;vertical-align:1px}
+.cpbar{display:flex;gap:6px;flex-wrap:wrap;align-items:center;margin:8px 0 4px}
+.cpbtn{border:1px solid var(--acc);background:color-mix(in srgb, var(--acc) 15%, transparent);color:var(--txt);border-radius:999px;padding:7px 13px;font-size:12.5px;font-weight:700;cursor:pointer}
+.cpbtn.sm{padding:5px 10px;font-size:12px;border-color:var(--line);background:transparent}
+.cpbtn.go{background:var(--acc);color:#fff;border-color:var(--acc)}
+.pfr.pick{cursor:pointer}
+.pfr.pick.on{background:color-mix(in srgb, var(--acc) 12%, transparent);border-radius:8px}
+.ck{display:inline-flex;align-items:center;justify-content:center;width:17px;height:17px;border:2px solid var(--mut);border-radius:5px;margin-right:6px;font-style:normal;font-size:12px;vertical-align:-3px;color:#fff}
+.pfr.on .ck{background:var(--acc);border-color:var(--acc)}
+.sgrid{display:grid;grid-template-columns:40px repeat(8, 1fr);gap:2px 3px;align-items:center;margin-top:10px}
+.sgrid span{font-size:10px;color:var(--mut);text-align:center;font-weight:600}
+.sgrid span.r{text-align:left}
+.sgrid b{text-align:center;font-size:15px;color:#f5b301;line-height:1.2}
+.sgrid b.off{color:color-mix(in srgb, var(--mut) 40%, transparent)}
 .pfh,.pfr{display:grid;grid-template-columns:minmax(0,1.25fr) minmax(46px,1fr) 38px 50px;gap:8px;align-items:center}
 .pfh{font-size:10.5px;font-weight:700;letter-spacing:.5px;color:var(--mut);text-transform:uppercase;padding:6px 0 4px;border-bottom:1px solid var(--line)}
 .pfh span:nth-child(n+3),.pfr .pw,.pfr .pf{text-align:right}
@@ -1188,8 +1207,8 @@ function sysView(a, i) {
     '<div><span>FIRST ENTRY</span><b class="num">' + (+e.pos !== 0 && +e.base > 0 ? px(a, +e.base) : "-") + "</b><i>" + (+e.pos > 0 ? "buy" : +e.pos < 0 ? "sell" : "no trade") + "</i></div></div>" +
     '<div class="small mut" style="margin-top:7px">steps: in profit every ' + fmt(+e.fs, 2) + " · against every " + fmt(+e.as, 2) + " (price) · all of them close together at the next colour change</div></div>";
   h += calCard(a, i);
-  h += '<div class="card"><div class="lbl">Performance &middot; ' + esc(e.n) + '</div><div class="ptri">' + PSRC.map((x) => { const p = perfOf(a, e, x[0]); return "<div><span>" + x[1] + '</span><b class="num">' + (p && p.w != null ? fmt(p.w * 100, 0) + "%" : "-") +
-    '</b><i class="num ' + pfCls(p && p.pf) + '">PF ' + pfTxt(p && p.pf) + "</i><small>" + (p && p.n ? fmt(p.n, 0) + " trades" : "no trades yet") + "</small>" + perfBar(p) + "</div>"; }).join("") + "</div></div>";
+  h += '<div class="card"><div class="lbl">Performance &middot; ' + esc(e.n) + '</div><div class="ptri">' + PSRC.map((x) => { const p = perfOf(a, e, x[0]); return "<div><span>" + srcLbl(x[0]) + '</span><b class="num">' + (p && p.w != null ? fmt(p.w * 100, 0) + "%" : "-") +
+    '</b><i class="num ' + pfCls(p && p.pf) + '">PF ' + pfTxt(p && p.pf) + "</i><small>" + (p && p.n ? fmt(p.n, 0) + " trades" : "no trades yet") + "</small>" + perfBar(p) + "</div>"; }).join("") + "</div>" + pwinBar() + starGrid(a, e) + "</div>";
   h += '<div class="card"><div class="lbl">' + esc(e.n) + " alone in the " + (G ? "7-year" : "22-month") + " test (" + fmt(a.lot, 2) + " lot)</div>" +
     (+e.tm > 0 ? '<div class="testg num"><span>month average <b class="up">' + sgn(+e.tm, 0) + "</b></span><span>worst month <b class=\"dn\">" + sgn(+e.tw, 0) + "</b></span>" +
       "<span>biggest drop <b>" + fmt(+e.td, 0) + "</b></span><span>balance to keep <b>" + fmt(+e.tb, 0) + "</b></span></div>" +
@@ -1238,37 +1257,143 @@ let allTab = LS.get("s10.allt", "ov"), sysF = LS.get("s10.sysf", "all");
 //--- each system's win % and profit factor: the 7-year test (fixed, by magic number), TEST ON THIS BROKER (last 90 days), or live
 const P7 = {"26111301":[36.1,1.18,15882],"26111302":[39.4,1.42,5210],"26111303":[41.5,1.42,6259],"26111304":[42.6,1.58,5934],"26111305":[42.4,1.5,4263],"26111306":[35.4,1.26,9697],"26111307":[38.3,1.33,7920],"26111308":[41.1,1.42,4730],"26111309":[40.5,1.48,6169],"26111310":[38.0,1.24,2664],"26111601":[37.6,1.1,9808],"26111602":[37.1,1.08,10772],"26111603":[38.1,1.2,7912],"26111604":[39.3,1.23,6972],"26111605":[38.8,1.24,4815],"26111606":[40.2,1.24,2752],"26111607":[38.9,1.24,4944],"26111608":[41.6,1.32,3814],"26111609":[35.4,1.11,10180],"26111610":[40.7,1.37,2644],"26112001":[42.6,1.58,5934],"26112201":[40.6,1.4,1272],"26112202":[33.5,1.31,1614],"26112203":[30.7,1.54,482],"26112204":[41.1,1.55,258],"26112205":[32.5,1.29,1712],"26112206":[38.3,1.23,1012],"26112207":[35.7,1.53,286],"26112208":[35.0,1.25,768],"26112209":[41.7,1.36,240],"26112210":[38.3,1.19,666],"26112211":[39.5,1.28,1682],"26112212":[37.4,1.26,1162],"26112213":[34.3,1.2,755],"26112214":[37.4,1.34,807],"26112215":[44.9,1.25,1222],"26112216":[34.5,1.37,1297],"26112217":[38.8,1.19,951],"26112218":[42.8,1.29,159],"26112219":[53.8,1.31,439],"26112220":[40.6,1.39,498],"26112221":[50.2,1.14,1386],"26112222":[28.3,1.2,332],"26112223":[33.3,1.22,699],"26112224":[26.7,1.21,435],"26112225":[43.4,1.53,542],"26112226":[40.5,1.33,2344],"26112227":[36.6,1.4,303],"26112228":[39.5,1.25,774],"26112229":[33.8,1.32,708],"26112230":[33.2,1.28,855],"26112231":[39.4,1.32,545],"26112232":[46.6,1.81,133],"26112233":[31.2,1.15,721],"26112234":[36.3,1.11,1381],"26112235":[38.6,1.19,363],"26112236":[39.2,1.2,1060],"26112237":[47.7,1.24,958],"26112238":[25.0,1.18,1394],"26112239":[21.5,1.19,3244],"26112240":[35.3,1.18,515],"26112241":[37.6,1.41,723],"26112242":[35.6,1.58,360],"26112243":[39.7,1.15,458],"26112244":[39.8,1.52,555],"26112245":[31.8,1.21,1872],"26112246":[49.1,2.26,106],"26112247":[42.1,1.55,1083],"26112248":[47.5,1.67,406],"26112249":[39.6,1.41,747],"26112250":[38.4,1.33,430],"26112251":[50.0,1.74,178],"26112252":[39.7,1.34,587],"26112253":[36.0,1.71,211],"26112254":[50.5,1.66,287],"26112255":[49.4,2.1,83],"26112256":[36.1,1.23,825],"26112257":[39.2,1.27,288],"26112258":[31.7,1.14,1330],"26112259":[30.5,1.15,151],"26112260":[36.5,1.24,384],"26112261":[48.4,1.47,708],"26112262":[51.0,1.54,484],"26112263":[42.4,2.57,191],"26112264":[38.8,1.2,399],"26112265":[35.0,1.17,1683],"26112266":[33.0,1.16,518],"26112267":[39.9,1.26,386],"26112268":[36.7,1.44,294],"26112269":[37.5,1.46,261],"26112270":[32.0,1.26,1262],"26112271":[35.6,1.77,250],"26112272":[36.4,1.17,1488],"26112273":[27.1,1.81,70],"26112274":[29.9,1.12,338],"26112275":[36.3,1.12,1387],"26112276":[40.5,1.36,454],"26112277":[37.9,1.5,330],"26112278":[37.5,1.2,570],"26112279":[34.7,1.1,1011]};
 let perfSrc = LS.get("s10.psrc", "7y");
-const PSRC = [["7y", "7 years"], ["test", "TEST 90 days"], ["live", "Live"]];
+const PSRC = [["7y", "7 years"], ["test", "TEST"], ["live", "Live"]];
+//--- the period of TEST / Live: 1 = today, N = the last N days, 0 = all (TEST: its 90 days; Live: since the start)
+let perfWin = +LS.get("s10.pwin", 0) || 0;
+const PWIN = [[1, "Today"], [7, "7 days"], [15, "15 days"], [30, "30 days"], [45, "45 days"], [60, "60 days"], [75, "75 days"], [90, "90 days"], [0, "All"]];
+const winTxt = () => (perfWin === 1 ? "today" : perfWin + " days");
+const srcLbl = (k) => (k === "7y" ? "7 years" : k === "test" ? "TEST " + (perfWin ? winTxt() : "90 days") : "Live" + (perfWin ? " " + winTxt() : ""));
+const dnum = (k) => Date.UTC(Math.floor(k / 10000), Math.floor(k / 100) % 100 - 1, k % 100) / 86400000;
+function inWin(a, k) { const d = dnum(dkeyOf(a)) - dnum(+k); return d >= 0 && d < perfWin; }
+function pwinBar() {
+  return '<div class="psrc pwin">' + PWIN.map((x) => '<button class="sfb' + (perfWin === x[0] ? " on" : "") + '" data-pwin="' + x[0] + '" style="--fc:var(--acc)">' + x[1] + "</button>").join("") + "</div>";
+}
+//--- stars: one for each period with a profit (closed trades), in TEST and in Live: 16 at most
+const SWIN = [1, 7, 15, 30, 45, 60, 75, 90];
+let starMin = +LS.get("s10.smin", 0) || 0;
+function periodPl(a, e, src, w) {
+  const t = dnum(dkeyOf(a)); let n = 0, pl = 0;
+  if (src === "test") {
+    const sm = simOf(a), rows = sm && sm.ew && sm.ew[e.i]; if (!Array.isArray(rows)) return null;
+    rows.forEach((r) => { if (Array.isArray(r)) { const d = t - dnum(+r[0]); if (d >= 0 && d < w) { n += +r[1] || 0; pl += (+r[3] || 0) - (+r[4] || 0); } } });
+  } else {
+    const c = calOf(a), rows = c && c.e && c.e[e.i]; if (!Array.isArray(rows)) return null;
+    rows.forEach((r) => { if (Array.isArray(r)) { const d = t - dnum(+r[0]); if (d >= 0 && d < w) { n += +r[2] || 0; pl += +r[1] || 0; } } });
+  }
+  return { n: n, pl: pl };
+}
+function starsOf(a, e) {
+  const one = (src) => SWIN.map((w) => { const p = periodPl(a, e, src, w); return !!(p && p.n > 0 && p.pl > 0.005); });
+  const t = one("test"), l = one("live");
+  return { n: t.filter(Boolean).length + l.filter(Boolean).length, t: t, l: l };
+}
+const starTag = (st) => '<span class="stars' + (st.n ? "" : " z") + '">&#9733;' + st.n + "</span>";
+function starBar() {
+  return '<div class="psrc pwin">' + [[0, "&#9733; All"], [4, "&#9733;4+"], [8, "&#9733;8+"], [12, "&#9733;12+"], [14, "&#9733;14+"], [16, "&#9733;16"]].map((x) =>
+    '<button class="sfb' + (starMin === x[0] ? " on" : "") + '" data-smin="' + x[0] + '" style="--fc:#f5b301">' + x[1] + "</button>").join("") + "</div>";
+}
+function starGrid(a, e) {
+  const st = starsOf(a, e), row = (nm, b) => '<span class="r">' + nm + "</span>" + b.map((x) => '<b class="' + (x ? "" : "off") + '">&#9733;</b>').join("");
+  return '<div class="sgrid"><span class="r"></span>' + ["Today", "7", "15", "30", "45", "60", "75", "90"].map((x) => "<span>" + x + "</span>").join("") + row("TEST", st.t) + row("Live", st.l) + "</div>" +
+    '<div class="small mut" style="margin-top:4px">&#9733; ' + st.n + " of 16 &middot; a star = a profit in that time (days)</div>";
+}
+//--- the copy list (for the Compact Copy EA): each page saves the list of its own systems, signed with the control code
+let cpsCur = {}, cpst = null, cpPick = null, cpScope = {};
+const nodeName = () => root().slice(root().lastIndexOf("/") + 1);
+const keyRoot = () => root().slice(0, root().lastIndexOf("/"));
+const nodeOfA = (a) => a._node || nodeName();
+function cpSet(nd) { const c = cpsCur[nd]; return new Set(c && c.m ? String(c.m).split(",").filter(Boolean) : []); }
+const cpHas = (a, mg) => cpSet(nodeOfA(a)).has(String(mg));
+function cpLoad() {
+  if (!cfg.db || !cfg.key || cfg.demo) return;
+  const kr = keyRoot();
+  fetch(kr + "/cps.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).then((j) => { if (j && typeof j === "object") { cpsCur = j; lastHtml = ""; } }).catch(() => {});
+  fetch(kr + "/cpst.json", { cache: "no-store" }).then((r) => (r.ok ? r.json() : null)).then((j) => { cpst = j || null; lastHtml = ""; }).catch(() => {});
+}
+function cpLine() {
+  const nds = Object.keys(cpScope), n = nds.reduce((t, nd) => t + Array.from(cpSet(nd)).filter((m) => cpScope[nd].has(m)).length, 0);
+  let x = n + " of these on your copy list";
+  if (!cpst || !+cpst.t) return x + " &middot; Compact Copy EA not seen yet";
+  const age = nowS() - +cpst.t, bad = nds.map((nd) => (cpst.bad && cpst.bad[nd]) || "").filter(Boolean);
+  x += " &middot; Compact Copy EA " + (age < 180 ? '<b class="up">online</b>' : '<b class="dn">last seen ' + esc(dur(age)) + " ago</b>") + (+cpst.open ? ", " + cpst.open + " copies open" : "");
+  if (bad.length) x += ' &middot; <b class="dn">' + esc(bad[0]) + "</b>";
+  else if (nds.some((nd) => cpsCur[nd] && cpsCur[nd].t && !(cpst.sel && String(cpst.sel[nd]) === String(cpsCur[nd].t)))) x += ' &middot; <span class="midc">the new list is not taken yet</span>';
+  return x;
+}
+function copyBar(shown) {
+  if (cpPick == null) return '<div class="cpbar"><button class="cpbtn" data-cpgo="1">&#10697; Choose for Copy</button></div><div class="small mut">' + cpLine() + "</div>";
+  return '<div class="cpbar"><b>' + cpPick.size + ' chosen</b><button class="cpbtn sm" data-cpall="1">+ all shown</button><button class="cpbtn sm" data-cpclr="1">none</button>' +
+    '<button class="cpbtn go" data-cpsave="1">Save to Copy</button><button class="cpbtn sm" data-cpx="1">Cancel</button></div>' +
+    '<div class="small mut">Tap the systems to copy (the star filter above helps). The Compact Copy EA copies only their NEW trades, at the master\'s lot.</div>';
+}
+function cpSave() {
+  if (!cfg.db || !cfg.key || cfg.demo) { toast("Connect your database first (settings)", "bad"); return; }
+  if (!ccode) { openCode(cpSave); return; }
+  const t = String(Date.now()), body = { "cpv/selt": t }, nds = Object.keys(cpScope);
+  if (!nds.length) return;
+  nds.forEach((nd) => { const m = Array.from(cpPick).filter((x) => cpScope[nd].has(x)).sort().join(","); body["cps/" + nd] = { t: t, m: m, sig: hmacHex(ccode, ["cps1", nd, t, m].join("|")) }; });
+  const n = cpPick.size;
+  toast("Saving the copy list...", "busy");
+  fetch(keyRoot() + ".json", { method: "PATCH", body: JSON.stringify(body) })
+    .then((r) => { if (!r.ok) throw new Error(r.status === 401 || r.status === 403 ? "the database refused it (Rules)" : "the database answered " + r.status); return r.text(); })
+    .then(() => { nds.forEach((nd) => { cpsCur[nd] = body["cps/" + nd]; }); cpPick = null; lastHtml = ""; render();
+      toast("Saved: " + n + " systems on the copy list - the Compact Copy EA takes it in a few seconds", "ok"); setTimeout(cpLoad, 9000); })
+    .catch((e) => toast("Not saved: " + ((e && e.message) || "no connection"), "bad"));
+}
 function perfOf(a, e, src) {
   if (src === "7y") { const p = P7[String(e.mg)]; return p ? { w: p[0] / 100, pf: p[1], n: p[2] } : null; }
   let w = 0, n = 0, gp = 0, gl = 0;
-  if (src === "test") { const sm = simOf(a), x = sm && sm.w && sm.w[e.i]; if (!x) return null; w = +x[0]; n = +x[1]; gp = +x[2]; gl = +x[3]; }
+  if (src === "test" && perfWin) {                 //--- TEST of the chosen period: the EA's days of each system [day, trades, in profit, gross profit, gross loss]
+    const sm = simOf(a); if (!sm) return null;
+    const rows = sm.ew && sm.ew[e.i]; if (!Array.isArray(rows)) return { w: null, pf: null, n: 0, old: true };
+    rows.forEach((r) => { if (Array.isArray(r) && inWin(a, r[0])) { n += +r[1] || 0; w += +r[2] || 0; gp += +r[3] || 0; gl += +r[4] || 0; } });
+  }
+  else if (src === "test") { const sm = simOf(a), x = sm && sm.w && sm.w[e.i]; if (!x) return null; w = +x[0]; n = +x[1]; gp = +x[2]; gl = +x[3]; }
+  else if (perfWin) {                              //--- live of the chosen period: the calendar's days of each system [day, result, trades, in profit, gross profit]
+    const c = calOf(a), rows = c && c.e && c.e[e.i]; if (!Array.isArray(rows)) return e.ln == null ? null : { w: null, pf: null, n: 0 };
+    let old = false;
+    rows.forEach((r) => { if (Array.isArray(r) && inWin(a, r[0])) { n += +r[2] || 0; if (r.length >= 5) { w += +r[3] || 0; gp += +r[4] || 0; gl += (+r[4] || 0) - (+r[1] || 0); } else old = true; } });
+    if (old) return { w: null, pf: null, n: n, old: true };
+  }
   else { if (e.ln == null) return null; w = +e.lw; n = +e.ln; gp = +e.lp; gl = +e.lm; }
   if (!n) return { w: null, pf: null, n: 0 };
-  return { w: w / n, pf: gl > 0 ? gp / gl : (gp > 0 ? 99 : 0), n: n };
+  return { w: w / n, pf: gl > 0 ? gp / gl : (gp > 0 ? 99 : 0), n: n, pl: gp - gl };
 }
 const pfCls = (pf) => (pf == null ? "mut" : pf >= 1.3 ? "up" : pf >= 1 ? "midc" : "dn");
-const pfTxt = (pf) => (pf == null ? "-" : pf >= 99 ? "all won" : fmt(pf, 2));
+const pfTxt = (pf) => (pf == null ? "-" : pf >= 99 ? "no loss" : fmt(pf, 2));
 function perfBar(p) {
   const w = p && p.w != null ? Math.max(0, Math.min(1, p.w)) : 0;
   return '<span class="pbar"><i class="' + (p ? pfCls(p.pf) : "mut") + '" style="width:' + (w * 100).toFixed(1) + '%"></i></span>';
 }
 function perfSrcBar() {
-  return '<div class="psrc">' + PSRC.map((x) => '<button class="sfb' + (perfSrc === x[0] ? " on" : "") + '" data-psrc="' + x[0] + '" style="--fc:var(--acc)">' + x[1] + "</button>").join("") + "</div>";
+  return '<div class="psrc">' + PSRC.map((x) => '<button class="sfb' + (perfSrc === x[0] ? " on" : "") + '" data-psrc="' + x[0] + '" style="--fc:var(--acc)">' + x[1] + "</button>").join("") + "</div>" +
+    (perfSrc === "7y" ? "" : pwinBar());
 }
 function perfTable(L) {
   const rows = [];
-  byEa(L).forEach((a) => activeEng(a).forEach((e) => rows.push({ a: a, e: e, p: perfOf(a, e, perfSrc) })));
-  rows.sort((x, y) => ((y.p && y.p.pf != null ? y.p.pf : -1) - (x.p && x.p.pf != null ? x.p.pf : -1)) || ((y.p && y.p.w != null ? y.p.w : -1) - (x.p && x.p.w != null ? x.p.w : -1)));
-  const tw = rows.reduce((t, r) => t + (r.p && r.p.n ? r.p.w * r.p.n : 0), 0), tn = rows.reduce((t, r) => t + (r.p && r.p.n ? r.p.n : 0), 0);
-  const up = rows.filter((r) => r.p && r.p.pf != null && r.p.pf >= 1).length, has = rows.filter((r) => r.p && r.p.pf != null).length;
-  let h = '<div class="card"><div class="lbl">System performance &middot; ' + rows.length + ' systems &middot; win % and profit factor</div>' + perfSrcBar() +
+  byEa(L).forEach((a) => activeEng(a).forEach((e) => rows.push({ a: a, e: e, p: perfOf(a, e, perfSrc), s: starsOf(a, e) })));
+  rows.sort((x, y) => ((y.p && y.p.pf != null ? y.p.pf : -1) - (x.p && x.p.pf != null ? x.p.pf : -1)) || ((y.p && y.p.n ? y.p.n : 0) - (x.p && x.p.n ? x.p.n : 0)) || ((y.p && y.p.w != null ? y.p.w : -1) - (x.p && x.p.w != null ? x.p.w : -1)) || (y.s.n - x.s.n));
+  cpScope = {};
+  rows.forEach((r) => { const nd = nodeOfA(r.a); (cpScope[nd] = cpScope[nd] || new Set()).add(String(r.e.mg)); });
+  const shown = rows.filter((r) => r.s.n >= starMin), pick = cpPick != null;
+  const tw = shown.reduce((t, r) => t + (r.p && r.p.n ? r.p.w * r.p.n : 0), 0), tn = shown.reduce((t, r) => t + (r.p && r.p.n ? r.p.n : 0), 0);
+  const up = shown.filter((r) => r.p && r.p.pf != null && r.p.pf >= 1).length, has = shown.filter((r) => r.p && r.p.pf != null).length;
+  let h = '<div class="card"><div class="lbl">System performance &middot; ' + (starMin ? shown.length + " of " + rows.length : rows.length) + ' systems &middot; win % and profit factor</div>' + perfSrcBar() + starBar() +
     '<div class="small mut" style="margin:6px 0 4px">' + (has ? up + " of " + has + " with profit factor 1 or more" + (tn ? " &middot; " + fmt(tw / tn * 100, 0) + "% of " + fmt(tn, 0) + " trades won" : "") : "no closed trades yet") +
-    (perfSrc === "7y" ? " &middot; 7 years XAUUSDm test, 0.01 lot" : perfSrc === "test" ? " &middot; this broker, last 90 days" : " &middot; real trades since the start") + "</div>" +
-    '<div class="pfh"><span>System</span><span></span><span>Win</span><span>PF</span></div>';
-  h += rows.map((r, i) => '<div class="pfr" data-go="' + esc(r.a.id) + "|" + r.e.i + '"><span class="pn"><b>' + (i + 1) + ". " + esc(r.e.n) + "</b><small>" + esc(eaName(r.a)) + (r.p && r.p.n ? " &middot; " + fmt(r.p.n, 0) + " tr" : "") + "</small></span>" +
-    perfBar(r.p) + '<span class="pw num">' + (r.p && r.p.w != null ? fmt(r.p.w * 100, 0) + "%" : "-") + '</span><span class="pf num ' + pfCls(r.p && r.p.pf) + '">' + pfTxt(r.p && r.p.pf) + "</span></div>").join("");
-  return h + '<div class="small mut" style="margin-top:7px">Win = trades closed in profit. PF (profit factor) = money of the winning trades / money of the losing trades: above 1 makes money. Tap a line for that system. A past test, not a promise.</div></div>';
+    (perfSrc === "7y" ? " &middot; 7 years XAUUSDm test, 0.01 lot" : perfSrc === "test" ? " &middot; this broker, " + (perfWin === 1 ? "today" : "last " + (perfWin || 90) + " days")
+      : " &middot; real trades" + (perfWin === 1 ? ", today" : perfWin ? ", last " + perfWin + " days" : " since the start")) +
+    (perfSrc !== "7y" && perfWin && rows.some((r) => r.p && r.p.old) ? '<br><span style="color:var(--amber)">Periods need the EA update of 23 Nov (Compact100 v1.02, B / C v1.01) - until it runs, use All.</span>' : "") + "</div>" +
+    copyBar(shown) + '<div class="pfh"><span>System</span><span></span><span>Win</span><span>PF</span></div>';
+  h += shown.map((r, i) => {
+    const mg = String(r.e.mg), on = pick && cpPick.has(mg), inl = cpHas(r.a, mg);
+    return '<div class="pfr' + (pick ? " pick" + (on ? " on" : "") : "") + '" ' + (pick ? 'data-cpk="' + esc(mg) + '"' : 'data-go="' + esc(r.a.id) + "|" + r.e.i + '"') + '><span class="pn"><b>' +
+      (pick ? '<i class="ck">' + (on ? "&#10003;" : "") + "</i>" : "") + (i + 1) + ". " + esc(r.e.n) + "</b><small>" + starTag(r.s) + (inl && !pick ? '<span class="cpm">COPY</span>' : "") + " " +
+      (r.p && r.p.n && r.p.pl != null ? '<span class="' + pcls(r.p.pl) + '">' + sgn(r.p.pl, 2) + "</span> &middot; " + fmt(r.p.n, 0) + " tr &middot; " + esc(eaName(r.a))
+        : esc(eaName(r.a)) + (r.p && r.p.n ? " &middot; " + fmt(r.p.n, 0) + " tr" : "")) + "</small></span>" +
+      perfBar(r.p) + '<span class="pw num">' + (r.p && r.p.w != null ? fmt(r.p.w * 100, 0) + "%" : "-") + '</span><span class="pf num ' + pfCls(r.p && r.p.pf) + '">' + pfTxt(r.p && r.p.pf) + "</span></div>";
+  }).join("");
+  if (!shown.length) h += '<div class="small mut" style="margin:8px 0">No system has ' + starMin + " or more stars now.</div>";
+  return h + '<div class="small mut" style="margin-top:7px">&#9733; = a time (today, 7, 15, 30, 45, 60, 75, 90 days) with a profit, in TEST and in Live: 16 at most. Win = trades closed in profit. PF (profit factor) = money of the winning trades / money of the losing trades: above 1 makes money; no loss = no losing trade in that time. TEST and Live: the result of that time next to the trades. Tap a line for that system. A past test, not a promise.</div></div>';
 }
 function allTabs(L) {
   const n = L.reduce((t, a) => t + activeEng(a).length, 0);
@@ -1594,6 +1719,15 @@ document.addEventListener("click", (e) => {
     lastHtml = ""; render();
     return;
   }
+  const smn = e.target.closest("[data-smin]");
+  if (smn) { starMin = +smn.getAttribute("data-smin") || 0; LS.set("s10.smin", starMin); lastHtml = ""; render(); return; }
+  if (e.target.closest("[data-cpgo]")) { cpPick = new Set(); Object.keys(cpScope).forEach((nd) => cpSet(nd).forEach((m) => { if (cpScope[nd].has(m)) cpPick.add(m); })); lastHtml = ""; render(); return; }
+  const cpk = e.target.closest("[data-cpk]");
+  if (cpk && cpPick) { const m = cpk.getAttribute("data-cpk"); if (cpPick.has(m)) cpPick.delete(m); else cpPick.add(m); lastHtml = ""; render(); return; }
+  if (e.target.closest("[data-cpall]") && cpPick) { document.querySelectorAll("#view [data-cpk]").forEach((x) => cpPick.add(x.getAttribute("data-cpk"))); lastHtml = ""; render(); return; }
+  if (e.target.closest("[data-cpclr]") && cpPick) { cpPick = new Set(); lastHtml = ""; render(); return; }
+  if (e.target.closest("[data-cpx]")) { cpPick = null; lastHtml = ""; render(); return; }
+  if (e.target.closest("[data-cpsave]") && cpPick) { const n = cpPick.size; ask("Save the copy list?", n + " systems of this page will be copied by the Compact Copy EA (only their new trades). Systems you took off: their open copies close together with the master.", "Save", cpSave); return; }
   const go = e.target.closest("[data-go]");
   if (go) {
     const p = go.getAttribute("data-go"), j = p.lastIndexOf("|"), id = p.slice(0, j);
@@ -1603,6 +1737,8 @@ document.addEventListener("click", (e) => {
   }
   const ps = e.target.closest("[data-psrc]");
   if (ps) { perfSrc = ps.getAttribute("data-psrc"); LS.set("s10.psrc", perfSrc); lastHtml = ""; render(); return; }
+  const pw = e.target.closest("[data-pwin]");
+  if (pw) { perfWin = +pw.getAttribute("data-pwin") || 0; LS.set("s10.pwin", perfWin); lastHtml = ""; render(); return; }
   const at = e.target.closest("[data-allt]");
   if (at) { allTab = at.getAttribute("data-allt"); LS.set("s10.allt", allTab); lastHtml = ""; render(); return; }
   const sf = e.target.closest("[data-sysf]");
@@ -1680,6 +1816,7 @@ $("codeSave").onclick = () => {
 };
 $("fCode2").addEventListener("keydown", (e) => { if (e.key === "Enter") $("codeSave").click(); });
 connect();
+setTimeout(cpLoad, 1500); setInterval(cpLoad, 60000);
 </script>
 </body>
 </html>
