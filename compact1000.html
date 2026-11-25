@@ -447,8 +447,8 @@ button{font:inherit;color:inherit}
 .kc.all{min-width:58px}.kc.all b{font-size:13px;letter-spacing:.4px}
 .kl{display:inline-flex;align-items:center;justify-content:center;flex:0 0 auto;width:30px;height:30px;border-radius:9px;background:linear-gradient(135deg,var(--acc),var(--acc2));color:#fff;font-style:normal;font-weight:800;font-size:15px}
 .kl.sm{width:20px;height:20px;border-radius:6px;font-size:11px}
-.krh{display:grid;grid-template-columns:1fr 58px 38px 70px;gap:6px;font-size:10px;letter-spacing:.4px;text-transform:uppercase;color:var(--mut);padding:2px 0 4px;text-align:right}
-.krow{display:grid;grid-template-columns:30px 1fr 58px 38px 70px;gap:6px;align-items:center;padding:8px 0;border-top:1px solid var(--line);cursor:pointer}
+.krh{display:grid;grid-template-columns:1fr 66px 38px 70px;gap:6px;font-size:10px;letter-spacing:.4px;text-transform:uppercase;color:var(--mut);padding:2px 0 4px;text-align:right}
+.krow{display:grid;grid-template-columns:30px 1fr 66px 38px 70px;gap:6px;align-items:center;padding:8px 0;border-top:1px solid var(--line);cursor:pointer}
 .krow .kn{min-width:0}.krow .kn b{display:block;font-size:13.5px;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .krow .kn small{display:block;font-size:11px;color:var(--mut);white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
 .krow .kn small .dot{display:inline-block;width:6px;height:6px;margin:0 5px 1px 0}
@@ -489,6 +489,10 @@ button{font:inherit;color:inherit}
 .ks + .ks{margin-left:4px}
 #view .card .big small{font-size:12px;font-weight:600;color:var(--mut);margin-left:6px;letter-spacing:0}
 .kmini .kmb small{font-size:12px;font-weight:700;color:var(--mut)}
+.krow .kv{white-space:nowrap;overflow:hidden}.krow .kv small{margin-left:1px}.krow .kn{min-width:0}
+.kold{border-color:var(--amber);background:linear-gradient(180deg,rgba(245,166,35,.10),rgba(245,166,35,.02))}
+.kor{display:flex;align-items:center;gap:10px;padding:8px 0;border-top:1px solid var(--line);margin-top:8px}.kor + .kor{margin-top:0}
+.kor span{flex:1;min-width:0}.kor b{display:block;font-size:14px}.kor small{display:block;color:var(--mut);font-size:11.5px;line-height:1.35}.kor .cbtn{flex:0 0 auto}
 </style>
 </head>
 <body>
@@ -1917,7 +1921,37 @@ const kEAon = () => !!kEA && +kEA.on === 1 && typeof kEA.z === "string" && kEA.z
 const kZ = (mg) => { const i = KIDX[String(mg)]; return kEAon() && i != null ? kEA.z.charAt(i) || "0" : "0"; };
 
 //--- the ten places ---------------------------------------------------------------------------------
-function kTag(L, acc) { Object.keys(acc || {}).forEach((k) => { const a = acc[k]; if (a && typeof a === "object") { a._node = KN[L]; a._L = L; if (!a.id) a.id = k; } }); return acc || {}; }
+function kTag(L, acc) { Object.keys(acc || {}).forEach((k) => { const a = acc[k]; if (a && typeof a === "object") { a._node = KN[L]; a._L = L; a._k = k; if (!a.id) a.id = k; } }); return acc || {}; }
+//--- OLD ACCOUNTS. Taking an EA off MT5 does not delete what it stored for the phone: the account stays in the database
+//    (offline) and is counted on this page. An account with no EA online for 10 minutes can be removed here - only its
+//    stored phone data (acc, cal, sim, ev of its EAs); MT5, the account and its trades are not touched.
+function kOldAccs(list) {
+  const by = {};
+  list.forEach((a) => { const k = String(a.login), g = by[k] || (by[k] = { login: k, eas: 0, on: 0, t: 0, sys: 0, cnt: 0, L: {} }); g.eas++; if (online(a)) g.on++; g.t = Math.max(g.t, +a.t || 0); g.sys += activeEng(a).length; g.cnt += +a.cnt || 0; g.L[a._L] = 1; });
+  const all = Object.keys(by).map((k) => by[k]);
+  if (!all.some((g) => g.on > 0)) return [];                 // nothing is online at all (the PC is off?): nothing is called old
+  return all.filter((g) => g.on === 0 && nowS() - g.t > 600).sort((x, y) => y.t - x.t);
+}
+let kRmBusy = false;
+async function kRemoveOld(logins) {
+  if (kRmBusy) return; kRmBusy = true;
+  const old = kOldAccs(kAccs()).map((g) => g.login), set = logins.map(String).filter((l) => old.indexOf(l) >= 0);   // checked again now: never an account with an EA online
+  let n = 0, bad = 0;
+  for (const L of KL) {
+    const g = GS[L], keys = {}, body = {};
+    Object.keys(g.acc || {}).forEach((k) => { const a = g.acc[k]; if (a && set.indexOf(String(a.login)) >= 0) keys[a._k || k] = 1; });
+    ["cal", "sim"].forEach((part) => Object.keys(g[part] || {}).forEach((k) => { if (set.some((l) => k.indexOf("a" + l + "-") === 0)) keys[k] = 1; }));
+    const ks = Object.keys(keys); if (!ks.length) continue;
+    ks.forEach((k) => ["acc", "cal", "sim", "ev"].forEach((part) => { body[part + "/" + k] = null; }));
+    const url = keyRoot() + "/" + KN[L] + ".json", txt = JSON.stringify(body);
+    let ok = false;
+    try { const r = await fetch(url, { method: "PATCH", body: txt }); ok = r.ok; } catch (e) { ok = false; }
+    if (!ok) { try { const r = await fetch(url + "?x-http-method-override=PATCH", { method: "POST", body: txt }); ok = r.ok; } catch (e) { ok = false; } }   // the same update in the form every browser may send
+    if (ok) { ks.forEach((k) => { ["acc", "cal", "sim"].forEach((part) => { if (g[part]) delete g[part][k]; }); }); n += ks.length; } else bad++;
+  }
+  kRmBusy = false; kver++; lastHtml = ""; render();                 // the lists of systems are counted again
+  toast(bad ? "Removed " + n + " old EA records - " + bad + " Compact" + (bad === 1 ? "" : "s") + " did not answer: try again." : n ? "Removed: " + n + " old EA records of " + set.length + " account" + (set.length === 1 ? "" : "s") + "." : "Nothing to remove.", bad ? "bad" : "ok");
+}
 function kFetch(L, part) {
   return fetch(keyRoot() + "/" + KN[L] + "/" + part + ".json", { cache: "no-store" }).then((r) => {
     if (!r.ok) throw new Error(r.status === 401 || r.status === 403 ? "The database refused - check the Rules and the key." : "Database answered " + r.status + ".");
@@ -2289,7 +2323,15 @@ function kOverview(list, sys) {
   if (live) { bal = +kAcct.bal || 0; eq = +kAcct.eq || 0; flt = +kAcct.flt || 0; td = +kAcct.today || 0; cnt = +kAcct.cnt || 0; mlv = +kAcct.mlv || 0; }
   const run = sys.filter((x) => !x.s.pz), need = run.reduce((t, x) => t + x.cost, 0), fr = need > 0 ? bal / need : 0, c = kCounts(sys);
   const est = kEstOf(run);
-  let h = '<div class="card khero"><div class="lbl">Account' + (AC.length > 1 ? "s (" + AC.length + ")" : fresh ? " " + esc(fresh.login) : "") + ' &middot; equity' + (live ? ' &middot; <span class="up">live</span>' : "") + '</div><div class="kh1"><div class="big num">' + fmt(eq, 2) + "<small>" + esc(ccy) + "</small></div>" +
+  const old = kOldAccs(list);
+  let h = "";
+  if (old.length) h += '<div class="card kold"><div class="lbl">Old data &middot; ' + old.length + " account" + (old.length === 1 ? "" : "s") + ' with no EA online</div><div class="small">The last numbers of ' + (old.length === 1 ? "this account are" : "these accounts are") +
+    " still stored for the phone and counted on this page (balance, systems, EAs). Taking an EA off MT5 does not delete them.</div>" + old.map((g) =>
+      '<div class="kor"><span><b>Account ' + esc(g.login) + "</b><small>Compact " + Object.keys(g.L).sort().join(", ") + " &middot; " + g.eas + " EA" + (g.eas === 1 ? "" : "s") + " &middot; " + g.sys + " systems &middot; last seen " + dur(nowS() - g.t) + " ago" + (g.cnt ? " &middot; had " + g.cnt + " open trade" + (g.cnt === 1 ? "" : "s") : "") +
+      '</small></span><button class="cbtn sm amber" data-krm="' + esc(g.login) + '">REMOVE</button></div>').join("") +
+    (old.length > 1 ? '<div class="mbtns one" style="margin-top:8px"><button class="cbtn amber" data-kall="rmold">REMOVE ALL ' + old.length + " OLD ACCOUNTS</button></div>" : "") +
+    '<div class="small mut" style="margin-top:8px">REMOVE deletes only the stored phone data of that account. MT5, the account and its trades are not touched: if it still has open trades, close them in MT5 yourself. If its EA runs again, its data come back by themselves.</div></div>';
+  h += '<div class="card khero"><div class="lbl">Account' + (AC.length > 1 ? "s (" + AC.length + ")" : fresh ? " " + esc(fresh.login) : "") + ' &middot; equity' + (live ? ' &middot; <span class="up">live</span>' : "") + '</div><div class="kh1"><div class="big num">' + fmt(eq, 2) + "<small>" + esc(ccy) + "</small></div>" +
     (AC.length === 1 ? '<div class="ksp">' + spark(eqh, eqh.length > 1 && eqh[eqh.length - 1] >= eqh[0]) + "</div>" : "") + "</div>" +
     '<div class="tri"><div><span>BALANCE</span><b class="num">' + fmt(bal, 0) + '</b></div><div><span>OPEN P/L</span><b class="num ' + pcls(flt) + '">' + sgn(flt, 0) + '</b></div><div><span>MARGIN LEVEL</span><b class="num">' + (mlv > 0 ? mlTxt(mlv) : "-") + "</b></div></div>" +
     '<div class="tri" style="margin-top:6px"><div><span>TODAY NET</span><b class="num ' + pcls(td + flt) + '">' + sgn(td + flt, 0) + '</b></div><div><span>OPEN TRADES</span><b class="num">' + fmt(cnt, 0) + '</b></div><div><span>SINCE START</span><b class="num ' + pcls(since) + '">' + sgn(since, 0) + "</b></div></div></div>";
@@ -2420,9 +2462,20 @@ document.addEventListener("click", (ev) => {
   }
   el = T("[data-kgo]");
   if (el) { stop(); const p = el.getAttribute("data-kgo").split("|"); kGo(p[0], p[1], +p[2]); return; }
+  el = T("[data-krm]");
+  if (el) {
+    stop(); const lg = el.getAttribute("data-krm"), g = kOldAccs(kAccs()).find((x) => x.login === lg); if (!g) return;
+    ask("Remove account " + lg + "?", "Deletes the stored phone data of this account (" + g.eas + " EA" + (g.eas === 1 ? "" : "s") + ", none online, last seen " + dur(nowS() - g.t) + " ago). MT5, the account and its trades are not touched. It cannot be undone - but an EA that runs again sends its data again.", "Remove", () => kRemoveOld([lg]));
+    return;
+  }
   el = T("[data-kall]");
   if (el) {
     stop(); const what = el.getAttribute("data-kall"), sys = kAll(), list = kAccs();
+    if (what === "rmold") {
+      const o = kOldAccs(list); if (!o.length) return;
+      ask("Remove " + o.length + " old account" + (o.length === 1 ? "" : "s") + "?", "Deletes the stored phone data of " + o.map((g) => g.login).join(", ") + " (" + o.reduce((t, g) => t + g.eas, 0) + " EAs, none online). MT5, the accounts and their trades are not touched. It cannot be undone - but an EA that runs again sends its data again.", "Remove", () => kRemoveOld(o.map((g) => g.login)));
+      return;
+    }
     if (what === "reload") { kLoad(true); toast("Loading the ten Compacts...", "busy"); setTimeout(() => { $("toast").hidden = true; }, 2500); return; }
     if (what === "stopjob") { if (kjob) kjob.stop = true; return; }
     if (what === "sugsleep") { const s = sys.filter((x) => !x.s.pz && x.s.sug === "SLEEP"); if (!s.length) return; ask("Put " + s.length + " systems to sleep?", "The systems the Intelligence marks SLEEP? open nothing new. Their open trades still close by their own rules. You can wake them at any time.", "Sleep " + s.length, () => kRun(kItems(s, []), "SLEEP the suggested systems")); return; }
