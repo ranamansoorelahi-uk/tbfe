@@ -2067,9 +2067,9 @@ function kScoreOf(a, e, i) {
   //--- TEST ON THIS BROKER (its rules on the broker's last 90 days) against the 90-day results of the 7-year test
   const sm = simOf(a), se = sm && Array.isArray(sm.e) ? sm.e[i] : null;
   if (se && k && +sm.lot > 0) {
-    const sc = Math.min(1, (+sm.days || 90) / 90), v = (+se[0] || 0) * 0.01 / +sm.lot, lo = k[7] * sc, md = k[8] * sc;
+    const t9 = kT90(sm, i, se), sc = Math.min(1, t9.days / 90), v = t9.pl * 0.01 / +sm.lot, lo = k[7] * sc, md = k[8] * sc;
     r.tv = v * u;
-    if (lo < 0 && v < lo * 1.15) { r.t = 0; r.flags.push(v < lo * 2 ? "OUTT2" : "OUTT"); r.why.push("TEST on this broker, last " + (+sm.days || 90) + " days: " + sgn(v * u, 0) + " - worse than its worst 90 days in 7 years (" + sgn(lo * u, 0) + ")"); }
+    if (lo < 0 && v < lo * 1.15) { r.t = 0; r.flags.push(v < lo * 2 ? "OUTT2" : "OUTT"); r.why.push("TEST on this broker, last " + t9.days + " days: " + sgn(v * u, 0) + " - worse than its worst 90 days in 7 years (" + sgn(lo * u, 0) + ")"); }
     else if (v < 0) r.t = lo < 0 ? 4 + 8 * (1 - v / lo) : 8;
     else r.t = md > 0 ? Math.min(20, 15 + 5 * v / md) : 17;
   }
@@ -2536,6 +2536,175 @@ document.addEventListener("click", (ev) => {
     if (el) { stop(); const id = el.getAttribute("data-acc"), L = KL.find((x) => kFind(x, id)); if (L) kGo(L, id, null); return; }
     if (T("[data-tab]")) { stop(); return; }
   }
+}, true);
+
+//=====================================================================================================================
+// 26 Nov 2026 - TEST ON THIS BROKER of ONLY THE SYSTEMS RUNNING NOW
+// Every EA sends each system's own TEST days (sim.ew: [day, trades, in profit, gross profit, gross loss]). The page now
+// adds up only the systems that are awake: switched on and not asleep (asleep by the EA's balance plan or by you are
+// left out). More money in the account -> the EA's plan wakes more systems -> they are added here by themselves.
+// The overview TEST, "Since start: real vs TEST", the calendar's TEST days and each EA's TEST all use this.
+//=====================================================================================================================
+const kAwake = (e) => !!e && +e.on === 1 && +e.pz !== 1;
+function testRows(a) {
+  const sm = simOf(a), out = {};
+  if (!sm) return out;
+  const eng = a.eng || [], ew = sm.ew;
+  if (Array.isArray(ew) && ew.length && eng.length) {
+    ew.forEach((rows, i) => {
+      if (!kAwake(eng[i]) || !Array.isArray(rows)) return;
+      rows.forEach((r) => {
+        if (!Array.isArray(r)) return;
+        const k = +r[0], x = out[k] || (out[k] = [k, 0, 0, 1, 0, 0, 0]);
+        x[1] += (+r[3] || 0) - (+r[4] || 0); x[2] += +r[1] || 0; x[4] += +r[2] || 0; x[5] += +r[3] || 0; x[6] += +r[4] || 0;
+      });
+    });
+    return out;
+  }
+  (sm.d || []).forEach((r) => { if (Array.isArray(r)) out[r[0]] = [r[0], +r[1] || 0, +r[2] || 0, 1]; });   // an EA without each system's days: the whole EA
+  return out;
+}
+function kRunCount(L) {
+  const c = { all: 0, run: 0, sleep: 0 };
+  L.forEach((a) => (a.eng || []).forEach((e) => { if (+e.on !== 1) return; c.all++; if (+e.pz === 1) c.sleep++; else c.run++; }));
+  return c;
+}
+const kSimDays = (L) => L.reduce((t, a) => { const sm = simOf(a); return Math.max(t, sm ? +sm.days || 0 : 0); }, 0);
+//--- the last 90 days of one system's TEST: the Intelligence compares them with the 90-day results of the 7-year test
+//    (an EA set to more TEST days - InpSimDays 180 - still gets judged on its last 90)
+function kT90(sm, i, se) {
+  const D = +sm.days || 90, rows = Array.isArray(sm.ew) ? sm.ew[i] : null;
+  if (D <= 90 || !Array.isArray(rows)) return { pl: se ? +se[0] || 0 : 0, days: D };
+  const t = +sm.from > 0 ? new Date(kDate(+sm.from).getTime() + (D - 90) * 86400000) : new Date((+sm.t || 0) * 1000 - 90 * 86400000);   // the window's last 90 days
+  const k0 = t.getUTCFullYear() * 10000 + (t.getUTCMonth() + 1) * 100 + t.getUTCDate();
+  let pl = 0;
+  rows.forEach((r) => { if (Array.isArray(r) && +r[0] >= k0) pl += (+r[3] || 0) - (+r[4] || 0); });
+  return { pl: pl, days: 90 };
+}
+//--- the overview cell and the calendar say that the TEST is of the running systems only
+const kOverviewAll0 = overviewAll;
+overviewAll = function (L) {
+  const c = kRunCount(L);
+  return kOverviewAll0(L).replace("TEST on this broker &middot; last ", "TEST on this broker &middot; " + fmt(c.run, 0) + " running systems &middot; last ")
+    .replace("each EA's own rules on this broker's history (not real trades)", "only the systems running now (asleep ones not counted) &middot; their own rules on this broker's history - not real trades")
+    .replace("waiting = no trade, sleeping until its next signal", c.sleep > 0 ? "waiting = no trade until its next signal &middot; running now " + fmt(c.run, 0) + " &middot; asleep (no trades) " + fmt(c.sleep, 0) : "waiting = no trade, sleeping until its next signal");
+};
+const kAllCalCard0 = allCalCard;
+allCalCard = function (L) {
+  const cal = kAllCalCard0(L).replace("each EA's own rules on this broker's history, not real trades.", "each running system's own rules on this broker's history (asleep systems not counted), not real trades.");
+  let t = "";
+  try { t = kRunTestCard(L); } catch (e) { t = ""; }
+  return t + cal;
+};
+//--- the balance line: your balance now as the start, then the TEST days of the running systems added one by one
+function kBalSvg(pts, k0, k1) {
+  const W = 320, H = 112, T = 6, B = 6, n = pts.length;
+  const mn = Math.min.apply(null, pts), mx = Math.max.apply(null, pts), rg = (mx - mn) || 1;
+  const X = (i) => 1 + i * (W - 2) / Math.max(1, n - 1), Y = (v) => T + (mx - v) / rg * (H - T - B);
+  const d = pts.map((v, i) => (i ? "L" : "M") + X(i).toFixed(1) + " " + Y(v).toFixed(1)).join(" ");
+  const col = pts[n - 1] >= pts[0] ? "var(--green)" : "var(--red)", y0 = Y(pts[0]).toFixed(1), yb = (H - B).toFixed(1);
+  let lo = 0;
+  pts.forEach((v, i) => { if (v < pts[lo]) lo = i; });
+  return '<svg viewBox="0 0 ' + W + " " + H + '" style="width:100%;height:auto;display:block;margin:6px 0 2px" aria-hidden="true">' +
+    '<path d="' + d + " L" + X(n - 1).toFixed(1) + " " + yb + " L1 " + yb + ' Z" fill="' + col + '" opacity=".13"/>' +
+    '<line x1="0" x2="' + W + '" y1="' + y0 + '" y2="' + y0 + '" stroke="var(--mut)" stroke-width="1" stroke-dasharray="4 4"/>' +
+    '<path d="' + d + '" fill="none" stroke="' + col + '" stroke-width="2" stroke-linejoin="round"/>' +
+    (lo > 0 ? '<circle cx="' + X(lo).toFixed(1) + '" cy="' + Y(pts[lo]).toFixed(1) + '" r="3.2" fill="var(--red)"/>' : "") +
+    '<circle cx="' + X(n - 1).toFixed(1) + '" cy="' + Y(pts[n - 1]).toFixed(1) + '" r="3.2" fill="' + col + '"/></svg>' +
+    '<div class="small mut num" style="display:flex;justify-content:space-between"><span>' + kLong(k0) + "</span><span>dashed = start</span><span>" + kLong(k1) + "</span></div>";
+}
+//--- the card: what the systems running now made on this broker's last 90 days (TEST), month by month, with the balance line
+function kRunTestCard(L) {
+  if (!L.length || !sameCcy(L)) return "";
+  const c = kRunCount(L), day = {}, lets = {};
+  let nSim = 0, days = 0, from = 0, lot = 0, old = 0;
+  L.forEach((a) => {
+    const sm = simOf(a); if (!sm) return;
+    nSim++; days = Math.max(days, +sm.days || 0);
+    if (+sm.from > 0 && (!from || +sm.from < from)) from = +sm.from;
+    if (!lot && +sm.lot > 0) lot = +sm.lot;
+    if (!Array.isArray(sm.ew)) old++;
+    const t = testRows(a), lx = a._L ? (lets[a._L] || (lets[a._L] = [0, 0, 0])) : null;
+    Object.keys(t).forEach((k) => {
+      const r = t[k], x = day[k] || (day[k] = [0, 0, 0, 0, 0]);
+      x[0] += r[1]; x[1] += r[2]; x[2] += r[4] || 0; x[3] += r[5] || 0; x[4] += r[6] || 0;
+      if (lx) { lx[0] += r[1]; lx[1] += r[2]; }
+    });
+    if (lx) (a.eng || []).forEach((e) => { if (kAwake(e)) lx[2]++; });
+  });
+  if (!nSim) return "";
+  const ccy = ccyOf(L[0]), D = days || 90, keys = Object.keys(day).map(Number).sort((x, y) => x - y);
+  const S = keys.reduce((t, k) => { const d = day[k]; return [t[0] + d[0], t[1] + d[1], t[2] + d[2], t[3] + d[3], t[4] + d[4]]; }, [0, 0, 0, 0, 0]);
+  const AC = acctOf(L), bal = AC.reduce((t, a) => t + (+a.bal || 0), 0);
+  let cum = 0, peak = 0, dd = 0, low = 0, worst = null;
+  const pts = [bal];
+  keys.forEach((k) => {
+    const v = day[k][0]; cum += v; pts.push(bal + cum);
+    if (cum > peak) peak = cum;
+    if (peak - cum > dd) dd = peak - cum;
+    if (cum < low) low = cum;
+    if (!worst || v < worst[1]) worst = [k, v];
+  });
+  const perM = S[0] / D * 30.44, pf = S[4] > 0.004 ? S[3] / S[4] : S[3] > 0 ? 99 : null, wp = S[1] > 0 && !old ? S[2] / S[1] * 100 : null;
+  const cell = (lbl, val, cls, sub) => '<div class="ovc"><div class="ovl">' + lbl + '</div><div class="ovv num ' + (cls || "") + '">' + val + "</div>" + (sub ? '<div class="ovs num">' + sub + "</div>" : "") + "</div>";
+  let h = '<div class="card"><div class="lbl">TEST on this broker &middot; only the ' + fmt(c.run, 0) + " running systems &middot; last " + D + " days" + (ccy ? " &middot;" + ccy : "") + "</div>";
+  if (!c.run) return h + '<div class="small mut" style="margin-top:6px">No system is running now (all asleep or off) - nothing to add up. When the EA\'s balance plan wakes systems, their TEST shows here.</div></div>';
+  h += '<div class="ovg">' +
+    cell("TEST result &middot; " + D + " days", sgn(S[0], 2), pcls(S[0]) + " tst", fmt(S[1], 0) + " trades" + (wp != null ? " &middot; " + fmt(wp, 0) + "% won" : "") + (pf != null && !old ? " &middot; PF " + pfTxt(pf) : "")) +
+    cell("About a month", sgn(perM, 0), pcls(perM) + " tst", "the " + D + " days as 30-day months") +
+    cell("Running systems", fmt(c.run, 0) + ' <span class="small mut">of ' + fmt(c.all, 0) + "</span>", "", fmt(c.sleep, 0) + " asleep - not counted") +
+    cell("Biggest drop &middot; TEST", dd > 0.004 ? "-" + fmt(dd, 0) : "0", dd > 0.004 ? "dn" : "", (bal > 0 ? fmt(dd / bal * 100, 1) + "% of the balance" : "") + (worst && worst[1] < 0 ? " &middot; worst day " + sgn(worst[1], 0) : "")) +
+    "</div>";
+  if (bal > 0 && keys.length) {
+    h += '<div class="small" style="margin-top:10px"><b>Balance &middot; last ' + D + ' days (TEST)</b> &middot; your balance now as the start, then the TEST days of the running systems: ' + fmt(bal, 0) +
+      ' &rarr; <b class="' + pcls(S[0]) + '">' + fmt(bal + S[0], 0) + "</b> &middot; lowest " + fmt(bal + low, 0) + "</div>" + kBalSvg(pts, from || keys[0], keys[keys.length - 1]);
+  }
+  //--- month by month (the first and the last month are parts)
+  const mon = {};
+  keys.forEach((k) => { const m = Math.floor(k / 100), x = mon[m] || (mon[m] = [0, 0]); x[0] += day[k][0]; x[1] += day[k][1]; });
+  const tk = Math.max.apply(null, L.map(dkeyOf)), mk = Object.keys(mon).map(Number).sort((x, y) => y - x);
+  if (mk.length) {
+    h += '<div class="small mut" style="margin-top:10px">Month by month &middot; TEST of the running systems</div><div class="ovg" style="margin-top:4px">' + mk.map((m) => {
+      const part = from && Math.floor(from / 100) === m && from % 100 > 1 ? " &middot; from " + (from % 100) : m === Math.floor(tk / 100) ? " &middot; to " + (tk % 100) : "";
+      return cell(mLong(m) + part, sgn(mon[m][0], 2), pcls(mon[m][0]) + " tst", fmt(mon[m][1], 0) + " trades");
+    }).join("") + "</div>";
+  }
+  //--- each Compact (on the page of all Compacts)
+  const lk = Object.keys(lets);
+  if (lk.length > 1) {
+    const ord = (x) => (typeof KL !== "undefined" && KL.indexOf(x) >= 0 ? KL.indexOf(x) : 99);
+    lk.sort((x, y) => ord(x) - ord(y));
+    h += '<div class="small mut" style="margin-top:10px">Each Compact &middot; TEST of its running systems</div><div class="small num" style="display:flex;flex-wrap:wrap;margin-top:2px">' + lk.map((x) =>
+      '<span style="width:50%;padding:2px 0"><b>' + esc(x) + '</b> <span class="' + pcls(lets[x][0]) + '">' + sgn(lets[x][0], 0) + '</span> <span class="mut">&middot; ' + lets[x][2] + " run</span></span>").join("") + "</div>";
+  }
+  return h + '<div class="small mut" style="margin-top:8px">Only the systems running now are added up: switched on and not asleep (asleep by the EA\'s balance plan or by you are left out). ' +
+    "More money in the account &rarr; the EA's plan wakes more systems &rarr; they are added here by themselves. TEST = each system's own rules on this broker's candles at " +
+    (lot ? fmt(lot, 2) + " lot" : "the EA's lot") + " - not real trades: real fills, spread and slippage differ, and past days are not a promise." +
+    (old ? " " + old + " EA" + (old === 1 ? "" : "s") + " send no days of each system yet: added up whole." : "") + "</div></div>";
+}
+//--- System performance: "Running now" (default) or "All, asleep too"; the Copy choice keeps all systems as before
+let kRunOnly = LS.get("k.runonly", true) !== false;
+const kAwakeCopy = (a) => Object.assign({}, a, { eng: (a.eng || []).map((e) => (+e.on === 1 && +e.pz === 1 ? Object.assign({}, e, { on: 0 }) : e)) });
+const kPerfTable0 = perfTable;
+perfTable = function (L) {
+  const c = kRunCount(L), only = kRunOnly && c.sleep > 0;
+  let h = kPerfTable0(L);
+  if (only) { const sc = cpScope, sr = cpRows; h = kPerfTable0(L.map(kAwakeCopy)); cpScope = sc; cpRows = sr; }
+  if (c.sleep > 0) {
+    const bar = '<div class="psrc"><button class="sfb' + (only ? " on" : "") + '" data-krun="1" style="--fc:var(--green)">Running now <b>' + fmt(c.run, 0) + '</b></button><button class="sfb' + (only ? "" : " on") +
+      '" data-krun="0" style="--fc:var(--acc)">All, asleep too <b>' + fmt(c.all, 0) + "</b></button></div>";
+    const i = h.indexOf('<div class="lbl">System performance'), j = i >= 0 ? h.indexOf("</div>", i) : -1;
+    if (j > 0) h = h.slice(0, j + 6) + bar + h.slice(j + 6);
+  }
+  const D = kSimDays(L);
+  if (perfSrc === "test" && !perfWin && D && D !== 90) h = h.replace("this broker, last 90 days", "this broker, last " + D + " days");
+  return h;
+};
+document.addEventListener("click", (ev) => {
+  const el = ev.target.closest("[data-krun]");
+  if (!el) return;
+  ev.stopPropagation(); ev.preventDefault();
+  kRunOnly = el.getAttribute("data-krun") === "1"; LS.set("k.runonly", kRunOnly); lastHtml = ""; render();
 }, true);
 
 connect();
